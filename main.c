@@ -161,6 +161,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 
             //  It gets the rest of the tokens form that line
             while( tokens[counter] != NULL ) {
+            	//	We use NULL inside strtok for it to continue where it finished the previous iteration
                 tokens[++counter] = strtok(NULL, s);
             }
 
