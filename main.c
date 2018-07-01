@@ -131,7 +131,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	char separator[2] = ";";
 	char * tokens[10];
 	int counter;
-	char * arrival = "Aterrizaje";
+	char * arrival = "Aterrizaje"; // TEST
 	char * departure = "Despegue";
 	char * international = "Internacional";
 	char * local = "Cabotaje";
