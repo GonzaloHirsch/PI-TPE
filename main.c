@@ -36,25 +36,25 @@ main (int argCount, int *argGiven[]){
 	}
 
 	/*
-	**	Cantidad de movimientos por los dias de la semana
-	**	Indices:	Domingo = 0 , Lunes = 1 , ... , Sabado = 6
-	*/
+	 *	Cantidad de movimientos por los dias de la semana
+	 *	Indices:	Domingo = 0 , Lunes = 1 , ... , Sabado = 6
+	 */
 	int movPerDay[7] = {0};
 
 	/*
-	**	Codigos de los dias para el pase de fecha a dia
-	**	Indices:	Domingo = 0 , Lunes = 1 , ... , Sabado = 6
-	*/
+	 *	Codigos de los dias para el pase de fecha a dia
+	 *	Indices:	Domingo = 0 , Lunes = 1 , ... , Sabado = 6
+	 */
 	int dayCode[7] = {0, 1, 2, 3, 4, 5, 6};
 	/*
-	**	Codigos de los meses para el pase de fecha a dia
-	**	Indices:	Enero = 0 , Febrero = 1 , ... , Diciembre = 11
-	*/
+	 *	Codigos de los meses para el pase de fecha a dia
+	 *	Indices:	Enero = 0 , Febrero = 1 , ... , Diciembre = 11
+	 */
 	int monthCode[12] = {6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
 	/*
-	**	Codigos de los años para el pase de fecha a dia
-	**	Indices:	2014 = 0 , 2015 = 1 , ... , 2018 = 4
-	*/
+	 *	Codigos de los años para el pase de fecha a dia
+	 *	Indices:	2014 = 0 , 2015 = 1 , ... , 2018 = 4
+	 */
 	int yearCode[5] = {3, 4, 6, 0, 1};
 
 }
@@ -92,10 +92,10 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
 
 
 /*
-**	Funcion para procesar los datos de los vuelos
-**	Valores de retorno:	0 - si todo funciono correctamente
-**						1 - si hubo un error al tratar de abrir el archivo de vuelos
-*/
+ *	Funcion para procesar los datos de los vuelos
+ *	Valores de retorno:	0 - si todo funciono correctamente
+ *						1 - si hubo un error al tratar de abrir el archivo de vuelos
+ */
 int
 movementsProcessing (int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode){
 
@@ -110,12 +110,25 @@ movementsProcessing (int yearGiven, int * movPerDay, int * dayCode, int * monthC
 	}
     //  ------------------------------------------------------------------------------------------
 
-	
 	char fileLine[MAX_TEXT];
 	char separator[2] = ";";
 	char * tokens[10];
 	int counter;
-	
+	char * landing = "Aterrizaje";
+	char * takeoff = "Despegue";
+
+	/*
+	 * A nosotros nos interesan los tokens con indices 0 / 3 / 4 / 5 / 6
+	 * 		Token 0 :	Fecha del movimiento
+	 * 		Token 3 :	Clase de vuelo (internacional o nacional)
+	 * 		Token 4 :	Clasificacion de vuelo (aterrizaje o despegue)
+	 * 		Token 5 :	Origen OACI
+	 * 		Toekn 6 :	Destino OACI
+	 */
+
+	//	Descartamos la primer linea del archivo por ser los nombres de los campos
+	fgets(fileLine, MAX_TEXT, movementsFile);
+
 	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
 
 	    counter = 0;
@@ -127,21 +140,23 @@ movementsProcessing (int yearGiven, int * movPerDay, int * dayCode, int * monthC
             //  Hace el pase a dia de la semana e incrementa el contador de ese dia
             movPerDay[dateToDayOfWeek(tokens[counter], dayCode, monthCode, yearcode)]++;
 
-            //  Consigue el resto de los tokens de ese vuelo especifico
+            //  Consigue el resto de los tokens de ese movimiento especifico
             while( tokens[counter] != NULL ) {
                 tokens[++i] = strtok(NULL, s);
             }
 
+            //	Veo si el movimiento es un despegue
+            if (!(strcmp(tokens[4], takeoff))){
+
+
+
+            } else {	//	Esto es si el movimiento es un aterrizaje
+
+            }
+
+
         }
 
-        /* walk through other tokens */
-        while( tokens[i] != NULL ) {
-            i++;
-            //printf( " %s\n", tokens[i] );
-
-            tokens[i] = strtok(NULL, s);
-
-        }
 
 	
 	
