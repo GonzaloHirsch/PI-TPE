@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "ListADT.h"
 
+// TEST NACHO
+
 //	Definiciones
 #define MAX_TEXT 128
 
@@ -20,7 +22,7 @@ main (int argCount, int *argGiven[]){
 
 	if (argCount == 1){
 
-		if (2014 <= *(argGiven[0]) && *(argGiven[0]) <= 2018)
+	    if (2014 <= *(argGiven[0]) && *(argGiven[0]) <= 2018)
 			yearGiven = *(argGiven[0]);
 		else {
 			printf("ERROR: El año tiene que estar entre 2014 y 2018.\n");
