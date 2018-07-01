@@ -5,7 +5,4 @@ typedef char[3] Local;
 
 typedef char[4] OACI;
 
-typedef
-
-
 #endif
