@@ -94,7 +94,7 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
 /*
 **	Funcion para procesar los datos de los vuelos
 **	Valores de retorno:	0 - si todo funciono correctamente
-**				1 - si hubo un error al tratar de abrir el archivo de vuelos
+**						1 - si hubo un error al tratar de abrir el archivo de vuelos
 */
 int
 movementsProcessing (int yearGiven){
@@ -110,7 +110,9 @@ movementsProcessing (int yearGiven){
 	char fileLine[MAX_TEXT];
 	
 	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
-		
+
+		//PRUEBA DE CLION
+
 	
 	
 	}
