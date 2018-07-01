@@ -131,8 +131,8 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	char separator[2] = ";";
 	char * tokens[10];
 	int counter;
-	char * landing = "Aterrizaje";
-	char * takeoff = "Despegue";
+	char * arrival = "Aterrizaje";
+	char * departure = "Despegue";
 	char * international = "Internacional";
 	char * local = "Cabotaje";
 
@@ -159,17 +159,18 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             //  Makes the change to day of the week and increments the counter for that day
             movPerDay[dateToDayOfWeek(tokens[FDATE], dayCode, monthCode, yearcode)]++;
 
-            //  It gets the rest of the tokens form that line
+            //  It gets the rest of the tokens from that line
+            int i = 0;
             while( tokens[counter] != NULL ) {
                 tokens[++i] = strtok(NULL, s);
             }
 
 			MovementADT auxMovement;
 			AirportADT auxAirport;
-			int isLocal = !strcmp(tokens[FTYPE], local);
+			bool isLocal = !strcmp(tokens[FTYPE], local);
 
-            //	Checks if the movement is a takeoff
-            if (!(strcmp(tokens[FCLASS], takeoff))){
+            //	Checks if the movement is a departure
+            if (!(strcmp(tokens[FCLASS], departure))){
 
             	//	Auxiliary airport and movement
             	auxAirport = (AirportADT) getElem(airportList, tokens[ORIG]);
@@ -187,7 +188,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             		addDeparture(auxMovement, 1);
             	}
 
-            } else {	//	This is if the movement is a landing
+            } else {	//	This is if the movement is a arrival
 
 				auxAirport = (AirportADT) getElem(airportList, tokens[DEST]);
 				auxMovement = getMovement(auxAirport, tokens[ORIG]);
