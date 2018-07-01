@@ -20,7 +20,7 @@ typedef struct AirportCDT {
  }
 /*
  void setDenomination(AirportADT airport, Denomination denomination){
- 	
+ 	Lo dejé vacío  porque para mí descripción debería ser char*. Sino se complican los prints
  }
 
 */
