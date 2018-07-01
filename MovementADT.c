@@ -1,12 +1,12 @@
 #include "MovementADT.h"
 
-struct Movement {
+typedef struct{
   char oaci[4];
   int isLocal;
   int arrivals;
   int departures;
-};
+} Movement;
 
 struct MovementCDT {
-  Movement movement;
+    Movement movement;
 };

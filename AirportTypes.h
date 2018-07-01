@@ -1,8 +1,8 @@
 #ifndef _AirportTypes_h
 #define _AirportTypes_h
 
-typedef char[3] Local;
+typedef char Local[3];
 
-typedef char[4] OACI;
+typedef char OACI[4];
 
 #endif
