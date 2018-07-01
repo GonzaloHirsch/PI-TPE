@@ -19,6 +19,6 @@ OACI getAirportOACI(AirportADT airport);
 /*
  * Adds a MovementADT to the list of movements
  */
-void addMovement(AirportADT airport, MovementADT movement);
+void addMovement(AirportADT airport, MovementADT movement, TMovement movementType);
 
 #endif
