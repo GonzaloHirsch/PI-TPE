@@ -2,12 +2,12 @@
 
  struct node{
 
- }
+ };
 
 typedef struct node * TNode;
 
  struct ListCDT {
-   TNode head;
-   TNode iterator;
-   OACI (* getOaci) (void *);
- }
+        TNode head;
+        TNode iterator;
+        OACI (* getOaci) (void *);
+ };
