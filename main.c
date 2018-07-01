@@ -162,7 +162,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             //  It gets the rest of the tokens from that line
             int i = 0;
             while( tokens[counter] != NULL ) {
-                tokens[++i] = strtok(NULL, s);
+                tokens[++counter] = strtok(NULL, s);
             }
 
 			MovementADT auxMovement;
@@ -198,11 +198,11 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 
 					//	It creates a new movement, increases the counter and adds it to the airport
 					auxMovement = newMovement(tokens[ORIG], isLocal);
-					addDeparture(auxMovement, 1);
+					addArrival(auxMovement, 1);
 					addMovement(auxAirport, auxMovement);
 
 				} else {
-					addDeparture(auxMovement, 1);
+					addArrival(auxMovement, 1);
 				}
             }
         }
