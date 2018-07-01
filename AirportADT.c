@@ -18,8 +18,21 @@ typedef struct AirportCDT {
  void setIATA(AirportADT airport, IATA iata){
  	strcpy(airport->iata, iata);
  }
-
+/*
  void setDenomination(AirportADT airport, Denomination denomination){
  	
  }
 
+*/
+
+ void setTraffic(AirportADT airport, TTraffic traffic){
+ 	airport->traffic = traffic;
+ }
+
+ OACI getAirportOACI(AirportADT airport){
+ 	return airport->oaci;
+ }
+
+ void addMovement(AirportADT airport, MovementADT movement){
+ 	
+ }
