@@ -7,4 +7,4 @@ typedef struct AirportCDT {
     Denomination denomination;
     TTraffic traffic;
     ListADT movements;
- } TAirport;
+ } AirportCDT;
