@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "ListADT.h"
 
+//PRUEBA NUMEROI 2
 //	Prototipos
 int verifyYear (const char * date, int yearGiven);
 void getDate (const char * date, int * day, int * month, int * year);
