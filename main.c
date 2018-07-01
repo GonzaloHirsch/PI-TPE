@@ -161,12 +161,12 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 
             //  It gets the rest of the tokens form that line
             while( tokens[counter] != NULL ) {
-                tokens[++i] = strtok(NULL, s);
+                tokens[++counter] = strtok(NULL, s);
             }
 
 			MovementADT auxMovement;
 			AirportADT auxAirport;
-			int isLocal = !strcmp(tokens[FTYPE], local);
+			bool isLocal = !strcmp(tokens[FTYPE], local);
 
             //	Checks if the movement is a departure
             if (!(strcmp(tokens[FCLASS], departure))){
