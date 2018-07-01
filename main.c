@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "ListADT.h"
 #include "AirportADT.h"
 #include "AirportTypes.h"
@@ -7,6 +8,11 @@
 
 //	Constants Definitions
 #define MAX_TEXT 128
+#define FDATE 0
+#define FTYPE 3
+#define FCLASS 4
+#define ORIG 5
+#define DEST 6
 
 
 //	Function Prototypes
@@ -108,7 +114,7 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
  *					1 - if there was an error while trying to open the file
  */
 int
-movementsProcessing (airportADT airports, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode){
+movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode){
 
     //  File opening and verification
     //  ------------------------------------------------------------------------------------------
@@ -127,6 +133,8 @@ movementsProcessing (airportADT airports, int yearGiven, int * movPerDay, int * 
 	int counter;
 	char * landing = "Aterrizaje";
 	char * takeoff = "Despegue";
+	char * international = "Internacional";
+	char * local = "Cabotaje";
 
 	/*
 	 * We are interested in tokens with indexes 0 / 3 / 4 / 5 / 6
@@ -146,39 +154,58 @@ movementsProcessing (airportADT airports, int yearGiven, int * movPerDay, int * 
         tokens[counter] = strtok(fileLine, separator);
 
         //  If the year is correct, it runs this
-        if (verifyYear(tokens[counter], yearGiven)){
+        if (verifyYear(tokens[FDATE], yearGiven)){
 
             //  Makes the change to day of the week and increments the counter for that day
-            movPerDay[dateToDayOfWeek(tokens[counter], dayCode, monthCode, yearcode)]++;
-
-            MovementADT aux;
+            movPerDay[dateToDayOfWeek(tokens[FDATE], dayCode, monthCode, yearcode)]++;
 
             //  It gets the rest of the tokens form that line
             while( tokens[counter] != NULL ) {
                 tokens[++i] = strtok(NULL, s);
             }
 
+			MovementADT auxMovement;
+			AirportADT auxAirport;
+			int isLocal = !strcmp(tokens[FTYPE], local);
+
             //	Checks if the movement is a takeoff
-            if (!(strcmp(tokens[4], takeoff))){
+            if (!(strcmp(tokens[FCLASS], takeoff))){
 
+            	//	Auxiliary airport and movement
+            	auxAirport = (AirportADT) getElem(airportList, tokens[ORIG]);
+            	auxMovement = getMovement(auxAirport, tokens[DEST]);
 
+            	//	If the pointer is NULL, it means there is no previous movement with that airport
+            	if (auxMovement == NULL){
 
+					//	It creates a new movement, increases the counter and adds it to the airport
+            		auxMovement = newMovement(tokens[DEST], isLocal);
+            		addDeparture(auxMovement, 1);
+            		addMovement(auxAirport, auxMovement);
 
+            	} else {
+            		addDeparture(auxMovement, 1);
+            	}
 
             } else {	//	This is if the movement is a landing
 
+				auxAirport = (AirportADT) getElem(airportList, tokens[DEST]);
+				auxMovement = getMovement(auxAirport, tokens[ORIG]);
 
+				//	If the pointer is NULL, it means there is no previous movement with that airport
+				if (auxMovement == NULL){
+
+					//	It creates a new movement, increases the counter and adds it to the airport
+					auxMovement = newMovement(tokens[ORIG], isLocal);
+					addDeparture(auxMovement, 1);
+					addMovement(auxAirport, auxMovement);
+
+				} else {
+					addDeparture(auxMovement, 1);
+				}
             }
-
-
         }
-
-
-	
-	
 	}
-	
-	
-
-
+	fclose(movementsFile);
+	return 0;
 }
