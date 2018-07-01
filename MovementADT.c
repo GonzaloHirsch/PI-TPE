@@ -1,12 +1,8 @@
 #include "MovementADT.h"
 
-typedef struct{
+typedef struct MovementCDT{
   OACI oaci;
   bool isLocal;
   int arrivals;
   int departures;
-} Movement;
-
-struct MovementCDT {
-    Movement movement;
-};
+} MovementCDT;

@@ -22,32 +22,32 @@ AirportADT newAirport(OACI oaci);
 
 
 /*
- * Sets the AirportADT's IATA
+ * Sets the airport's IATA
  */
 void setIATA(AirportADT airport, IATA iata);
 
 /*
- * Sets the AirportADT's denomination
+ * Allocates memory in heap and copies the passed denomination. Then sets the airport's to denomination to the allocated memory.
  */
-void setDenomination(AirportADT airport, Denomination denomination);
+void setDenomination(AirportADT airport, char denomination[]);
 
 /*
- * Sets the AirportADT's traffic
+ * Sets the airport's traffic
  */
 void setTraffic(AirportADT airport, TTraffic traffic);
 
 /*
- * Returns the OACI of the AirportADT passed through the parameters.
+ * Returns the OACI of the airport passed through the parameters.
  */
 OACI getAirportOACI(AirportADT airport);
 
 /*
- * Adds a MovementADT to the AirportADT specified
+ * Adds a MovementADT to the Airport's list of movements
  */
 void addMovement(AirportADT airport, MovementADT movement);
 
 /*
- * Returns the MovementADT which corresponds to the OACI specified in the Airport's movement list
+ * Returns the MovementADT which corresponds to the OACI specified in the airport's movements list
  * Returns null if the OACI doesn't correspond to any movement
  */
 MovementADT getMovement(AirportADT airport, OACI oaci);

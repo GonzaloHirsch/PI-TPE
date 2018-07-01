@@ -131,7 +131,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	char separator[2] = ";";
 	char * tokens[10];
 	int counter;
-	char * landing = "Aterrizaje";
+	char * arrival = "Aterrizaje";
 	char * departure = "Despegue";
 	char * international = "Internacional";
 	char * local = "Cabotaje";
@@ -159,7 +159,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             //  Makes the change to day of the week and increments the counter for that day
             movPerDay[dateToDayOfWeek(tokens[FDATE], dayCode, monthCode, yearcode)]++;
 
-            //  It gets the rest of the tokens form that line
+            //  It gets the rest of the tokens from that line
             while( tokens[counter] != NULL ) {
             	//	We use NULL inside strtok for it to continue where it finished the previous iteration
                 tokens[++counter] = strtok(NULL, s);
@@ -188,7 +188,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             		addDeparture(auxMovement, 1);
             	}
 
-            } else {	//	This is if the movement is a landing
+            } else {	//	This is if the movement is a arrival
 
 				auxAirport = (AirportADT) getElem(airportList, tokens[DEST]);
 				auxMovement = getMovement(auxAirport, tokens[ORIG]);
