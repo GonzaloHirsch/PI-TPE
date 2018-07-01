@@ -131,7 +131,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	char separator[2] = ";";
 	char * tokens[10];
 	int counter;
-	char * arrival = "Aterrizaje";
+	char * arrival = "Aterrizaje"; // TEST
 	char * departure = "Despegue";
 	char * international = "Internacional";
 	char * local = "Cabotaje";
@@ -160,6 +160,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             movPerDay[dateToDayOfWeek(tokens[FDATE], dayCode, monthCode, yearcode)]++;
 
             //  It gets the rest of the tokens from that line
+            int i = 0;
             while( tokens[counter] != NULL ) {
                 tokens[++counter] = strtok(NULL, s);
             }
