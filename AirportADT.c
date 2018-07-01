@@ -1,9 +1,12 @@
+#include <stdlib.h>
 #include "AirportADT.h"
+#include "ListADT.h"
+#include <string.h>
 
 typedef struct AirportCDT {
-    Local local;
-    OACI oaci;
-    IATA iata;
+    tLocal local;
+    tOACI oaci;
+    tIATA iata;
     Denomination denomination;
     TTraffic traffic;
     ListADT movements;

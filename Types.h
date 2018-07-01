@@ -1,14 +1,22 @@
 #ifndef _AirportTypes_h
 #define _AirportTypes_h
 
+// Boolean support
+typedef int bool;
+#define true 1
+#define false 0
+
 // Local code of an airport (3 Chars from 'A' to 'Z')
-typedef char Local[4];
+typedef char tLocal[4];
+typedef char * Local;
 
 // OACI code of an airport (4 Chars from 'A' to 'Z')
-typedef char OACI[5];
+typedef char tOACI[5];
+typedef char * OACI;
 
 // International code of an airport (Empty or 3 Chars from 'A' to 'Z')
-typedef char IATA[4];
+typedef char tIATA[4];
+typedef char * IATA;
                                        
 // Name of an airport (Can contain ASCII extensions)
 typedef int * Denomination;

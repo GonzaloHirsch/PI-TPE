@@ -1,5 +1,4 @@
-#include "AirportTypes.h"
-#include <stdbool.h>
+#include "Types.h"
 
 #ifndef _MovementADT_h
 #define _MovementADT_h
