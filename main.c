@@ -97,8 +97,10 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
 **						1 - si hubo un error al tratar de abrir el archivo de vuelos
 */
 int
-movementsProcessing (int yearGiven){
+movementsProcessing (int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode){
 
+    //  Esto se encarga de abrir el archivo y manejarlo
+    //  ------------------------------------------------------------------------------------------
 	FILE * movementsFile;
 	
 	movementsFile = fopen("Dataset/archivoVuelos.csv", "r");
@@ -106,12 +108,40 @@ movementsProcessing (int yearGiven){
 		printf("ERROR: El archivo archivoVuelos.csv no pudo ser abierto.\n");
 		return 1;
 	}
+    //  ------------------------------------------------------------------------------------------
+
 	
 	char fileLine[MAX_TEXT];
+	char separator[2] = ";";
+	char * tokens[10];
+	int counter;
 	
 	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
 
-		//PRUEBA DE CLION
+	    counter = 0;
+        tokens[counter] = strtok(fileLine, separator);
+
+        //  Si el año de ese movimiento es valido, corre esto
+        if (verifyYear(tokens[counter], yearGiven)){
+
+            //  Hace el pase a dia de la semana e incrementa el contador de ese dia
+            movPerDay[dateToDayOfWeek(tokens[counter], dayCode, monthCode, yearcode)]++;
+
+            //  Consigue el resto de los tokens de ese vuelo especifico
+            while( tokens[counter] != NULL ) {
+                tokens[++i] = strtok(NULL, s);
+            }
+
+        }
+
+        /* walk through other tokens */
+        while( tokens[i] != NULL ) {
+            i++;
+            //printf( " %s\n", tokens[i] );
+
+            tokens[i] = strtok(NULL, s);
+
+        }
 
 	
 	
