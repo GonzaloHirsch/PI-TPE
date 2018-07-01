@@ -12,7 +12,6 @@ typedef char IATA[4];
                                        
 // Name of an airport (Can contain ASCII extensions)
 typedef int * Denomination;
->>>>>>> e618f9d6f2ead183fbddeb2dbb8254a8a99a8eac
 
 // Traffic type of an airport
 typedef enum { INTERNATIONAL, NATIONAL } TTraffic;
