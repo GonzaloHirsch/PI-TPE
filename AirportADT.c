@@ -1,3 +1,5 @@
+#include "AirportADT.h"
+
 struct Airport {
   char local[3];
   char oaci[4];
@@ -5,3 +7,8 @@ struct Airport {
   char denomination[70];
   ListADT movements;
  };
+
+
+struct AirportCDT {
+
+};
