@@ -1,17 +1,8 @@
-#include "AirportTypes.h"
+#include "Types.h"
 #include "MovementADT.h"
 
 #ifndef _AirportADT_h
 #define _AirportADT_h
-
-
-/*Local local;
-    OACI oaci;
-    IATA iata;
-    Denomination denomination;
-    TTraffic traffic;
-    ListADT movements;
-    */
 
 typedef struct  AirportCDT * AirportADT;
 
