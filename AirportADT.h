@@ -4,12 +4,37 @@
 #ifndef _AirportADT_h
 #define _AirportADT_h
 
+
+/*Local local;
+    OACI oaci;
+    IATA iata;
+    Denomination denomination;
+    TTraffic traffic;
+    ListADT movements;
+    */
+
 typedef struct  AirportCDT * AirportADT;
 
 /*
  * Generates and returns new AirportADT, setting its OACI
  */
 AirportADT newAirport(OACI oaci);
+
+
+/*
+ * Sets the AirportADT's IATA
+ */
+void setIATA(AirportADT airport, IATA iata);
+
+/*
+ * Sets the AirportADT's denomination
+ */
+void setDenomination(AirportADT airport, Denomination denomination);
+
+/*
+ * Sets the AirportADT's traffic
+ */
+void setTraffic(AirportADT airport, TTraffic traffic);
 
 /*
  * Returns the OACI of the AirportADT passed through the parameters.
