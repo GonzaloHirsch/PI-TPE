@@ -10,8 +10,8 @@ typedef char OACI[5];
 // International code of an airport (Empty or 3 Chars from 'A' to 'Z')
 typedef char IATA[4];
 
-// Name of an airport (Max 70 Letters. Can contain ASCII extensions)
-typedef int Denomination[71];
+// Name of an airport (Can contain ASCII extensions)
+typedef int * Denomination;
 
 // Traffic type of an airport
 typedef enum { INTERNATIONAL, NATIONAL } TTraffic;
