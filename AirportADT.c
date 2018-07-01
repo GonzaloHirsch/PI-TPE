@@ -8,3 +8,17 @@ typedef struct AirportCDT {
     TTraffic traffic;
     ListADT movements;
  } TAirport;
+
+ AirportADT newAirport(OACI oaci){
+ 	AirportADT retVal = malloc(sizeof(TAirport));
+ 	strcpy(retVal->oaci, oaci);
+ 	return retVal;
+ }
+
+ void setIATA(AirportADT airport, IATA iata){
+ 	strcpy(airport->iata, iata);
+ }
+
+ void setDenomination(AirportADT airport, Denomination denomination){
+ 	
+ }
