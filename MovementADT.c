@@ -1,7 +1,7 @@
 #include "MovementADT.h"
 
 typedef struct{
-  char oaci[4];
+  OACI oaci;
   int isLocal;
   int arrivals;
   int departures;

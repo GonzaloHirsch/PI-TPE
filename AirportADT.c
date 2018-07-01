@@ -1,15 +1,16 @@
 #include "AirportADT.h"
 #include "ListADT.h"
+#include "AiportTypes.h"
 
 typedef struct {
-    char local[3];
-    char oaci[4];
-    char iata[3];
-    char denomination[70];
+    Local local;
+    OACI oaci;
+    IATA iata;
+    Denomination denomination;
     ListADT movements;
  } Airport;
 
 
 struct AirportCDT {
-
+    Airport airport;
 };

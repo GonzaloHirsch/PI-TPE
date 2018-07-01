@@ -17,8 +17,13 @@ AirportADT newAirport(OACI oaci);
 OACI getAirportOACI(AirportADT airport);
 
 /*
- * Adds a MovementADT to the list of movements
+ * Adds a MovementADT to the AirportADT specified
  */
 void addMovement(AirportADT airport, MovementADT movement);
+
+/*
+ * Returns the MovementADT which corresponds to the OACI specified in the Airport's movement list
+ */
+MovementADT getMovement(AirportADT airport, OACI oaci);
 
 #endif
