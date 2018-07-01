@@ -2,7 +2,7 @@
 
 typedef struct{
   OACI oaci;
-  int isLocal;
+  bool isLocal;
   int arrivals;
   int departures;
 } Movement;

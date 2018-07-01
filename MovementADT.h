@@ -1,4 +1,5 @@
 #include "AirportTypes.h"
+#include <stdbool.h>
 
 #ifndef _MovementADT_h
 #define _MovementADT_h
@@ -11,7 +12,7 @@ typedef struct MovementCDT * MovementADT;
 /*
  * Generates and returns new MovementADT, setting its OACI and if it's a local airport.
  */
-MovementADT newMovement(OACI oaci, int isLocal);
+MovementADT newMovement(OACI oaci, bool isLocal);
 
 /*
  * Returns the OACI of the MovementADT passed through the parameters.
