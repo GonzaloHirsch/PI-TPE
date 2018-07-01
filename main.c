@@ -1,12 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "ListADT.h"
+#include "AirportADT.h"
+#include "AirportTypes.h"
+#include "MovementADT.h"
 
-//	Definiciones
+//	Constants Definitions
 #define MAX_TEXT 128
 
 
-//	Prototipos
+//	Function Prototypes
 int verifyYear (const char * date, int yearGiven);
 void getDate (const char * date, int * day, int * month, int * year);
 int dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode);
@@ -15,7 +18,7 @@ int dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * ye
 int
 main (int argCount, int *argGiven[]){
 
-	// Recibe el año como argumento y ve si es valido, si no lo es da un mensaje de error y aborta
+	// It receives the year as an argument and checks whether or not it is valid, if not, it shows an error message and aborts
 	int yearGiven;
 
 	if (argCount == 1){
@@ -36,30 +39,35 @@ main (int argCount, int *argGiven[]){
 	}
 
 	/*
-	 *	Cantidad de movimientos por los dias de la semana
-	 *	Indices:	Domingo = 0 , Lunes = 1 , ... , Sabado = 6
+	 *	Ammount of movements per day of the week
+	 *	Index:	Domingo = 0 , Lunes = 1 , ... , Sabado = 6
 	 */
 	int movPerDay[7] = {0};
 
 	/*
-	 *	Codigos de los dias para el pase de fecha a dia
-	 *	Indices:	Domingo = 0 , Lunes = 1 , ... , Sabado = 6
+	 *	Day codes for the conversion from date to day of the week
+	 *	Index:	Domingo = 0 , Lunes = 1 , ... , Sabado = 6
 	 */
 	int dayCode[7] = {0, 1, 2, 3, 4, 5, 6};
 	/*
-	 *	Codigos de los meses para el pase de fecha a dia
-	 *	Indices:	Enero = 0 , Febrero = 1 , ... , Diciembre = 11
+	 *	Day codes for the conversion from date to day of the week
+	 *	Index:	Enero = 0 , Febrero = 1 , ... , Diciembre = 11
 	 */
 	int monthCode[12] = {6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
 	/*
-	 *	Codigos de los años para el pase de fecha a dia
-	 *	Indices:	2014 = 0 , 2015 = 1 , ... , 2018 = 4
+	 *	Day codes for the conversion from date to day of the week
+	 *	Index:	2014 = 0 , 2015 = 1 , ... , 2018 = 4
 	 */
 	int yearCode[5] = {3, 4, 6, 0, 1};
 
 }
 
-//	Verifica si el año que recibio de los vuelos es el año que queremos. Devuelve 1 si lo es, 0 si no lo es.
+
+/*
+ * 	Verifies whether or not the year it receives is the year we want
+ * 	Return values:	0 - If its not the year we want
+ * 					1 - If it is the year we want
+ */
 int
 verifyYear (const char * date, int yearGiven){
 
@@ -70,15 +78,19 @@ verifyYear (const char * date, int yearGiven){
 	return year == yearGiven;
 }
 
-//	Extrae dia, mes y año a partir de la fecha
+/*
+ * 	Extracts the day, month and year from a given date
+ */
 void
 getDate (const char * date, int * day, int * month, int * year){
 
 	int args = sscanf(date, "%2d/%2d/%4d", day, month, year);
 	return;
 }
-
-//	Dada una fecha, calcula el dia de la semana y lo devuelve como un indice para el array movPerDay[]
+/*
+ * 	Given a date, it calculates the day of the week
+ * 	Return value:	Integer representing the day of the week for the array movPerDay[]
+ */
 int
 dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode){
 
@@ -90,16 +102,15 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
 	return dayOfWeekIndex % 7;
 }
 
-
 /*
- *	Funcion para procesar los datos de los vuelos
- *	Valores de retorno:	0 - si todo funciono correctamente
- *						1 - si hubo un error al tratar de abrir el archivo de vuelos
+ *	Function to process all data from the flights file
+ *	Return Values:	0 - if everything works
+ *					1 - if there was an error while trying to open the file
  */
 int
-movementsProcessing (int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode){
+movementsProcessing (airportADT airports, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode){
 
-    //  Esto se encarga de abrir el archivo y manejarlo
+    //  File opening and verification
     //  ------------------------------------------------------------------------------------------
 	FILE * movementsFile;
 	
@@ -118,15 +129,15 @@ movementsProcessing (int yearGiven, int * movPerDay, int * dayCode, int * monthC
 	char * takeoff = "Despegue";
 
 	/*
-	 * A nosotros nos interesan los tokens con indices 0 / 3 / 4 / 5 / 6
-	 * 		Token 0 :	Fecha del movimiento
-	 * 		Token 3 :	Clase de vuelo (internacional o nacional)
-	 * 		Token 4 :	Clasificacion de vuelo (aterrizaje o despegue)
-	 * 		Token 5 :	Origen OACI
-	 * 		Toekn 6 :	Destino OACI
+	 * We are interested in tokens with indexes 0 / 3 / 4 / 5 / 6
+	 * 		Token 0 :	Movement date
+	 * 		Token 3 :	Flight type (internacional o nacional)
+	 * 		Token 4 :	Flight classification (aterrizaje o despegue)
+	 * 		Token 5 :	Origin OACI
+	 * 		Toekn 6 :	Destination OACI
 	 */
 
-	//	Descartamos la primer linea del archivo por ser los nombres de los campos
+	//	We discard the first line of the file for being the names of the fields
 	fgets(fileLine, MAX_TEXT, movementsFile);
 
 	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
@@ -134,23 +145,28 @@ movementsProcessing (int yearGiven, int * movPerDay, int * dayCode, int * monthC
 	    counter = 0;
         tokens[counter] = strtok(fileLine, separator);
 
-        //  Si el año de ese movimiento es valido, corre esto
+        //  If the year is correct, it runs this
         if (verifyYear(tokens[counter], yearGiven)){
 
-            //  Hace el pase a dia de la semana e incrementa el contador de ese dia
+            //  Makes the change to day of the week and increments the counter for that day
             movPerDay[dateToDayOfWeek(tokens[counter], dayCode, monthCode, yearcode)]++;
 
-            //  Consigue el resto de los tokens de ese movimiento especifico
+            MovementADT aux;
+
+            //  It gets the rest of the tokens form that line
             while( tokens[counter] != NULL ) {
                 tokens[++i] = strtok(NULL, s);
             }
 
-            //	Veo si el movimiento es un despegue
+            //	Checks if the movement is a takeoff
             if (!(strcmp(tokens[4], takeoff))){
 
 
 
-            } else {	//	Esto es si el movimiento es un aterrizaje
+
+
+            } else {	//	This is if the movement is a landing
+
 
             }
 
