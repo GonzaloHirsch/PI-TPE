@@ -132,7 +132,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	char * tokens[10];
 	int counter;
 	char * landing = "Aterrizaje";
-	char * takeoff = "Despegue";
+	char * departure = "Despegue";
 	char * international = "Internacional";
 	char * local = "Cabotaje";
 
@@ -168,8 +168,8 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 			AirportADT auxAirport;
 			int isLocal = !strcmp(tokens[FTYPE], local);
 
-            //	Checks if the movement is a takeoff
-            if (!(strcmp(tokens[FCLASS], takeoff))){
+            //	Checks if the movement is a departure
+            if (!(strcmp(tokens[FCLASS], departure))){
 
             	//	Auxiliary airport and movement
             	auxAirport = (AirportADT) getElem(airportList, tokens[ORIG]);
@@ -197,11 +197,11 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 
 					//	It creates a new movement, increases the counter and adds it to the airport
 					auxMovement = newMovement(tokens[ORIG], isLocal);
-					addDeparture(auxMovement, 1);
+					addArrival(auxMovement, 1);
 					addMovement(auxAirport, auxMovement);
 
 				} else {
-					addDeparture(auxMovement, 1);
+					addArrival(auxMovement, 1);
 				}
             }
         }
