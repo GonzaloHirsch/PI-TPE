@@ -7,10 +7,10 @@ typedef struct AirportCDT {
     Denomination denomination;
     TTraffic traffic;
     ListADT movements;
- } TAirport;
+ } AirportCDT;
 
  AirportADT newAirport(OACI oaci){
- 	AirportADT retVal = malloc(sizeof(TAirport));
+ 	AirportADT retVal = malloc(sizeof(AirportCDT));
  	strcpy(retVal->oaci, oaci);
  	return retVal;
  }
@@ -22,3 +22,4 @@ typedef struct AirportCDT {
  void setDenomination(AirportADT airport, Denomination denomination){
  	
  }
+

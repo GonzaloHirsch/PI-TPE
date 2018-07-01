@@ -27,9 +27,9 @@ AirportADT newAirport(OACI oaci);
 void setIATA(AirportADT airport, IATA iata);
 
 /*
- * Sets the AirportADT's denomination
+ * Allocates memory in heap and copies the passed denomination.
  */
-void setDenomination(AirportADT airport, Denomination denomination);
+void setDenomination(AirportADT airport, char denomination[]);
 
 /*
  * Sets the AirportADT's traffic
