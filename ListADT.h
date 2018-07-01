@@ -19,6 +19,13 @@ void addElem(ListADT list, void * elem);
  * Returns an element of the list based on its OACI.
  * Returns null if no element was found.
  */
-void * getElem(OACI oaci);
+void * getElem(ListADT list, OACI oaci);
 
 #endif
+
+/*
+ * Ejemplos de como crear listas:
+ *
+ * ListADT airportList = newList(getAirportOaci)
+ * ListADT movementList = newList(getMovementOaci)
+ */

@@ -7,6 +7,7 @@ typedef struct {
     OACI oaci;
     IATA iata;
     Denomination denomination;
+    TTraffic traffic;
     ListADT movements;
  } Airport;
 

@@ -28,4 +28,13 @@ void addArrival(MovementADT movement, int amount);
  */
 void addDeparture(MovementADT movement, int amount);
 
+/*
+ * Returns the MovementADT's total amount of arrivals
+ */
+int getArrivals(MovementADT movement);
+
+/*
+ * Returns the MovementADT's total amount of departures
+ */
+int getDepartures(MovementADT movement);
 #endif

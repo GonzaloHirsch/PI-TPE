@@ -23,6 +23,7 @@ void addMovement(AirportADT airport, MovementADT movement);
 
 /*
  * Returns the MovementADT which corresponds to the OACI specified in the Airport's movement list
+ * Returns null if the OACI doesn't correspond to any movement
  */
 MovementADT getMovement(AirportADT airport, OACI oaci);
 
