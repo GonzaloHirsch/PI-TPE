@@ -14,7 +14,7 @@ typedef char IATA[3];
 typedef int Denomination[70];
 
 // Traffic type of an airport
-typedef enum { INTERNATIONAL, NATIONAL } TTrafic;
+typedef enum { INTERNATIONAL, NATIONAL } TTraffic;
 
 // Movement type of a flight
 typedef enum { ARRIVAL, DEPARTURE } TMovement;
