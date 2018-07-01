@@ -2,7 +2,10 @@
 #include <stdio.h>
 #include "ListADT.h"
 
-//PRUEBA NUMEROI 2
+//	Definiciones
+#define MAX_TEXT 128
+
+
 //	Prototipos
 int verifyYear (const char * date, int yearGiven);
 void getDate (const char * date, int * day, int * month, int * year);
@@ -85,4 +88,34 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
 	int dayOfWeekIndex = dayCode[day % 7] + monthCode[month - 1] + yearCode[year - 2014];
 
 	return dayOfWeekIndex % 7;
+}
+
+
+/*
+**	Funcion para procesar los datos de los vuelos
+**	Valores de retorno:	0 - si todo funciono correctamente
+**				1 - si hubo un error al tratar de abrir el archivo de vuelos
+*/
+int
+movementsProcessing (int yearGiven){
+
+	FILE * movementsFile;
+	
+	movementsFile = fopen("Dataset/archivoVuelos.csv", "r");
+	if (movementsFile == NULL){
+		printf("ERROR: El archivo archivoVuelos.csv no pudo ser abierto.\n");
+		return 1;
+	}
+	
+	char fileLine[MAX_TEXT];
+	
+	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
+		
+	
+	
+	}
+	
+	
+
+
 }
