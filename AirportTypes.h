@@ -9,7 +9,7 @@ typedef char OACI[5];
 
 // International code of an airport (Empty or 3 Chars from 'A' to 'Z')
 typedef char IATA[4];
-
+                                       
 // Name of an airport (Can contain ASCII extensions)
 typedef int * Denomination;
 
