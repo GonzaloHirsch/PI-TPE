@@ -159,7 +159,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 
 	char fileLine[MAX_TEXT];
 	char separator[] = ";";
-	char tokens[10][20];
+	char tokens[10][30];
 	char * token;
 	int counter;
 
