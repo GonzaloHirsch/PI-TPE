@@ -22,6 +22,8 @@
 int verifyYear (const char * date, int yearGiven);
 void getDate (const char * date, int * day, int * month, int * year);
 int dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode);
+int isUnknownOACI(const char * airportOACI);
+int movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode);
 
 
 int
@@ -96,6 +98,7 @@ getDate (const char * date, int * day, int * month, int * year){
 	int args = sscanf(date, "%2d/%2d/%4d", day, month, year);
 	return;
 }
+
 /*
  * 	Given a date, it calculates the day of the week
  * 	Return value:	Integer representing the day of the week for the array movPerDay[]
@@ -237,10 +240,8 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
                         } else {
                             addArrival(auxMovement, 1);
                         }
-                    } else {
-
-                        //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
                     }
+                    //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
                 }
             }
         }
