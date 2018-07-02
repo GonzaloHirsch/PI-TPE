@@ -7,7 +7,7 @@
 #include "MovementADT.h"
 
 //	Constants Definitions
-#define MAX_TEXT 128
+#define MAX_TEXT 150
 #define FDATE 0
 #define FTYPE 3
 #define FCLASS 4
@@ -27,21 +27,26 @@ int movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, in
 
 
 int
-main (int argCount, int *argGiven[]){
+main (int argc, char *argv[]){
 
 	// It receives the year as an argument and checks whether or not it is valid, if not, it shows an error message and aborts
 	int yearGiven;
+	int year;
 
-	if (argCount == 1){
+	//	The index is 1, because argv[0] has the file name
+	sscanf(argv[1], "%d", &year);
 
-		if (2014 <= *(argGiven[0]) && *(argGiven[0]) <= 2018)
-			yearGiven = *(argGiven[0]);
+	//	If only one argument is passed, argc is 2, because there is argv[0]
+	if (argc == 2){
+
+		if (2014 <= year && year <= 2018)
+			yearGiven = year;
 		else {
 			printf("ERROR: El año tiene que estar entre 2014 y 2018.\n");
 			exit(1);
 		}
 
-	} else if (argCount > 1){
+	} else if (argc > 2){
 		printf("ERROR: Fueron ingresados demasiados argumentos.\n");
 		exit(1);
 	} else {
