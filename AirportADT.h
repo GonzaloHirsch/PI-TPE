@@ -43,4 +43,9 @@ void addMovement(AirportADT airport, MovementADT movement);
  */
 MovementADT getMovement(AirportADT airport, OACI oaci);
 
+/*
+ * Increments the total amount of movements by the specified amount
+ */
+void incrementTotalMovements(AirportADT airport, int amount);
+
 #endif

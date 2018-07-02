@@ -9,6 +9,7 @@ typedef struct AirportCDT {
     tIATA iata;
     Denomination denomination;
     TTraffic traffic;
+    int totalMovements;
     ListADT movements;
  } AirportCDT;
 
