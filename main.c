@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
+#include <string.h>
 #include "ListADT.h"
 #include "AirportADT.h"
-#include "AirportTypes.h"
+#include "Types.h"
 #include "MovementADT.h"
 
 //	Constants Definitions
