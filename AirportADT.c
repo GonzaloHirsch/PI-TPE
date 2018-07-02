@@ -14,7 +14,7 @@ typedef struct AirportCDT {
  } AirportCDT;
 
  AirportADT newAirport(OACI oaci){
- 	AirportADT retVal = malloc(sizeof(AirportCDT));
+ 	AirportADT retVal = calloc(1, sizeof(AirportCDT));
  	strcpy(retVal->oaci, oaci);
  	return retVal;
  }
@@ -22,12 +22,13 @@ typedef struct AirportCDT {
  void setIATA(AirportADT airport, IATA iata){
  	strcpy(airport->iata, iata);
  }
-/*
+
+
  void setDenomination(AirportADT airport, Denomination denomination){
- 	
+ 	airport -> denomination = realloc(airport -> denomination, strlen(denomination) + 1);
+ 	strcpy(airport -> denomination, denomination);
  }
 
-*/
 
  void setTraffic(AirportADT airport, TTraffic traffic){
  	airport->traffic = traffic;
