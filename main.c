@@ -13,7 +13,10 @@
 #define FCLASS 4
 #define ORIG 5
 #define DEST 6
-
+#define ARRIVAL "Aterrizaje"
+#define DEPARTURE "Despegue"
+#define INTERNATIONAL "Internacional"
+#define LOCAL "Cabotaje"
 
 //	Function Prototypes
 int verifyYear (const char * date, int yearGiven);
@@ -150,10 +153,6 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	char separator[2] = ";";
 	char * tokens[10];
 	int counter;
-	char * arrival = "Aterrizaje";
-	char * departure = "Despegue";
-	char * international = "Internacional";
-	char * local = "Cabotaje";
 
 	/*
 	 * We are interested in tokens with indexes 0 / 3 / 4 / 5 / 6
@@ -187,10 +186,10 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 
 			MovementADT auxMovement;
 			AirportADT auxAirport;
-			bool isLocal = !strcmp(tokens[FTYPE], local);
+			bool isLocal = !strcmp(tokens[FTYPE], LOCAL);
 
             //	Checks if the movement is a departure
-            if (!(strcmp(tokens[FCLASS], departure))){
+            if (!(strcmp(tokens[FCLASS], DEPARTURE))){
 
                 //  If the OACI code from the departure airport is unknown, we skip it
                 if (!(isUnknownOACI(tokens[ORIG]))){
