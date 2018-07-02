@@ -7,36 +7,46 @@
 #include "MovementADT.h"
 
 //	Constants Definitions
-#define MAX_TEXT 128
+#define MAX_TEXT 150
 #define FDATE 0
 #define FTYPE 3
 #define FCLASS 4
 #define ORIG 5
 #define DEST 6
-
+#define ARRIVAL "Aterrizaje"
+#define DEPARTURE "Despegue"
+#define INTERNATIONAL "Internacional"
+#define LOCAL "Cabotaje"
 
 //	Function Prototypes
 int verifyYear (const char * date, int yearGiven);
 void getDate (const char * date, int * day, int * month, int * year);
 int dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode);
+int isUnknownOACI(const char * airportOACI);
+int movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode);
 
 
 int
-main (int argCount, int *argGiven[]){
+main (int argc, char *argv[]){
 
 	// It receives the year as an argument and checks whether or not it is valid, if not, it shows an error message and aborts
 	int yearGiven;
+	int year;
 
-	if (argCount == 1){
+	//	If only one argument is passed, argc is 2, because there is argv[0]
+	if (argc == 2){
 
-		if (2014 <= *(argGiven[0]) && *(argGiven[0]) <= 2018)
-			yearGiven = *(argGiven[0]);
+		//	The index is 1, because argv[0] has the file name
+		sscanf(argv[1], "%d", &year);
+
+		if (2014 <= year && year <= 2018)
+			yearGiven = year;
 		else {
 			printf("ERROR: El año tiene que estar entre 2014 y 2018.\n");
 			exit(1);
 		}
 
-	} else if (argCount > 1){
+	} else if (argc > 2){
 		printf("ERROR: Fueron ingresados demasiados argumentos.\n");
 		exit(1);
 	} else {
@@ -93,6 +103,7 @@ getDate (const char * date, int * day, int * month, int * year){
 	int args = sscanf(date, "%2d/%2d/%4d", day, month, year);
 	return;
 }
+
 /*
  * 	Given a date, it calculates the day of the week
  * 	Return value:	Integer representing the day of the week for the array movPerDay[]
@@ -106,6 +117,25 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
 	int dayOfWeekIndex = dayCode[day % 7] + monthCode[month - 1] + yearCode[year - 2014];
 
 	return dayOfWeekIndex % 7;
+}
+
+/*
+ *  Verifies whether or not the OACI code from the airport is unknown
+ *  Unknown OACI codes have this layout (x is a digit):
+ *      SAxx
+ *      AR-xxxx
+ *  Return values:  0 - if OACI is KNOWN
+ *                  1 - if OACI is UNKNOWN
+ */
+int
+isUnknownOACI(const char * airportOACI){
+    int formatA, formatB;
+    int aux;
+
+    formatA = sscanf(airportOACI, "SA%2d", &aux);
+    formatB = sscanf(airportOACI, "AR-%4d", &aux);
+
+    return formatA || formatB;
 }
 
 /*
@@ -131,10 +161,6 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	char separator[2] = ";";
 	char * tokens[10];
 	int counter;
-	char * arrival = "Aterrizaje";
-	char * departure = "Despegue";
-	char * international = "Internacional";
-	char * local = "Cabotaje";
 
 	/*
 	 * We are interested in tokens with indexes 0 / 3 / 4 / 5 / 6
@@ -148,6 +174,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	//	We discard the first line of the file for being the names of the fields
 	fgets(fileLine, MAX_TEXT, movementsFile);
 
+	//  Iterating for each line in the file
 	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
 
 	    counter = 0;
@@ -162,48 +189,65 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             //  It gets the rest of the tokens from that line
             while( tokens[counter] != NULL ) {
             	//	We use NULL inside strtok for it to continue where it finished the previous iteration
-                tokens[++counter] = strtok(NULL, s);
+                tokens[++counter] = strtok(NULL, fileLine);
             }
 
 			MovementADT auxMovement;
 			AirportADT auxAirport;
-			bool isLocal = !strcmp(tokens[FTYPE], local);
+			bool isLocal = !strcmp(tokens[FTYPE], LOCAL);
 
             //	Checks if the movement is a departure
-            if (!(strcmp(tokens[FCLASS], departure))){
+            if (!(strcmp(tokens[FCLASS], DEPARTURE))){
 
-            	//	Auxiliary airport and movement
-            	auxAirport = (AirportADT) getElem(airportList, tokens[ORIG]);
-            	auxMovement = getMovement(auxAirport, tokens[DEST]);
+                //  If the OACI code from the departure airport is unknown, we skip it
+                if (!(isUnknownOACI(tokens[ORIG]))){
 
-            	//	If the pointer is NULL, it means there is no previous movement with that airport
-            	if (auxMovement == NULL){
+                    //  If the OACI code form the arrival airport is unknown, we cant add it to the list, but the movement counts
+                    if (!(isUnknownOACI(tokens[DEST]))) {
 
-					//	It creates a new movement, increases the counter and adds it to the airport
-            		auxMovement = newMovement(tokens[DEST], isLocal);
-            		addDeparture(auxMovement, 1);
-            		addMovement(auxAirport, auxMovement);
+                        //	Auxiliary airport and movement
+                        auxAirport = (AirportADT) getElem(airportList, tokens[ORIG]);
+                        auxMovement = getMovement(auxAirport, tokens[DEST]);
 
-            	} else {
-            		addDeparture(auxMovement, 1);
-            	}
+                        //	If the pointer is NULL, it means there is no previous movement with that airport
+                        if (auxMovement == NULL) {
 
+                            //	It creates a new movement, increases the counter and adds it to the airport
+                            auxMovement = newMovement(tokens[DEST], isLocal);
+                            addDeparture(auxMovement, 1);
+                            addMovement(auxAirport, auxMovement);
+
+                        } else {
+                            addDeparture(auxMovement, 1);
+                        }
+                    }
+                }
+                //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
             } else {	//	This is if the movement is a arrival
 
-				auxAirport = (AirportADT) getElem(airportList, tokens[DEST]);
-				auxMovement = getMovement(auxAirport, tokens[ORIG]);
+                //  If the OACI code from the arrival airport is unknown, we skip it
+                if (!(isUnknownOACI(tokens[DEST]))) {
 
-				//	If the pointer is NULL, it means there is no previous movement with that airport
-				if (auxMovement == NULL){
+                    //  If the OACI code form the departure airport is unknown, we cant add it to the list, but the movement counts
+                    if (!(isUnknownOACI(tokens[ORIG]))) {
 
-					//	It creates a new movement, increases the counter and adds it to the airport
-					auxMovement = newMovement(tokens[ORIG], isLocal);
-					addArrival(auxMovement, 1);
-					addMovement(auxAirport, auxMovement);
+                        auxAirport = (AirportADT) getElem(airportList, tokens[DEST]);
+                        auxMovement = getMovement(auxAirport, tokens[ORIG]);
 
-				} else {
-					addArrival(auxMovement, 1);
-				}
+                        //	If the pointer is NULL, it means there is no previous movement with that airport
+                        if (auxMovement == NULL) {
+
+                            //	It creates a new movement, increases the counter and adds it to the airport
+                            auxMovement = newMovement(tokens[ORIG], isLocal);
+                            addArrival(auxMovement, 1);
+                            addMovement(auxAirport, auxMovement);
+
+                        } else {
+                            addArrival(auxMovement, 1);
+                        }
+                    }
+                    //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
+                }
             }
         }
 	}
