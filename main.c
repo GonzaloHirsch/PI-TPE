@@ -33,11 +33,11 @@ main (int argc, char *argv[]){
 	int yearGiven;
 	int year;
 
-	//	The index is 1, because argv[0] has the file name
-	sscanf(argv[1], "%d", &year);
-
 	//	If only one argument is passed, argc is 2, because there is argv[0]
 	if (argc == 2){
+
+		//	The index is 1, because argv[0] has the file name
+		sscanf(argv[1], "%d", &year);
 
 		if (2014 <= year && year <= 2018)
 			yearGiven = year;
