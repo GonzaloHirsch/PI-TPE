@@ -10,6 +10,8 @@ typedef struct AirportCDT {
     Denomination denomination;
     TTraffic traffic;
     ListADT movements;
+    int unknownTakeOff;
+    int unknownArrivals;
  } AirportCDT;
 
 OACI getAirportOACI(AirportADT airport){
