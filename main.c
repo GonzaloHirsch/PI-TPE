@@ -158,8 +158,9 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
     //  ------------------------------------------------------------------------------------------
 
 	char fileLine[MAX_TEXT];
-	char separator[2] = ";";
-	char * tokens[10];
+	char separator[] = ";";
+	char tokens[10][20];
+	char * token;
 	int counter;
 
 	/*
@@ -168,7 +169,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	 * 		Token 3 :	Flight type (internacional o nacional)
 	 * 		Token 4 :	Flight classification (aterrizaje o despegue)
 	 * 		Token 5 :	Origin OACI
-	 * 		Toekn 6 :	Destination OACI
+	 * 		Token 6 :	Destination OACI
 	 */
 
 	//	We discard the first line of the file for being the names of the fields
@@ -178,7 +179,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
 
 	    counter = 0;
-        tokens[counter] = strtok(fileLine, separator);
+        token = strtok(fileLine, separator);
 
         //  If the year is correct, it runs this
         if (verifyYear(tokens[FDATE], yearGiven)){
@@ -187,9 +188,12 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             movPerDay[dateToDayOfWeek(tokens[FDATE], dayCode, monthCode, yearcode)]++;
 
             //  It gets the rest of the tokens from that line
-            while( tokens[counter] != NULL ) {
+            while( token != NULL ) {
+
+                strcpy(tokens[counter++], token);
+
             	//	We use NULL inside strtok for it to continue where it finished the previous iteration
-                tokens[++counter] = strtok(NULL, separator);
+                token = strtok(NULL, separator);
             }
 
 			MovementADT auxMovement;
