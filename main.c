@@ -109,6 +109,25 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
 }
 
 /*
+ *  Verifies whether or not the OACI code from the airport is unknown
+ *  Unknown OACI codes have this layout (x is a digit):
+ *      SAxx
+ *      AR-xxxx
+ *  Return values:  0 - if OACI is KNOWN
+ *                  1 - if OACI is UNKNOWN
+ */
+int
+isUnknownOACI(const char * airportOACI){
+    int formatA, formatB;
+    int aux;
+
+    formatA = sscanf(airportOACI, "SA%2d", &aux);
+    formatB = sscanf(airportOACI, "AR-%4d", &aux);
+
+    return formatA || formatB;
+}
+
+/*
  *	Function to process all data from the flights file
  *	Return Values:	0 - if everything works
  *					1 - if there was an error while trying to open the file
@@ -148,6 +167,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	//	We discard the first line of the file for being the names of the fields
 	fgets(fileLine, MAX_TEXT, movementsFile);
 
+	//  Iterating for each line in the file
 	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
 
 	    counter = 0;
@@ -162,7 +182,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             //  It gets the rest of the tokens from that line
             while( tokens[counter] != NULL ) {
             	//	We use NULL inside strtok for it to continue where it finished the previous iteration
-                tokens[++counter] = strtok(NULL, s);
+                tokens[++counter] = strtok(NULL, movementsFile);
             }
 
 			MovementADT auxMovement;
@@ -172,38 +192,57 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             //	Checks if the movement is a departure
             if (!(strcmp(tokens[FCLASS], departure))){
 
-            	//	Auxiliary airport and movement
-            	auxAirport = (AirportADT) getElem(airportList, tokens[ORIG]);
-            	auxMovement = getMovement(auxAirport, tokens[DEST]);
+                //  If the OACI code from the departure airport is unknown, we skip it
+                if (!(isUnknownOACI(tokens[ORIG]))){
 
-            	//	If the pointer is NULL, it means there is no previous movement with that airport
-            	if (auxMovement == NULL){
+                    //  If the OACI code form the arrival airport is unknown, we cant add it to the list, but the movement counts
+                    if (!(isUnknownOACI(tokens[DEST]))) {
 
-					//	It creates a new movement, increases the counter and adds it to the airport
-            		auxMovement = newMovement(tokens[DEST], isLocal);
-            		addDeparture(auxMovement, 1);
-            		addMovement(auxAirport, auxMovement);
+                        //	Auxiliary airport and movement
+                        auxAirport = (AirportADT) getElem(airportList, tokens[ORIG]);
+                        auxMovement = getMovement(auxAirport, tokens[DEST]);
 
-            	} else {
-            		addDeparture(auxMovement, 1);
-            	}
+                        //	If the pointer is NULL, it means there is no previous movement with that airport
+                        if (auxMovement == NULL) {
 
+                            //	It creates a new movement, increases the counter and adds it to the airport
+                            auxMovement = newMovement(tokens[DEST], isLocal);
+                            addDeparture(auxMovement, 1);
+                            addMovement(auxAirport, auxMovement);
+
+                        } else {
+                            addDeparture(auxMovement, 1);
+                        }
+                    }
+                }
+                //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
             } else {	//	This is if the movement is a arrival
 
-				auxAirport = (AirportADT) getElem(airportList, tokens[DEST]);
-				auxMovement = getMovement(auxAirport, tokens[ORIG]);
+                //  If the OACI code from the arrival airport is unknown, we skip it
+                if (!(isUnknownOACI(tokens[DEST]))) {
 
-				//	If the pointer is NULL, it means there is no previous movement with that airport
-				if (auxMovement == NULL){
+                    //  If the OACI code form the departure airport is unknown, we cant add it to the list, but the movement counts
+                    if (!(isUnknownOACI(tokens[ORIG]))) {
 
-					//	It creates a new movement, increases the counter and adds it to the airport
-					auxMovement = newMovement(tokens[ORIG], isLocal);
-					addArrival(auxMovement, 1);
-					addMovement(auxAirport, auxMovement);
+                        auxAirport = (AirportADT) getElem(airportList, tokens[DEST]);
+                        auxMovement = getMovement(auxAirport, tokens[ORIG]);
 
-				} else {
-					addArrival(auxMovement, 1);
-				}
+                        //	If the pointer is NULL, it means there is no previous movement with that airport
+                        if (auxMovement == NULL) {
+
+                            //	It creates a new movement, increases the counter and adds it to the airport
+                            auxMovement = newMovement(tokens[ORIG], isLocal);
+                            addArrival(auxMovement, 1);
+                            addMovement(auxAirport, auxMovement);
+
+                        } else {
+                            addArrival(auxMovement, 1);
+                        }
+                    } else {
+
+                        //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
+                    }
+                }
             }
         }
 	}
