@@ -21,7 +21,7 @@ OACI getAirportOACI(AirportADT airport){
  AirportADT newAirport(OACI oaci){
  	AirportADT retVal = malloc(sizeof(AirportCDT));
  	strcpy(retVal->oaci, oaci);
- 	retVal->movements = newList( (OACI (*)(void *)) getMovementOACI );         //funcion de MovementADT.h
+ 	retVal->movements = newList((OACI (*)(void *)) getMovementOACI);         //funcion de MovementADT.h
  	return retVal;
  }
 
