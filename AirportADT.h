@@ -1,10 +1,13 @@
 #include "Types.h"
 #include "MovementADT.h"
+#include "ListADT.h"
 
 #ifndef _AirportADT_h
 #define _AirportADT_h
 
 typedef struct  AirportCDT * AirportADT;
+
+typedef ListADT AirportList;
 
 /*
  * Generates and returns new AirportADT, setting its OACI
@@ -44,8 +47,19 @@ void addMovement(AirportADT airport, MovementADT movement);
 MovementADT getMovement(AirportADT airport, OACI oaci);
 
 /*
- * Increments the total amount of movements by the specified amount
+ * Creates a new ListADT, specific for AirportADTs.
  */
-void incrementTotalMovements(AirportADT airport, int amount);
+AirportList newAirportList();
+
+/*
+ * Adds an element to the AirportList, in order of OACI.
+ */
+void addAirportElem(AirportList list, AirportADT elem);
+
+/*
+ * Returns an element with the specific OACI code from an AirportList.
+ * Returns NULL if no element was found.
+ */
+AirportADT getAirportElem(AirportList list, OACI oaci);
 
 #endif

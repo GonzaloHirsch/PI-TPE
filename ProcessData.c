@@ -1,5 +1,6 @@
 #include "ProcessData.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 size_t separateToken(char *str, char del, char ** strArr, size_t dim) {
 

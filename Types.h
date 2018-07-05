@@ -6,6 +6,11 @@ typedef int bool;
 #define true 1
 #define false 0
 
+/*
+ * Having all airport's types centralized allows us to no have to remember each
+ * variable properties and eases and change we need in the future.
+ */
+
 // Local code of an airport (3 Chars from 'A' to 'Z')
 typedef char tLocal[4];
 typedef char * Local;

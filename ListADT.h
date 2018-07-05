@@ -21,6 +21,21 @@ void addElem(ListADT list, void * elem);
  */
 void * getElem(ListADT list, OACI oaci);
 
+/*
+ * Sets iterator to start of the list.
+ */
+void toStart(ListADT list);
+
+/*
+ * Returns and sets iterator to next element.
+ */
+void * getNext(ListADT list);
+
+/*
+ * Returns true if the next element of the iterator is not NULL.
+ */
+bool hasNext(ListADT list);
+
 #endif
 
 /*
