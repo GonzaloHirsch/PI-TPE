@@ -22,3 +22,47 @@ size_t separateToken(char *str, char del, char ** strArr, size_t dim) {
     }
 
 }
+
+int
+isUnknownOACI(const char * airportOACI){
+
+    int formatA, formatB;
+    int aux;
+
+    formatA = sscanf(airportOACI, "SA%2d", &aux);
+    formatB = sscanf(airportOACI, "AR-%4d", &aux);
+
+    return formatA || formatB;
+
+}
+
+int
+dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode){
+
+    int day, month, year;
+    getDate(date, &day, &month, &year);
+
+    int dayOfWeekIndex = dayCode[day % 7] + monthCode[month - 1] + yearCode[year - 2014];
+
+    return dayOfWeekIndex % 7;
+
+}
+
+void
+getDate (const char * date, int * day, int * month, int * year){
+
+    int args = sscanf(date, "%2d/%2d/%4d", day, month, year);
+    return;
+
+}
+
+int
+verifyYear (const char * date, int yearGiven){
+
+    int year;
+
+    int args = sscanf(date, "%*d/%*d/%4d", &year);
+
+    return year == yearGiven;
+
+}

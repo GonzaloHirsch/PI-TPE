@@ -5,6 +5,7 @@
 #include "AirportADT.h"
 #include "Types.h"
 #include "MovementADT.h"
+#include "ProcessData.h"
 
 //	Constants Definitions
 #define MAX_TEXT 150
@@ -19,12 +20,7 @@
 #define LOCAL "Cabotaje"
 
 //	Function Prototypes
-int verifyYear (const char * date, int yearGiven);
-void getDate (const char * date, int * day, int * month, int * year);
-int dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode);
-int isUnknownOACI(const char * airportOACI);
 int movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode);
-
 
 int
 main (int argc, char *argv[]){
@@ -76,66 +72,6 @@ main (int argc, char *argv[]){
 	 */
 	int yearCode[5] = {3, 4, 6, 0, 1};
 
-}
-
-
-/*
- * 	Verifies whether or not the year it receives is the year we want
- * 	Return values:	0 - If its not the year we want
- * 					1 - If it is the year we want
- */
-int
-verifyYear (const char * date, int yearGiven){
-
-	int year;
-
-	int args = sscanf(date, "%*d/%*d/%4d", &year);
-
-	return year == yearGiven;
-}
-
-/*
- * 	Extracts the day, month and year from a given date
- */
-void
-getDate (const char * date, int * day, int * month, int * year){
-
-	int args = sscanf(date, "%2d/%2d/%4d", day, month, year);
-	return;
-}
-
-/*
- * 	Given a date, it calculates the day of the week
- * 	Return value:	Integer representing the day of the week for the array movPerDay[]
- */
-int
-dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode){
-
-	int day, month, year;
-	getDate(date, &day, &month, &year);
-
-	int dayOfWeekIndex = dayCode[day % 7] + monthCode[month - 1] + yearCode[year - 2014];
-
-	return dayOfWeekIndex % 7;
-}
-
-/*
- *  Verifies whether or not the OACI code from the airport is unknown
- *  Unknown OACI codes have this layout (x is a digit):
- *      SAxx
- *      AR-xxxx
- *  Return values:  0 - if OACI is KNOWN
- *                  1 - if OACI is UNKNOWN
- */
-int
-isUnknownOACI(const char * airportOACI){
-    int formatA, formatB;
-    int aux;
-
-    formatA = sscanf(airportOACI, "SA%2d", &aux);
-    formatB = sscanf(airportOACI, "AR-%4d", &aux);
-
-    return formatA || formatB;
 }
 
 /*
