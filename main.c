@@ -7,7 +7,7 @@
 #include "MovementADT.h"
 
 //	Constants Definitions
-#define MAX_TEXT 128
+#define MAX_TEXT 150
 #define FDATE 0
 #define FTYPE 3
 #define FCLASS 4
@@ -22,24 +22,31 @@
 int verifyYear (const char * date, int yearGiven);
 void getDate (const char * date, int * day, int * month, int * year);
 int dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode);
+int isUnknownOACI(const char * airportOACI);
+int movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode);
 
 
 int
-main (int argCount, int *argGiven[]){
+main (int argc, char *argv[]){
 
 	// It receives the year as an argument and checks whether or not it is valid, if not, it shows an error message and aborts
 	int yearGiven;
+	int year;
 
-	if (argCount == 1){
+	//	If only one argument is passed, argc is 2, because there is argv[0]
+	if (argc == 2){
 
-		if (2014 <= *(argGiven[0]) && *(argGiven[0]) <= 2018)
-			yearGiven = *(argGiven[0]);
+		//	The index is 1, because argv[0] has the file name
+		sscanf(argv[1], "%d", &year);
+
+		if (2014 <= year && year <= 2018)
+			yearGiven = year;
 		else {
 			printf("ERROR: El año tiene que estar entre 2014 y 2018.\n");
 			exit(1);
 		}
 
-	} else if (argCount > 1){
+	} else if (argc > 2){
 		printf("ERROR: Fueron ingresados demasiados argumentos.\n");
 		exit(1);
 	} else {
@@ -96,6 +103,7 @@ getDate (const char * date, int * day, int * month, int * year){
 	int args = sscanf(date, "%2d/%2d/%4d", day, month, year);
 	return;
 }
+
 /*
  * 	Given a date, it calculates the day of the week
  * 	Return value:	Integer representing the day of the week for the array movPerDay[]
@@ -150,8 +158,9 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
     //  ------------------------------------------------------------------------------------------
 
 	char fileLine[MAX_TEXT];
-	char separator[2] = ";";
-	char * tokens[10];
+	char separator[] = ";";
+	char tokens[10][30];
+	char * token;
 	int counter;
 
 	/*
@@ -160,7 +169,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	 * 		Token 3 :	Flight type (internacional o nacional)
 	 * 		Token 4 :	Flight classification (aterrizaje o despegue)
 	 * 		Token 5 :	Origin OACI
-	 * 		Toekn 6 :	Destination OACI
+	 * 		Token 6 :	Destination OACI
 	 */
 
 	//	We discard the first line of the file for being the names of the fields
@@ -170,7 +179,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
 
 	    counter = 0;
-        tokens[counter] = strtok(fileLine, separator);
+        token = strtok(fileLine, separator);
 
         //  If the year is correct, it runs this
         if (verifyYear(tokens[FDATE], yearGiven)){
@@ -179,9 +188,12 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             movPerDay[dateToDayOfWeek(tokens[FDATE], dayCode, monthCode, yearcode)]++;
 
             //  It gets the rest of the tokens from that line
-            while( tokens[counter] != NULL ) {
+            while( token != NULL ) {
+
+                strcpy(tokens[counter++], token);
+
             	//	We use NULL inside strtok for it to continue where it finished the previous iteration
-                tokens[++counter] = strtok(NULL, fileLine);
+                token = strtok(NULL, separator);
             }
 
 			MovementADT auxMovement;
@@ -237,10 +249,8 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
                         } else {
                             addArrival(auxMovement, 1);
                         }
-                    } else {
-
-                        //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
                     }
+                    //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
                 }
             }
         }

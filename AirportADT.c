@@ -9,35 +9,40 @@ typedef struct AirportCDT {
     tIATA iata;
     Denomination denomination;
     TTraffic traffic;
-    int totalMovements;
     ListADT movements;
+    int unknownTakeOff;
+    int unknownArrivals;
  } AirportCDT;
 
+OACI getAirportOACI(AirportADT airport){
+ 	return airport->oaci;
+ }
+
  AirportADT newAirport(OACI oaci){
- 	AirportADT retVal = calloc(1, sizeof(AirportCDT));
+ 	AirportADT retVal = malloc(sizeof(AirportCDT));
  	strcpy(retVal->oaci, oaci);
+ 	retVal->movements = newList(getMovementOACI(MovementADT));         //funcion de MovementADT.h
  	return retVal;
  }
 
  void setIATA(AirportADT airport, IATA iata){
  	strcpy(airport->iata, iata);
  }
-
-
+/*
  void setDenomination(AirportADT airport, Denomination denomination){
- 	airport -> denomination = realloc(airport -> denomination, strlen(denomination) + 1);
- 	strcpy(airport -> denomination, denomination);
+ 	Lo dejé vacío  porque para mí descripción debería ser char*. Sino se complican los prints
  }
 
+*/
 
  void setTraffic(AirportADT airport, TTraffic traffic){
  	airport->traffic = traffic;
  }
 
- OACI getAirportOACI(AirportADT airport){
- 	return airport->oaci;
+ void addMovement(AirportADT airport, MovementADT movement){
+ 	addElem(airport->movements, &movement);                         //funcion de listADT.h
  }
 
- void addMovement(AirportADT airport, MovementADT movement){
- 	
- }
+MovementADT getMovement(AirportADT airport, OACI oaci){
+	return getElem(airport->movements, oaci);                       //funcion de listADT.h
+}
