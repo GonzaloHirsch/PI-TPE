@@ -230,13 +230,15 @@ airportProcessing (){
 	//  Iterating for each line in the file
 	while (fgets(fileLine, MAX_TEXT_MOVEMENT, airportsFile) != NULL){
 
+		//	We separate the line extracted into all the tokes, knowing the ones we want
 		separateToken(fileLine, separator, tokens, 23);
 
+		//	If the OACI code for that airport is blank (length 0 / it contains only a 0), it is not going to have recorded movements, so we don't care about it.
+		if (tokens[1][0] == 0){
 
+			//TODO USAR FUNCION PARA AGREGAR UN AEROPUERTO NUEVO
 
-
-
-
+		}
 	}
 
 
