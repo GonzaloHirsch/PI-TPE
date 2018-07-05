@@ -8,7 +8,8 @@
 #include "ProcessData.h"
 
 //	Constants Definitions
-#define MAX_TEXT 150
+#define MAX_TEXT_MOVEMENT 150
+#define MAX_TEXT_AIRPORT 300
 #define FDATE 0
 #define FTYPE 3
 #define FCLASS 4
@@ -93,7 +94,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	}
     //  ------------------------------------------------------------------------------------------
 
-	char fileLine[MAX_TEXT];
+	char fileLine[MAX_TEXT_MOVEMENT];
 	char separator[] = ";";
 	char tokens[10][30];
 	char * token;
@@ -109,10 +110,10 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	 */
 
 	//	We discard the first line of the file for being the names of the fields
-	fgets(fileLine, MAX_TEXT, movementsFile);
+	fgets(fileLine, MAX_TEXT_MOVEMENT, movementsFile);
 
 	//  Iterating for each line in the file
-	while (fgets(fileLine, MAX_TEXT, movementsFile) != NULL){
+	while (fgets(fileLine, MAX_TEXT_MOVEMENT, movementsFile) != NULL){
 
 	    counter = 0;
         token = strtok(fileLine, separator);
@@ -193,4 +194,53 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	}
 	fclose(movementsFile);
 	return 0;
+}
+
+int
+airportProcessing (){
+
+	//  File opening and verification
+	//  ------------------------------------------------------------------------------------------
+	FILE * airportsFile;
+
+	airportsFile = fopen("Dataset/archivoAeropuertos.csv", "r");
+	if (airportsFile == NULL){
+		printf("ERROR: El archivo archivoAeropuertos.csv no pudo ser abierto.\n");
+		// TODO SACAR EL MENSAJE DE ERROR ESTE, Y HACER UN ARRAY CON TODOS LOS ERRORES PARA ORDENAR MEJOR
+		return 1;
+	}
+	//  ------------------------------------------------------------------------------------------
+
+	char fileLine[MAX_TEXT_AIRPORT];
+	char separator = ';';
+	char * tokens[23];
+
+	/*
+	 * We are interested in tokens with indexes 0 / 1 / 2 / 4 / 18
+	 * 		Token 0 :	Local Code
+	 * 		Token 1 :	OACI Code
+	 * 		Token 2 :	IATA Code
+	 * 		Token 4 :	Denomination
+	 * 		Token 18 :	Traffic Type (Nacional o Internacional)
+	 */
+
+	//	 We discard the first line because it has the field names.
+	fgets(fileLine, MAX_TEXT_MOVEMENT, airportsFile);
+
+	//  Iterating for each line in the file
+	while (fgets(fileLine, MAX_TEXT_MOVEMENT, airportsFile) != NULL){
+
+		separateToken(fileLine, separator, tokens, 23);
+
+
+
+
+
+
+	}
+
+
+
+
+
 }
