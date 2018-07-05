@@ -10,7 +10,7 @@ typedef struct AirportCDT {
     Denomination denomination;
     TTraffic traffic;
     ListADT movements;
-    int unknownTakeOff;
+    int unknownDepartures;
     int unknownArrivals;
  } AirportCDT;
 
@@ -21,7 +21,7 @@ OACI getAirportOACI(AirportADT airport){
  AirportADT newAirport(OACI oaci){
  	AirportADT retVal = malloc(sizeof(AirportCDT));
  	strcpy(retVal->oaci, oaci);
- 	retVal->movements = newList(getMovementOACI(MovementADT));         //funcion de MovementADT.h
+ 	retVal->movements = newList( (OACI (*)(void *)) getMovementOACI );         //funcion de MovementADT.h
  	return retVal;
  }
 
