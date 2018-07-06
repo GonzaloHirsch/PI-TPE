@@ -83,10 +83,8 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	FILE * movementsFile;
 	
 	movementsFile = fopen("Dataset/archivoVuelos.csv", "r");
-	if (movementsFile == NULL){
-		printf("ERROR: El archivo archivoVuelos.csv no pudo ser abierto.\n");
+	if (movementsFile == NULL)
 		return CANT_OPEN_MOV;
-	}
     //  ------------------------------------------------------------------------------------------
 
 	char fileLine[MAX_TEXT_MOVEMENT];
@@ -200,11 +198,8 @@ airportProcessing (){
 	FILE * airportsFile;
 
 	airportsFile = fopen("Dataset/archivoAeropuertos.csv", "r");
-	if (airportsFile == NULL){
-		printf("ERROR: El archivo archivoAeropuertos.csv no pudo ser abierto.\n");
-		// TODO SACAR EL MENSAJE DE ERROR ESTE, Y HACER UN ARRAY CON TODOS LOS ERRORES PARA ORDENAR MEJOR
+	if (airportsFile == NULL)
 		return CANT_OPEN_AIRP;
-	}
 	//  ------------------------------------------------------------------------------------------
 
 	char fileLine[MAX_TEXT_AIRPORT];
