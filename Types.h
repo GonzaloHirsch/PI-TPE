@@ -29,4 +29,20 @@ typedef char * Denomination;
 // Traffic type of an airport
 typedef enum { INTERNATIONAL, NATIONAL } TTraffic;
 
+// Error types the program could encounter
+typedef error errorTypes[7];
+typedef char * error;
+
+
+errorTypes allErrors = {
+        {"No hay errores."},
+                        {"Se recibieron demasiados argumentos, se espera 1 solo argumento."},
+                        {"Se recibieron pocos argumentos, se espera 1 solo argumento."},
+                        {"El argumento dado no es un año."},
+                        {"El año tiene que estar entre 2014 y 2018"},
+                        {"Error al tratar de abrir el archivo de vuelos."},
+                        {"Error al tratar de abrir el archivo de movimientos."}
+
+
+
 #endif
