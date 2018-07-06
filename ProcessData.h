@@ -3,6 +3,12 @@
 #ifndef PI_TPE_DATAIO_H
 #define PI_TPE_DATAIO_H
 
+//  All the token indexes we are interested in, in the movements file.
+typedef enum { M_DATE = 0, M_TYPE = 3, M_CLASS = 4, M_ORIGIN = 5, M_DESTIN = 6 } TokenMovIndex;
+
+//  All the token indexes we are interested in, in the airports file.
+typedef enum {A_LOCAL = 0, A_OACI = 1, A_IATA = 2, A_DENOM = 4, A_TYPE = 18 } TokenAirpIndex;
+
 /*
  * Alternative for strtok. separateToken replaces delimiter with NULL and stores each token in an array.
  * Parameters:
