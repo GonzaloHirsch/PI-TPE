@@ -45,3 +45,15 @@ typedef struct AirportCDT {
 MovementADT getMovement(AirportADT airport, OACI oaci){
 	return getMovementElem(airport->movements, oaci);                       //funcion de listADT.h
 }
+
+AirportList newAirportList(){
+	return newList( (OACI (*) (void *)) getAirportOACI);
+}
+
+void addAirportElem(AirportList list, AirportADT elem){
+	addElem(list,elem);
+}
+
+AirportADT getAirportElem(AirportList list, OACI oaci){
+	return getElem(list,oaci);
+}
