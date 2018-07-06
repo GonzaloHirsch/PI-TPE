@@ -61,4 +61,14 @@ void getDate (const char * date, int * day, int * month, int * year);
  */
 int verifyYear (const char * date, int yearGiven);
 
+/*
+ *  Verifies whether or not the string passed is only digits.
+ *  Parameters:
+ *      const char * str --> Constant string to be verified.
+ *  Return values:
+ *      0 - If the string contains not only numbers.
+ *      1 - If the string contains only numbers.
+ */
+int verifyString (const char * str);
+
 #endif

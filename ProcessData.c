@@ -1,8 +1,11 @@
 #include "ProcessData.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
+#include <string.h>
 
-size_t separateToken(char *str, char del, char ** strArr, size_t dim) {
+size_t
+separateToken(char *str, char del, char ** strArr, size_t dim) {
 
     if(dim <= 0) {
         return 0;
@@ -65,5 +68,28 @@ verifyYear (const char * date, int yearGiven){
     int args = sscanf(date, "%*d/%*d/%4d", &year);
 
     return year == yearGiven;
+
+}
+
+int
+verifyString (const char * str){
+
+    int length = strlen(str), i;
+
+    //  It's a flag, if type is 1 the string is only numbers, else it's a 0.
+    int type = 1;
+
+    for (i = 0; i < length && type; i++){
+
+        if (!isdigit(str[i]))
+            type = 0;
+
+    }
+
+    return type;
+
+
+
+
 
 }

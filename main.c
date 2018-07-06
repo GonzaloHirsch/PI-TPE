@@ -37,14 +37,19 @@ main (int argc, char *argv[]){
 	//	If only one argument is passed, argc is 2, because there is argv[0]
 	if (argc == 2){
 
-		//	The index is 1, because argv[0] has the file name
-		sscanf(argv[1], "%d", &year);
+	    if (verifyString(argv[1])){
 
-		if (2014 <= year && year <= 2018)
-			yearGiven = year;
-		else {
-			errorType = ARG_OUTOF_RANGE;
-		}
+            //	The index is 1, because argv[0] has the file name
+            sscanf(argv[1], "%d", &year);
+
+            if (2014 <= year && year <= 2018)
+                yearGiven = year;
+            else {
+                errorType = ARG_OUTOF_RANGE;
+            }
+
+	    } else
+	        errorType = ARG_NOT_YEAR;
 
 	} else if (argc > 2){
 		errorType = MANY_ARGS;
