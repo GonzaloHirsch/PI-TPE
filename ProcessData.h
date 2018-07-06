@@ -1,7 +1,21 @@
 #include <stdlib.h>
 
-#ifndef PI_TPE_DATAIO_H
-#define PI_TPE_DATAIO_H
+#ifndef _ProcessData_h
+#define _ProcessData_h
+
+//	Constants Definitions
+//  Movement Constants
+#define MAX_TEXT_MOVEMENT 150
+//  --------------  Named Fields
+#define ARRIVAL "Aterrizaje"
+#define M_DEPARTURE "Despegue"
+#define C_INTERNATIONAL "Internacional"
+#define M_LOCAL "Cabotaje"
+
+//  Airport Constants
+#define MAX_TEXT_AIRPORT 300
+//  --------------  Named Fields
+#define A_NATIONAL "Nacional"
 
 //  All the token indexes we are interested in, in the movements file.
 typedef enum { M_DATE = 0, M_TYPE = 3, M_CLASS = 4, M_ORIGIN = 5, M_DESTIN = 6 } TokenMovIndex;

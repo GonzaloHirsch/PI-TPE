@@ -36,4 +36,9 @@ void * getNext(ListADT list);
  */
 bool hasNext(ListADT list);
 
+/* TODO FREE LIST
+ * Free memory
+ */
+void freeListADT(ListADT list);
+
 #endif

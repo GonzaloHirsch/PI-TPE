@@ -14,6 +14,16 @@ typedef ListADT AirportList;
  */
 AirportADT newAirport(OACI oaci);
 
+/*
+ * Generates and returns new AirportADT from an array of tokens
+ */
+AirportADT newAirportFromTokens(char ** tokens);
+
+
+/*
+ * Sets the airport's Local Code
+ */
+void setLocalCode(AirportADT airport, Local local);
 
 /*
  * Sets the airport's IATA
@@ -61,5 +71,10 @@ void addAirportElem(AirportList list, AirportADT elem);
  * Returns NULL if no element was found.
  */
 AirportADT getAirportElem(AirportList list, OACI oaci);
+
+/* TODO FREE AIRPORT
+ * Free memory
+ */
+void freeAiportADT(AirportADT airport);
 
 #endif

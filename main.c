@@ -6,21 +6,7 @@
 #include "Types.h"
 #include "ADT/MovementADT.h"
 #include "ProcessData.h"
-#include "errorHandler.h"
-
-//	Constants Definitions
-//  Movement Constants
-#define MAX_TEXT_MOVEMENT 150
-//  --------------  Named Fields
-#define ARRIVAL "Aterrizaje"
-#define DEPARTURE "Despegue"
-#define INTERNATIONAL "Internacional"
-#define LOCAL "Cabotaje"
-
-//  Airport Constants
-#define MAX_TEXT_AIRPORT 300
-//  --------------  Named Fields
-#define NATIONAL "Nacional"
+#include "ErrorHandler.h"
 
 //	Function Prototypes
 int movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode);
@@ -144,20 +130,20 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 
 			MovementADT auxMovement;
 			AirportADT auxAirport;
-			bool isLocal = !strcmp(tokens[M_TYPE], LOCAL);
-			bool isDeparture = !strcmp(tokens[M_CLASS], DEPARTURE);
+			bool isLocal = !strcmp(tokens[M_TYPE], M_LOCAL);
+			bool isDeparture = !strcmp(tokens[M_CLASS], M_DEPARTURE);
 
             //	Checks if the movement is a departure
-            if (!(strcmp(tokens[M_CLASS], DEPARTURE))){
+            if (!(strcmp(tokens[M_CLASS], M_DEPARTURE))){
 
                 //  If the OACI code from the departure airport is unknown, we skip it
-                if (!(isUnknownOACI(tokens[ORIG]))){
+                if (!(isUnknownOACI(tokens[M_ORIGIN]))){
 
-                    //  If the OACI code form the arrival airport is unknown, we cant add it to the list, but the movement counts
+                    //  If the OACI code from the arrival airport is unknown, we cant add it to the list, but the movement counts
                     if (!(isUnknownOACI(tokens[M_DESTIN]))) {
 
                         //	Auxiliary airport and movement
-                        auxAirport = (AirportADT) getElem(airportList, tokens[ORIG]);
+                        auxAirport = (AirportADT) getElem(airportList, tokens[M_ORIGIN]);
                         auxMovement = getMovement(auxAirport, tokens[M_DESTIN]);
 
                         //	If the pointer is NULL, it means there is no previous movement with that airport
@@ -174,22 +160,22 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
                     }
                 }
                 //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
-            } else {	//	This is if the movement is a arrival
+            } else {	//	This is if the movement is an arrival
 
                 //  If the OACI code from the arrival airport is unknown, we skip it
                 if (!(isUnknownOACI(tokens[M_DESTIN]))) {
 
                     //  If the OACI code form the departure airport is unknown, we cant add it to the list, but the movement counts
-                    if (!(isUnknownOACI(tokens[ORIG]))) {
+                    if (!(isUnknownOACI(tokens[M_ORIGIN]))) {
 
                         auxAirport = (AirportADT) getElem(airportList, tokens[M_DESTIN]);
-                        auxMovement = getMovement(auxAirport, tokens[ORIG]);
+                        auxMovement = getMovement(auxAirport, tokens[M_ORIGIN]);
 
                         //	If the pointer is NULL, it means there is no previous movement with that airport
                         if (auxMovement == NULL) {
 
                             //	It creates a new movement, increases the counter and adds it to the airport
-                            auxMovement = newMovement(tokens[ORIG], isLocal);
+                            auxMovement = newMovement(tokens[M_ORIGIN], isLocal);
                             addArrival(auxMovement, 1);
                             addMovement(auxAirport, auxMovement);
 
@@ -203,7 +189,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
         }
 	}
 	fclose(movementsFile);
-	return 0;
+	return NO_ERROR;
 }
 
 TErrors
@@ -246,7 +232,7 @@ airportProcessing (){
 		//	If the OACI code for that airport is blank (length 0 / it contains only a 0), it is not going to have recorded movements, so we don't care about it.
 		if (tokens[1][0] != 0){
 
-            bool isNational = !strcmp(tokens[A_TYPE], NATIONAL);
+            bool isNational = !strcmp(tokens[A_TYPE], A_NATIONAL);
 
 			//TODO USAR FUNCION PARA AGREGAR UN AEROPUERTO NUEVO
 

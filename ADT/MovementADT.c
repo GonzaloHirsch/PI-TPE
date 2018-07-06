@@ -4,15 +4,15 @@
 
 typedef struct MovementCDT{
   OACI oaci;
-  bool isLocal;
+  bool isNational;
   int arrivals;
   int departures;
 } MovementCDT;
 
-MovementADT newMovement(OACI oaci, bool isLocal){
+MovementADT newMovement(OACI oaci, bool isNational){
 	MovementADT retVal = malloc(sizeof(MovementCDT));
 	strcpy(retVal->oaci,oaci);
-	retVal->isLocal = isLocal;
+	retVal->isNational = isNational;
 	retVal->arrivals = retVal->departures = 0;
 	return retVal;
 }
@@ -35,6 +35,10 @@ int getArrivals(MovementADT movement){
 
 int getDepartures(MovementADT movement){
 	return movement->departures;
+}
+
+bool isMovementLocal(MovementADT movement) {
+    return movement -> isNational;
 }
 
 /// --- LIST FUNCTIONS ---

@@ -56,7 +56,6 @@ void
 getDate (const char * date, int * day, int * month, int * year){
 
     int args = sscanf(date, "%2d/%2d/%4d", day, month, year);
-    return;
 
 }
 
@@ -74,7 +73,8 @@ verifyYear (const char * date, int yearGiven){
 int
 verifyString (const char * str){
 
-    int length = strlen(str), i;
+    size_t length = strlen(str);
+    int i;
 
     //  It's a flag, if type is 1 the string is only numbers, else it's a 0.
     int type = 1;

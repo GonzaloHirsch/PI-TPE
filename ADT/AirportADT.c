@@ -2,6 +2,7 @@
 #include "AirportADT.h"
 #include "ListADT.h"
 #include <string.h>
+#include "ProcessData.h"
 
 typedef struct AirportCDT {
     tLocal local;
@@ -17,9 +18,22 @@ typedef struct AirportCDT {
  AirportADT newAirport(OACI oaci){
  	AirportADT retVal = malloc(sizeof(AirportCDT));
  	strcpy(retVal->oaci, oaci);
- 	retVal->movements =  newMovementList();         //funcion de MovementADT.h
- 	retVal->unknownArrivals = retVal->unknownDepartures = 0;
+ 	retVal->movements =  newMovementList(); //        funcion de MovementADT.h
+ 	retVal -> unknownArrivals = retVal -> unknownDepartures = 0;
  	return retVal;
+ }
+
+AirportADT newAirportFromTokens(char ** tokens) {
+	AirportADT retVal = newAirport(tokens[A_OACI]);
+	setLocalCode(retVal, tokens[A_LOCAL]);
+	setIATA(retVal, tokens[A_IATA]);
+	setDenomination(retVal, tokens[A_DENOM]);
+	setTraffic(retVal, strcmp(tokens[A_TYPE], A_NATIONAL) ?  NATIONAL : INTERNATIONAL);
+	return retVal;
+}
+
+void setLocalCode(AirportADT airport, Local local){
+     strcpy(airport -> local, local);
  }
 
  void setIATA(AirportADT airport, IATA iata){
@@ -45,6 +59,7 @@ typedef struct AirportCDT {
 MovementADT getMovement(AirportADT airport, OACI oaci){
 	return getMovementElem(airport->movements, oaci);                       //funcion de listADT.h
 }
+
 
 /// --- LIST FUNCTIONS ---
 

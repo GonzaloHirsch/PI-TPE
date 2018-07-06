@@ -1,4 +1,4 @@
-#include "errorHandler.h"
+#include "ErrorHandler.h"
 #include <stdio.h>
 #include <stdlib.h>
 
