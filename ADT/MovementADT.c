@@ -1,4 +1,5 @@
-#include <endian.h>
+#include <string.h>
+#include <stdlib.h>
 #include "MovementADT.h"
 
 typedef struct MovementCDT{
@@ -36,7 +37,7 @@ int getDepartures(MovementADT movement){
 	return movement->departures;
 }
 
-///////////////////////  LIST FUNCTIONS BELOW
+/// --- LIST FUNCTIONS ---
 
 MovementList newMovementList() {
     return newList( (OACI (*) (void *)) getMovementOACI);
@@ -49,5 +50,7 @@ void addMovementElem(MovementList list, MovementADT elem) {
 MovementADT getMovementElem(MovementList list, OACI oaci) {
     return getElem(list,oaci);
 }
+
+/// --- ----
 
 

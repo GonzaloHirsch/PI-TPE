@@ -1,12 +1,11 @@
 #include "errorHandler.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void
 verifyErrorType (TErrors errorType){
 
     switch (errorType){
-
-        case NO_ERROR  :   break;
 
         case MANY_ARGS  :   printf("Se recibieron demasiados argumentos, se espera 1 solo argumento."); break;
 
@@ -22,6 +21,6 @@ verifyErrorType (TErrors errorType){
 
     }
 
-    if (errorType != NO_ERROR)
+    if(errorType != NO_ERROR)
         exit(errorType);
 }

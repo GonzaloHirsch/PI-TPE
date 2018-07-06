@@ -27,7 +27,7 @@ typedef struct AirportCDT {
  }
 
  void setDenomination(AirportADT airport, Denomination denomination){
- 	strcpy(airport->denomination, iata);
+ 	strcpy(airport->denomination, denomination);
  }
 
  void setTraffic(AirportADT airport, TTraffic traffic){
@@ -46,7 +46,7 @@ MovementADT getMovement(AirportADT airport, OACI oaci){
 	return getMovementElem(airport->movements, oaci);                       //funcion de listADT.h
 }
 
-//////////////////////// LIST FUNCTIONS BELOW
+/// --- LIST FUNCTIONS ---
 
 AirportList newAirportList(){
 	return newList( (OACI (*) (void *)) getAirportOACI);
@@ -59,3 +59,5 @@ void addAirportElem(AirportList list, AirportADT elem){
 AirportADT getAirportElem(AirportList list, OACI oaci){
 	return getElem(list,oaci);
 }
+
+/// --- ---

@@ -53,3 +53,17 @@ void *getElem(ListADT list, OACI oaci) {
     }
     return NULL;
 }
+
+void toStart(ListADT list) {
+    list -> iterator = list ->head;
+}
+
+void *getNext(ListADT list) {
+    TNode aux = list -> iterator;
+    list -> iterator = list -> iterator -> tail;
+    return aux -> elem;
+}
+
+bool hasNext(ListADT list) {
+    return list -> iterator -> tail != NULL;
+}

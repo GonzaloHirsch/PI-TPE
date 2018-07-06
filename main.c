@@ -1,10 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "ListADT.h"
-#include "AirportADT.h"
+#include "ADT/ListADT.h"
+#include "ADT/AirportADT.h"
 #include "Types.h"
-#include "MovementADT.h"
+#include "ADT/MovementADT.h"
 #include "ProcessData.h"
 #include "errorHandler.h"
 

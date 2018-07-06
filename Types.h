@@ -7,7 +7,7 @@ typedef int bool;
 #define false 0
 
 /*
- * Having all airport's types centralized allows us to no have to remember each
+ * Having all airport's types centralized allows us to not have to remember each
  * variable properties and eases and change we need in the future.
  */
 

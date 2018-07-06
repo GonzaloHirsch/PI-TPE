@@ -37,10 +37,3 @@ void * getNext(ListADT list);
 bool hasNext(ListADT list);
 
 #endif
-
-/*
- * Ejemplos de como crear listas:
- *
- * ListADT airportList = newList(getAirportOaci)
- * ListADT movementList = newList(getMovementOaci)
- */
