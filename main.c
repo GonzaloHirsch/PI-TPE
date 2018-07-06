@@ -6,16 +6,11 @@
 #include "Types.h"
 #include "MovementADT.h"
 #include "ProcessData.h"
+#include "errorHandler.h"
 
 //	Constants Definitions
 //  Movement Constants
 #define MAX_TEXT_MOVEMENT 150
-//  --------------  Token Indexes
-#define M_DATE 0
-#define M_TYPE 3
-#define M_CLASS 4
-#define M_ORIGIN 5
-#define M_DESTIN 6
 //  --------------  Named Fields
 #define ARRIVAL "Aterrizaje"
 #define DEPARTURE "Despegue"
@@ -24,22 +19,16 @@
 
 //  Airport Constants
 #define MAX_TEXT_AIRPORT 300
-//  --------------  Token Indexes
-#define A_LOCAL 0
-#define A_OACI 1
-#define A_IATA 2
-#define A_DENOM 4
-#define A_TYPE 18
 //  --------------  Named Fields
 #define NATIONAL "Nacional"
-
-
 
 //	Function Prototypes
 int movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode);
 
 int
 main (int argc, char *argv[]){
+
+    TErrors errorType = NO_ERROR;
 
 	// It receives the year as an argument and checks whether or not it is valid, if not, it shows an error message and aborts
 	int yearGiven;
@@ -54,17 +43,17 @@ main (int argc, char *argv[]){
 		if (2014 <= year && year <= 2018)
 			yearGiven = year;
 		else {
-			printf("ERROR: El año tiene que estar entre 2014 y 2018.\n");
-			exit(1);
+			errorType = ARG_OUTOF_RANGE;
 		}
 
 	} else if (argc > 2){
-		printf("ERROR: Fueron ingresados demasiados argumentos.\n");
-		exit(1);
+		errorType = MANY_ARGS;
 	} else {
-		printf("ERROR: Se espera un argumento.\n");
-		exit(1);
+		errorType = FEW_ARGS;
 	}
+
+	//  After the argument is received, it verifies whether or not it produced an error
+	verifyErrorType(errorType);
 
 	/*
 	 *	Ammount of movements per day of the week
@@ -95,7 +84,7 @@ main (int argc, char *argv[]){
  *	Return Values:	0 - if everything works
  *					1 - if there was an error while trying to open the file
  */
-int
+TErrors
 movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode){
 
     //  File opening and verification
@@ -105,7 +94,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	movementsFile = fopen("Dataset/archivoVuelos.csv", "r");
 	if (movementsFile == NULL){
 		printf("ERROR: El archivo archivoVuelos.csv no pudo ser abierto.\n");
-		return 1;
+		return CANT_OPEN_MOV;
 	}
     //  ------------------------------------------------------------------------------------------
 
@@ -212,7 +201,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	return 0;
 }
 
-int
+TErrors
 airportProcessing (){
 
 	//  File opening and verification
@@ -223,7 +212,7 @@ airportProcessing (){
 	if (airportsFile == NULL){
 		printf("ERROR: El archivo archivoAeropuertos.csv no pudo ser abierto.\n");
 		// TODO SACAR EL MENSAJE DE ERROR ESTE, Y HACER UN ARRAY CON TODOS LOS ERRORES PARA ORDENAR MEJOR
-		return 1;
+		return CANT_OPEN_AIRP;
 	}
 	//  ------------------------------------------------------------------------------------------
 
