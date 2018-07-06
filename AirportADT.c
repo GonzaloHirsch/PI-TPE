@@ -18,6 +18,7 @@ typedef struct AirportCDT {
  	AirportADT retVal = malloc(sizeof(AirportCDT));
  	strcpy(retVal->oaci, oaci);
  	retVal->movements =  newMovementList();         //funcion de MovementADT.h
+ 	retVal->unknownArrivals = retVal->unknownDepartures = 0;
  	return retVal;
  }
 
