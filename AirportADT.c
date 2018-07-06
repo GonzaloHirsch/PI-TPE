@@ -46,6 +46,8 @@ MovementADT getMovement(AirportADT airport, OACI oaci){
 	return getMovementElem(airport->movements, oaci);                       //funcion de listADT.h
 }
 
+//////////////////////// LIST FUNCTIONS BELOW
+
 AirportList newAirportList(){
 	return newList( (OACI (*) (void *)) getAirportOACI);
 }

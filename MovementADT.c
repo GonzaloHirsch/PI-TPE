@@ -8,6 +8,36 @@ typedef struct MovementCDT{
   int departures;
 } MovementCDT;
 
+MovementADT newMovement(OACI oaci, bool isLocal){
+	MovementADT retVal = malloc(sizeof(MovementCDT));
+	strcpy(retVal->oaci,oaci);
+	retVal->isLocal = isLocal;
+	retVal->arrivals = retVal->departures = 0;
+	return retVal;
+}
+
+OACI getMovementOACI(MovementADT movement){
+	return movement->oaci;
+}
+
+void addArrival(MovementADT movement, int amount){
+	movement->arrivals += amount;
+}
+
+void addDeparture(MovementADT movement, int amount){
+	movement->departures += amount;
+}
+
+int getArrivals(MovementADT movement){
+	return movement->arrivals;
+}
+
+int getDepartures(MovementADT movement){
+	return movement->departures;
+}
+
+///////////////////////  LIST FUNCTIONS BELOW
+
 MovementList newMovementList() {
     return newList( (OACI (*) (void *)) getMovementOACI);
 }
