@@ -30,8 +30,8 @@ typedef char * Denomination;
 typedef enum { INTERNATIONAL, NATIONAL } TTraffic;
 
 // Error types the program could encounter
-typedef error errorTypes[7];
-typedef char * error;
+typedef enum { NO_ERROR = 0, MANY_ARGS, FEW_ARGS, ARG_NOT_YEAR, ARG_OUTOF_RANGE, NOT_OPEN_MOV, NOT_OPEN_AIRP } TErrors;
+
 
 
 errorTypes allErrors = {
