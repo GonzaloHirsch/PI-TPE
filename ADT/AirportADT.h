@@ -1,7 +1,6 @@
 #include "Types.h"
 #include "MovementADT.h"
 #include "ListADT.h"
-#include "Types.h"
 
 #ifndef _AirportADT_h
 #define _AirportADT_h

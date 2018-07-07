@@ -35,10 +35,9 @@ TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *)){
     else if(c < 0){
         node -> tail = addElemRec(node -> tail, elem, getOaci);
         return node;
-    } else{
+    } else {
 
         verifyErrorType(MULTIPLE_ELEMS_OACI);
-        // TODO: PRINT ERROR. MULTIPLE ELEMENTS WITH SAME OACI
     }
 }
 

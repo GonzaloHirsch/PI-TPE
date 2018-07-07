@@ -8,40 +8,20 @@
 #include "ProcessData.h"
 #include "ErrorHandler.h"
 
+
+/*
+ *	Verifies whether the input the user gave is valid or not.
+ *
+ */
+int verifyInput (int argc, char ** argv);
+
 int
 main (int argc, char *argv[]){
 
-    TErrors errorType = NO_ERROR;
+    TErrors errorType;
 
 	// It receives the year as an argument and checks whether or not it is valid, if not, it shows an error message and aborts
-	int yearGiven;
-	int year;
-
-	//	If only one argument is passed, argc is 2, because there is argv[0]
-	if (argc == 2){
-
-	    if (verifyString(argv[1])){
-
-            //	The index is 1, because argv[0] has the file name
-            sscanf(argv[1], "%d", &year);
-
-            if (2014 <= year && year <= 2018)
-                yearGiven = year;
-            else {
-                errorType = ARG_OUTOF_RANGE;
-            }
-
-	    } else
-	        errorType = ARG_NOT_YEAR;
-
-	} else if (argc > 2){
-		errorType = MANY_ARGS;
-	} else {
-		errorType = FEW_ARGS;
-	}
-
-	//  After the argument is received, it verifies whether or not it produced an error
-	verifyErrorType(errorType);
+	int year = verifyInput(argc, argv);
 
 	/*
 	 *	Ammount of movements per day of the week
@@ -75,12 +55,44 @@ main (int argc, char *argv[]){
 	verifyErrorType(errorType);
 
 	//	Processes all movements.
-	errorType = movementsProcessing(airportList, yearGiven, movPerDay, dayCode, monthCode, yearCode);
+	errorType = movementsProcessing(airportList, year, movPerDay, dayCode, monthCode, yearCode);
 
 	//	Verify if there was an error.
 	verifyErrorType(errorType);
 	
 	//TODO llamar a los queries
 
-	return errorType;
+	return 0;
+}
+
+int
+verifyInput (int argc, char ** argv){
+
+	int year;
+	TErrors errorType = NO_ERROR;
+
+	//	If only one argument is passed, argc is 2, because there is argv[0]
+	if (argc == 2){
+
+		if (verifyString(argv[1])){
+
+			//	The index is 1, because argv[0] has the file name
+			sscanf(argv[1], "%d", &year);
+
+			if (!(2014 <= year && year <= 2018))
+				errorType = ARG_OUTOF_RANGE;
+
+		} else
+			errorType = ARG_NOT_YEAR;
+
+	} else if (argc > 2){
+		errorType = MANY_ARGS;
+	} else {
+		errorType = FEW_ARGS;
+	}
+
+	//  After the argument is received, it verifies whether or not it produced an error
+	verifyErrorType(errorType);
+
+	return year;
 }

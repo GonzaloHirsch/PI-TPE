@@ -36,12 +36,13 @@ separateToken(char *str, char del, char ** strArr, size_t dim) {
 int
 isUnknownOACI(const char * airportOACI){
 
-    int formatA, formatB, formatB;
+    int formatA, formatB, formatC;
     int aux;
+    char auxStr;
 
     formatA = sscanf(airportOACI, "SA%2d", &aux);
     formatB = sscanf(airportOACI, "AR-%4d", &aux);
-    formatC = sscanf(airportOACI, "N/%1s", &aux);
+    formatC = sscanf(airportOACI, "N/%1s", &auxStr);
 
     return formatA || formatB || formatC;
 
@@ -62,7 +63,7 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
 void
 getDate (const char * date, int * day, int * month, int * year){
 
-    int args = sscanf(date, "%2d/%2d/%4d", day, month, year);
+    sscanf(date, "%2d/%2d/%4d", day, month, year);
 
 }
 
@@ -71,7 +72,7 @@ verifyYear (const char * date, int yearGiven){
 
     int year;
 
-    int args = sscanf(date, "%*d/%*d/%4d", &year);
+    sscanf(date, "%*d/%*d/%4d", &year);
 
     return year == yearGiven;
 
@@ -109,7 +110,7 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
     //  ------------------------------------------------------------------------------------------
 
     char fileLine[MAX_TEXT_MOVEMENT];
-    char separator[] = ";";
+    char separator = ';';
     /*
     char tokens[10][30];
     char * token;
@@ -229,10 +230,10 @@ airportProcessing (AirportList airportList){
 
     //  File opening and verification
     //  ------------------------------------------------------------------------------------------
-    FILE * airportsFile;
+    FILE * movementsFile;
 
-    airportsFile = fopen("Dataset/archivoAeropuertos.csv", "r");
-    if (airportsFile == NULL)
+    movementsFile = fopen("Dataset/archivoAeropuertos.csv", "r");
+    if (movementsFile == NULL)
         return CANT_OPEN_AIRP;
     //  ------------------------------------------------------------------------------------------
 
@@ -241,10 +242,10 @@ airportProcessing (AirportList airportList){
     char * tokens[23];
 
     //	 We discard the first line because it has the field names.
-    fgets(fileLine, MAX_TEXT_MOVEMENT, airportsFile);
+    fgets(fileLine, MAX_TEXT_MOVEMENT, movementsFile);
 
     //  Iterating for each line in the file
-    while (fgets(fileLine, MAX_TEXT_MOVEMENT, airportsFile) != NULL){
+    while (fgets(fileLine, MAX_TEXT_MOVEMENT, movementsFile) != NULL){
 
         //	We separate the line extracted into all the tokes, knowing the ones we want
         separateToken(fileLine, separator, tokens, 23);

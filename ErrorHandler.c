@@ -7,6 +7,8 @@ verifyErrorType (TErrors errorType){
 
     switch (errorType){
 
+        case NO_ERROR   :   break;
+
         case MANY_ARGS  :   printf("ERROR: Se recibieron demasiados argumentos, se espera 1 solo argumento.\n"); break;
 
         case FEW_ARGS   :   printf("ERROR: Se recibieron pocos argumentos, se espera 1 solo argumento.\n");  break;
@@ -19,7 +21,8 @@ verifyErrorType (TErrors errorType){
 
         case CANT_OPEN_AIRP :   printf("ERROR: Al tratar de abrir el archivo de vuelos.\n");   break;
 
-        case MULTIPLE_ELEMS_OACI    :   printf("ERROR: Multiples elementos con el mismo codigo OACI en una lista.\n");
+        case MULTIPLE_ELEMS_OACI    :   printf("ERROR: Multiples elementos con el mismo codigo OACI en una lista.\n");  break;
+
     }
 
     if(errorType != NO_ERROR)
