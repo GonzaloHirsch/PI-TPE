@@ -107,4 +107,28 @@ int verifyYear (const char * date, int yearGiven);
  */
 int verifyString (const char * str);
 
+/*
+ *	Function to process all data from the flights file.
+ *	Parameters:
+ *	    ListADT airportList --> List containing all the airports.
+ *	    int yearGiven --> The year the user input.
+ *	    int * movPerDay --> Array containing movements per day of the week.
+ *	    int * dayCode --> Array containing codes for each day of the week.
+ *	    int * monthCode --> Array containing codes for each month.
+ *	    int * yearCode --> Array containing codes for each possible year
+ *	Return Values:	NO_ERROR - if everything works
+ *					CANT_OPEN_MOV - if there was an error while trying to open the file
+ */
+TErrors movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearcode);
+
+/*  Function to process all data from the airports file.
+ * Parameters:
+ *      ListADT airportList --> List containing all the airports or an empty list.
+ * Return Values:
+ *      NO_ERROR - if everything works
+ *		CANT_OPEN_AIRP - if there was an error while trying to open the file
+ *
+ */
+TErrors airportProcessing (ListADT airportList);
+
 #endif
