@@ -19,7 +19,6 @@ AirportADT newAirport(OACI oaci);
  */
 AirportADT newAirportFromTokens(char ** tokens);
 
-
 /*
  * Sets the airport's Local Code
  */
@@ -49,6 +48,16 @@ OACI getAirportOACI(AirportADT airport);
  * Adds a MovementADT to the Airport's list of movements
  */
 void addMovement(AirportADT airport, MovementADT movement);
+
+/*
+ * Adds a certain amount of unknown departures to the airport passed.
+ */
+void addUnknownDeparture (AirportADT airport, int amount);
+
+/*
+ * Adds a certain amount of unknown arrivals to the airport passed.
+ */
+void addUnknownArrival (AirportADT airport, int amount);
 
 /*
  * Returns the MovementADT which corresponds to the OACI specified in the airport's movements list

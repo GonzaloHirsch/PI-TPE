@@ -32,7 +32,7 @@ AirportADT newAirportFromTokens(char ** tokens) {
 	return retVal;
 }
 
-void setLocalCode(AirportADT airport, Local local){
+ void setLocalCode(AirportADT airport, Local local){
      strcpy(airport -> local, local);
  }
 
@@ -47,6 +47,14 @@ void setLocalCode(AirportADT airport, Local local){
  void setTraffic(AirportADT airport, TTraffic traffic){
  	airport->traffic = traffic;
  }
+
+ void addUnknownDeparture (AirportADT airport, int amount){
+     airport->unknownDepartures += amount;
+ }
+
+ void addUnknownArrival (AirportADT airport, int amount){
+    airport->unknownArrivals += amount;
+}
 
  OACI getAirportOACI(AirportADT airport){
  	return airport->oaci;
