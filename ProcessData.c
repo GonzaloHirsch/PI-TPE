@@ -159,32 +159,28 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
             //	Checks if the movement is a departure
             if (isDeparture){
 
-                //  If the OACI code from the departure airport is unknown, we skip it
-                if (isOriginKnown){
+                //	It gets the airport with the specified OACI code
+                auxAirport = getAirportElem(airportList, tokens[M_ORIGIN]);
 
-                    //	It gets the airport with the specified OACI code
-                    auxAirport = getAirportElem(airportList, tokens[M_ORIGIN]);
+                //  If the OACI code from the departure airport is unknown, we skip it
+                if (isOriginKnown && auxAirport != NULL){
 
                     //  If the OACI code from the arrival airport is unknown, we can't add it to the list, but the movement counts
                     if (isDestinKnown) {
 
-                        //	If the pointer is null, it means that the airport is not in the airport list
-                        if (auxAirport != NULL){
+                        auxMovement = getMovement(auxAirport, tokens[M_DESTIN]);
 
-                            auxMovement = getMovement(auxAirport, tokens[M_DESTIN]);
+                        //	If the pointer is NULL, it means there is no previous movement with that airport
+                        if (auxMovement == NULL) {
 
-                            //	If the pointer is NULL, it means there is no previous movement with that airport
-                            if (auxMovement == NULL) {
+                            //	It creates a new movement, increases the counter and adds it to the airport
+                            auxMovement = newMovement(tokens[M_DESTIN], isLocal);
+                            //	We can't increment outside the if statement because we have to do it before adding it to the list
+                            addDeparture(auxMovement, 1);
+                            addMovement(auxAirport, auxMovement);
 
-                                //	It creates a new movement, increases the counter and adds it to the airport
-                                auxMovement = newMovement(tokens[M_DESTIN], isLocal);
-                                //	We can't increment outside the if statement because we have to do it before adding it to the list
-                                addDeparture(auxMovement, 1);
-                                addMovement(auxAirport, auxMovement);
-
-                            } else {
-                                addDeparture(auxMovement, 1);
-                            }
+                        } else {
+                            addDeparture(auxMovement, 1);
                         }
                     }
 
@@ -193,32 +189,28 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
                 }
             } else {	//	This is if the movement is an arrival
 
-                //  If the OACI code from the arrival airport is unknown, we skip it
-                if (isDestinKnown) {
+                //	It gets the airport with the specified OACI code
+                auxAirport = getAirportElem(airportList, tokens[M_DESTIN]);
 
-                    //	It gets the airport with the specified OACI code
-                    auxAirport = getAirportElem(airportList, tokens[M_DESTIN]);
+                //  If the OACI code from the arrival airport is unknown, we skip it
+                if (isDestinKnown && auxAirport != NULL) {
 
                     //  If the OACI code form the departure airport is unknown, we cant add it to the list, but the movement counts
                     if (isOriginKnown) {
 
-                        //	If the pointer is null, it means that the airport is not in the airport list
-                        if (auxAirport != NULL){
+                        auxMovement = getMovement(auxAirport, tokens[M_ORIGIN]);
 
-                            auxMovement = getMovement(auxAirport, tokens[M_ORIGIN]);
+                        //	If the pointer is NULL, it means there is no previous movement with that airport
+                        if (auxMovement == NULL) {
 
-                            //	If the pointer is NULL, it means there is no previous movement with that airport
-                            if (auxMovement == NULL) {
+                            //	It creates a new movement, increases the counter and adds it to the airport
+                            auxMovement = newMovement(tokens[M_ORIGIN], isLocal);
+                            //	We can't increment outside the if statement because we have to do it before adding it to the list
+                            addArrival(auxMovement, 1);
+                            addMovement(auxAirport, auxMovement);
 
-                                //	It creates a new movement, increases the counter and adds it to the airport
-                                auxMovement = newMovement(tokens[M_ORIGIN], isLocal);
-                                //	We can't increment outside the if statement because we have to do it before adding it to the list
-                                addArrival(auxMovement, 1);
-                                addMovement(auxAirport, auxMovement);
-
-                            } else {
-                                addArrival(auxMovement, 1);
-                            }
+                        } else {
+                            addArrival(auxMovement, 1);
                         }
                     }
 
