@@ -191,7 +191,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 }
 
 TErrors
-airportProcessing (){
+airportProcessing (ListADT airportList){
 
 	//  File opening and verification
 	//  ------------------------------------------------------------------------------------------
