@@ -18,9 +18,25 @@
 #define A_NATIONAL "Nacional"
 
 //  All the token indexes we are interested in, in the movements file.
+/*
+	 * We are interested in tokens with indexes 0 / 3 / 4 / 5 / 6
+	 * 		Token 0 :	Movement date
+	 * 		Token 3 :	Flight type (internacional o nacional)
+	 * 		Token 4 :	Flight classification (aterrizaje o despegue)
+	 * 		Token 5 :	Origin OACI
+	 * 		Token 6 :	Destination OACI
+	 */
 typedef enum { M_DATE = 0, M_TYPE = 3, M_CLASS = 4, M_ORIGIN = 5, M_DESTIN = 6 } TokenMovIndex;
 
 //  All the token indexes we are interested in, in the airports file.
+/*
+	 * We are interested in tokens with indexes 0 / 1 / 2 / 4 / 18
+	 * 		Token 0 :	Local Code
+	 * 		Token 1 :	OACI Code
+	 * 		Token 2 :	IATA Code
+	 * 		Token 4 :	Denomination
+	 * 		Token 18 :	Traffic Type (Nacional o Internacional)
+	 */
 typedef enum {A_LOCAL = 0, A_OACI = 1, A_IATA = 2, A_DENOM = 4, A_TYPE = 18 } TokenAirpIndex;
 
 /*

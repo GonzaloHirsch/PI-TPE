@@ -93,15 +93,6 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 	char * token;
 	int counter;
 
-	/*
-	 * We are interested in tokens with indexes 0 / 3 / 4 / 5 / 6
-	 * 		Token 0 :	Movement date
-	 * 		Token 3 :	Flight type (internacional o nacional)
-	 * 		Token 4 :	Flight classification (aterrizaje o despegue)
-	 * 		Token 5 :	Origin OACI
-	 * 		Token 6 :	Destination OACI
-	 */
-
 	//	We discard the first line of the file for being the names of the fields
 	fgets(fileLine, MAX_TEXT_MOVEMENT, movementsFile);
 
@@ -206,15 +197,6 @@ airportProcessing (ListADT airportList){
 	char separator = ';';
 	char * tokens[23];
 
-	/*
-	 * We are interested in tokens with indexes 0 / 1 / 2 / 4 / 18
-	 * 		Token 0 :	Local Code
-	 * 		Token 1 :	OACI Code
-	 * 		Token 2 :	IATA Code
-	 * 		Token 4 :	Denomination
-	 * 		Token 18 :	Traffic Type (Nacional o Internacional)
-	 */
-
 	//	 We discard the first line because it has the field names.
 	fgets(fileLine, MAX_TEXT_MOVEMENT, airportsFile);
 
@@ -224,10 +206,15 @@ airportProcessing (ListADT airportList){
 		//	We separate the line extracted into all the tokes, knowing the ones we want
 		separateToken(fileLine, separator, tokens, 23);
 
-		//	If the OACI code for that airport is blank (length 0 / it contains only a 0), it is not going to have recorded movements, so we don't care about it.
-		if (tokens[1][0] != 0){
+		/*
+		 * If the OACI code for that airport is blank (length 0 / it contains only a 0),
+		 * it is not going to have recorded movements, so we don't care about it.
+		 */
+		if (tokens[A_OACI][0] != 0){
 
             bool isNational = !strcmp(tokens[A_TYPE], A_NATIONAL);
+
+            x
 
 			//TODO USAR FUNCION PARA AGREGAR UN AEROPUERTO NUEVO
 
