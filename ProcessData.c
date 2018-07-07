@@ -156,14 +156,13 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
             bool isOriginKnown = !(isUnknownOACI(tokens[M_ORIGIN]));
             bool isDestinKnown = !(isUnknownOACI(tokens[M_DESTIN]));
 
-            //TODO verificar si el oaci esta o no en la lista
             //	Checks if the movement is a departure
             if (isDeparture){
 
                 //	It gets the airport with the specified OACI code
                 auxAirport = getAirportElem(airportList, tokens[M_ORIGIN]);
 
-                //  If the OACI code from the departure airport is unknown, we skip it
+                //  If the OACI code from the departure airport is unknown, or if it's not in the airports file, we skip it
                 if (isOriginKnown && auxAirport != NULL){
 
                     //  If the OACI code from the arrival airport is unknown, we can't add it to the list, but the movement counts
@@ -193,7 +192,7 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
                 //	It gets the airport with the specified OACI code
                 auxAirport = getAirportElem(airportList, tokens[M_DESTIN]);
 
-                //  If the OACI code from the arrival airport is unknown, we skip it
+                //  If the OACI code from the arrival airport is unknown, or if it's not in the airports file, we skip it
                 if (isDestinKnown && auxAirport != NULL) {
 
                     //  If the OACI code form the departure airport is unknown, we cant add it to the list, but the movement counts
