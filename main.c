@@ -65,10 +65,22 @@ main (int argc, char *argv[]){
 	 */
 	int yearCode[5] = {3, 4, 6, 0, 1};
 
+	//	Creates the list containing all the airports.
+	AirportList airportList = newAirportList();
 
+	//	Processes all movements.
+	errorType = airportProcessing(airportList);
 
-	//TODO crear una lista vacia para los aeropuertos
-	//TODO llamar a las funciones que procesan
-	//TODO despues de cada proceso, verificar que no haya habido ningun error
+	//	Verify if there was an error.
+	verifyErrorType(errorType);
 
+	//	Processes all movements.
+	errorType = movementsProcessing(airportList, yearGiven, movPerDay, dayCode, monthCode, yearCode);
+
+	//	Verify if there was an error.
+	verifyErrorType(errorType);
+	
+	//TODO llamar a los queries
+
+	return errorType;
 }

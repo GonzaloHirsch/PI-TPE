@@ -97,7 +97,7 @@ verifyString (const char * str){
 }
 
 TErrors
-movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearCode){
+movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearCode){
 
     //  File opening and verification
     //  ------------------------------------------------------------------------------------------
@@ -155,6 +155,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             bool isOriginKnown = !(isUnknownOACI(tokens[M_ORIGIN]));
             bool isDestinKnown = !(isUnknownOACI(tokens[M_DESTIN]));
 
+            //TODO verificar si el oaci esta o no en la lista
             //	Checks if the movement is a departure
             if (isDeparture){
 
@@ -232,7 +233,7 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
 }
 
 TErrors
-airportProcessing (ListADT airportList){
+airportProcessing (AirportList airportList){
 
     //  File opening and verification
     //  ------------------------------------------------------------------------------------------
