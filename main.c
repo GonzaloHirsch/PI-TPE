@@ -212,12 +212,24 @@ airportProcessing (ListADT airportList){
 		 */
 		if (tokens[A_OACI][0] != 0){
 
-            bool isNational = !strcmp(tokens[A_TYPE], A_NATIONAL);
+			AirportADT airportAux = getAirportElem(airportList, tokens[A_OACI]);
 
-            x
+			//	If there is no airport with that OACI code, it adds it to the airport list
+			if (airportAux == NULL){
 
-			//TODO USAR FUNCION PARA AGREGAR UN AEROPUERTO NUEVO
+				bool isNational = !strcmp(tokens[A_TYPE], A_NATIONAL);
 
+				//	Creating a new airport with all its fields complete
+				airportAux = newAirport(tokens[A_OACI]);
+				setLocalCode(airportAux, tokens[A_LOCAL]);
+				setIATA(airportAux, tokens[A_IATA]);
+				setDenomination(airportAux, tokens[A_DENOM]);
+				setTraffic(airportAux, isNational ?  NATIONAL : INTERNATIONAL);
+
+				//	Adds the new airport to the airport list
+				addAirportElem(airportList, airportAux);
+
+			}
 		}
 	}
 
