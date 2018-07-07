@@ -1,4 +1,10 @@
 #include "ProcessData.h"
+#include "ADT/ListADT.h"
+#include "ADT/AirportADT.h"
+#include "Types.h"
+#include "ADT/MovementADT.h"
+#include "ProcessData.h"
+#include "ErrorHandler.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -149,20 +155,17 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
             bool isOriginKnown = !(isUnknownOACI(tokens[M_ORIGIN]));
             bool isDestinKnown = !(isUnknownOACI(tokens[M_DESTIN]));
 
-            //TODO ver el caso si origen y destino son iguales
-            //TODO definir un OACI especial para desconocidos
-
             //	Checks if the movement is a departure
             if (isDeparture){
 
                 //  If the OACI code from the departure airport is unknown, we skip it
                 if (isOriginKnown){
 
+                    //	It gets the airport with the specified OACI code
+                    auxAirport = getAirportElem(airportList, tokens[M_ORIGIN]);
+
                     //  If the OACI code from the arrival airport is unknown, we can't add it to the list, but the movement counts
                     if (isDestinKnown) {
-
-                        //	It gets the airport with the specified OACI code
-                        auxAirport = getAirportElem(airportList, tokens[M_ORIGIN]);
 
                         //	If the pointer is null, it means that the airport is not in the airport list
                         if (auxAirport != NULL){
@@ -184,18 +187,19 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
                         }
                     }
 
-                    //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
+                    //  Increases the unknown departures by 1.
+                    addUnknownDeparture(auxAirport, 1);
                 }
             } else {	//	This is if the movement is an arrival
 
                 //  If the OACI code from the arrival airport is unknown, we skip it
                 if (isDestinKnown) {
 
+                    //	It gets the airport with the specified OACI code
+                    auxAirport = getAirportElem(airportList, tokens[M_DESTIN]);
+
                     //  If the OACI code form the departure airport is unknown, we cant add it to the list, but the movement counts
                     if (isOriginKnown) {
-
-                        //	It gets the airport with the specified OACI code
-                        auxAirport = getAirportElem(airportList, tokens[M_DESTIN]);
 
                         //	If the pointer is null, it means that the airport is not in the airport list
                         if (auxAirport != NULL){
@@ -215,9 +219,10 @@ movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay, int * 
                                 addArrival(auxMovement, 1);
                             }
                         }
-                        //TODO incrementar el contador total en 1 (no necesito un else, lo voy a hacer igual)
-
                     }
+
+                    //  Increases the unknown arrivals counter by 1.
+                    addUnknownArrival(auxAirport, 1);
                 }
             }
         }
