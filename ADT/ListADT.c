@@ -14,12 +14,14 @@ typedef struct node * TNode;
         TNode head;
         TNode iterator;
         OACI (* getOaci) (void *);
+        void (* freeElem) (void *);
  };
 
 
-ListADT newList(OACI (*getOaci)(void *)) {
+ListADT newList(OACI (*getOaci)(void *), void (* freeElem)(void *)) {
     ListADT list = calloc(1, sizeof(*list));
     list -> getOaci = getOaci;
+    list -> freeElem = freeElem;
     return list;
 }
 
@@ -56,8 +58,19 @@ void *getElem(ListADT list, OACI oaci) {
     return NULL;
 }
 
+void freeListADT(ListADT list){
+    TNode node = list -> head;
+    while (node != NULL){
+        list->freeElem(node -> elem);
+        TNode aux = node -> tail;
+        free(node);
+        node = aux;
+    }
+    free(list);
+}
+
 void toStart(ListADT list) {
-    list -> iterator = list ->head;
+    list -> iterator = list -> head;
 }
 
 void *getNext(ListADT list) {
@@ -67,5 +80,13 @@ void *getNext(ListADT list) {
 }
 
 bool hasNext(ListADT list) {
-    return list -> iterator -> tail != NULL;
+    return list -> iterator != NULL;
 }
+
+/*
+ * AirportList list = newAirportList(...) ... Agrego Datos ...
+ * toStart(list)
+ * while(hasNext(list))
+ *      AirportADT airport = (AirportADT) getNext(list)
+ *      printf(getAirportOACI(airport))
+ */
