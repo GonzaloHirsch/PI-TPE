@@ -7,7 +7,7 @@
 #include "ADT/MovementADT.h"
 #include "ProcessData.h"
 #include "ErrorHandler.h"
-
+#include "Querys.h"
 
 /*
  *	Verifies whether the input the user gave is valid or not.
@@ -59,7 +59,12 @@ main (int argc, char *argv[]){
 
 	//	Verify if there was an error.
 	verifyErrorType(errorType);
-	
+
+    errorType = Query3(movPerDay);
+
+    //	Verify if there was an error.
+    verifyErrorType(errorType);
+
 	//TODO llamar a los queries
 
 	return 0;
@@ -68,15 +73,16 @@ main (int argc, char *argv[]){
 int
 verifyInput (int argc, char ** argv){
 
-	int year;
+    //  We give it 0 as a value just to have it initialized.
+	int year = 0;
 	TErrors errorType = NO_ERROR;
 
-	//	If only one argument is passed, argc is 2, because there is argv[0]
+	//	If only one argument is passed, argc is 2, because there is argv[0].
 	if (argc == 2){
 
 		if (verifyString(argv[1])){
 
-			//	The index is 1, because argv[0] has the file name
+			//	The index is 1, because argv[0] has the file name.
 			sscanf(argv[1], "%d", &year);
 
 			if (!(2014 <= year && year <= 2018))
@@ -91,7 +97,7 @@ verifyInput (int argc, char ** argv){
 		errorType = FEW_ARGS;
 	}
 
-	//  After the argument is received, it verifies whether or not it produced an error
+	//  After the argument is received, it verifies whether or not it produced an error.
 	verifyErrorType(errorType);
 
 	return year;
