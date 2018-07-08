@@ -62,7 +62,7 @@ void addMovementElem(MovementList list, MovementADT elem);
  */
 MovementADT getMovementElem(MovementList list, OACI oaci);
 
-/* TODO FREE MOVEMENT
+/*
  * Free memory
  */
 void freeMovementADT(MovementADT movement);
