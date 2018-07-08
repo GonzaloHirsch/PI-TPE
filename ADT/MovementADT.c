@@ -41,10 +41,14 @@ bool isMovementLocal(MovementADT movement) {
     return movement -> isNational;
 }
 
+void freeMovementADT(MovementADT movement){
+    free(movement);
+}
+
 /// --- LIST FUNCTIONS ---
 
 MovementList newMovementList() {
-    return newList( (OACI (*) (void *)) getMovementOACI);
+    return newList( (OACI (*) (void *)) getMovementOACI, (void (*) (void *)) freeMovementADT);
 }
 
 void addMovementElem(MovementList list, MovementADT elem) {
