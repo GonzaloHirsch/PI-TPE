@@ -34,15 +34,16 @@ separateToken(char *str, char del, char ** strArr, size_t dim) {
 int
 isUnknownOACI(const char * airportOACI){
 
-    int formatA, formatB, formatC;
+    int formatA, formatB, formatC, formatD;
     int aux;
     char auxStr;
 
     formatA = sscanf(airportOACI, "SA%2d", &aux);
     formatB = sscanf(airportOACI, "AR-%4d", &aux);
     formatC = sscanf(airportOACI, "N/%1s", &auxStr);
+    formatD = strlen(airportOACI) > 4;
 
-    return formatA || formatB || formatC;
+    return formatA || formatB || formatC || formatD;
 
 }
 
