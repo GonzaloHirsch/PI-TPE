@@ -76,19 +76,22 @@ Query4(AirportList airportList){
 
         AirportADT airport = (AirportADT) getNext(airportList);
 
-        MovementList movementList = getMovementList(airport);
+        if (getAirportTotalMovements(airport) != 0){
 
-        toStart(movementList);
+            MovementList movementList = getMovementList(airport);
 
-        fprintf(newFile, "%s;;%d;%d\n", getAirportOACI(airport), getAirportUnknownDepartures(airport), getAirportUnknownArrivals(airport));
+            toStart(movementList);
 
-        while(hasNext(movementList)){
+            fprintf(newFile, "%s;;%d;%d\n", getAirportOACI(airport), getAirportUnknownDepartures(airport), getAirportUnknownArrivals(airport));
 
-            MovementADT movement = (MovementADT) getNext(movementList);
+            while(hasNext(movementList)){
 
-            //  Prints the line to the file
-            fprintf(newFile, "%s;%s;%d;%d\n", getAirportOACI(airport), getMovementOACI(movement), getDepartures(movement), getArrivals(movement));
+                MovementADT movement = (MovementADT) getNext(movementList);
 
+                //  Prints the line to the file
+                fprintf(newFile, "%s;%s;%d;%d\n", getAirportOACI(airport), getMovementOACI(movement), getDepartures(movement), getArrivals(movement));
+
+            }
         }
     }
     fclose(newFile);
