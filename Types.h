@@ -24,6 +24,7 @@ typedef char tIATA[4];
 typedef char * IATA;
                                        
 // Name of an airport (Can contain ASCII extensions)
+typedef char tDenomination[71];
 typedef char * Denomination;
 
 // Traffic type of an airport.
