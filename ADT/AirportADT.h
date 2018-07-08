@@ -20,6 +20,16 @@ AirportADT newAirport(OACI oaci);
 AirportADT newAirportFromTokens(char ** tokens);
 
 /*
+ * Returns the amount of unknown departuras of the airport passed through the parameters.
+ */
+int getAirportUnknownDepartures(AirportADT airport);
+
+/*
+ * Returns the amount of unknown arrivals of the airport passed through the parameters.
+ */
+int getAirportUnknownArrivals(AirportADT airport);
+
+/*
  * Sets the airport's Local Code
  */
 void setLocalCode(AirportADT airport, Local local);
