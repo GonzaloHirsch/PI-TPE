@@ -50,10 +50,15 @@ isUnknownOACI(const char * airportOACI){
 int
 dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode){
 
-    int day, month, year;
+    int day, month, year, specialMonthCode;
     getDate(date, &day, &month, &year);
 
-    int dayOfWeekIndex = dayCode[day % 7] + monthCode[month - 1] + yearCode[year - 2014];
+    if (year == 2016 && (month == 1 || month == 2))
+        specialMonthCode = monthCode[month - 1] - 1;
+    else
+        specialMonthCode = monthCode[month - 1];
+
+    int dayOfWeekIndex = dayCode[day % 7] + specialMonthCode + yearCode[year - 2014];
 
     return dayOfWeekIndex % 7;
 
