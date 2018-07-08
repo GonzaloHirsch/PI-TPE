@@ -75,7 +75,7 @@ void * getNext(ListADT list){
 void freeList(listADT list){
 	toStart(list);
 	TNode aux;
-	while(list->iterator){
+	while(hasNext(list)){
 		list->freeNode(list->iterator->elem);
 		aux = list->iterator;
 		list->iterator = list->iterator->tail;
