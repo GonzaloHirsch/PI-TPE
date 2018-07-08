@@ -1,9 +1,7 @@
 #include "ProcessData.h"
-#include "ADT/ListADT.h"
 #include "ADT/AirportADT.h"
 #include "Types.h"
 #include "ADT/MovementADT.h"
-#include "ProcessData.h"
 #include "ErrorHandler.h"
 #include <stdlib.h>
 #include <stdio.h>
