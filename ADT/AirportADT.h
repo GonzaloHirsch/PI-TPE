@@ -50,6 +50,11 @@ OACI getAirportOACI(AirportADT airport);
 Local getAirportLocal(AirportADT airport);
 
 /*
+ * Returns a list containing all the movements of the airport passed through the parameters.
+ */
+MovementList getMovementList(AirportADT airport);
+
+/*
  * Returns the denomination of the airport passed through the parameters.
  */
 Denomination getAirportDenomination(AirportADT airport);

@@ -71,7 +71,7 @@ Query4(AirportList airportList){
 
         AirportADT airport = (AirportADT) getNext(airportList);
 
-        MovementList movementList =;
+        MovementList movementList = getMovementList(airport);
 
         toStart(movementList);
 
@@ -84,7 +84,6 @@ Query4(AirportList airportList){
 
         }
     }
-
     fclose(newFile);
     return NO_ERROR;
 }

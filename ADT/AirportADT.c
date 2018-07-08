@@ -99,6 +99,10 @@ IATA getAirportIATA(AirportADT airport){
     return airport->iata;
 }
 
+MovementList getMovementList(AirportADT airport){
+     return airport->movements;
+ }
+
  void addMovement(AirportADT airport, MovementADT movement){
  	addMovementElem(airport->movements, movement);                         //funcion de listADT.h
  }
