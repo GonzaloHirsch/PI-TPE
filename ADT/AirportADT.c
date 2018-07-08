@@ -103,15 +103,21 @@ IATA getAirportIATA(AirportADT airport){
  	addMovementElem(airport->movements, movement);                         //funcion de listADT.h
  }
 
-MovementADT getMovement(AirportADT airport, OACI oaci){
+MovementADT getMovement(AirportADT airport, OACI oaci){ // TODO: SE PODRIA BORRAR ESTA FUNCION
 	return getMovementElem(airport->movements, oaci);                       //funcion de listADT.h
+}
+
+
+void freeAirportADT(AirportADT airport) {
+     freeListADT(airport -> movements);
+     free(airport);
 }
 
 
 /// --- LIST FUNCTIONS ---
 
 AirportList newAirportList(){
-	return newList( (OACI (*) (void *)) getAirportOACI);
+	return newList((OACI (*) (void *)) getAirportOACI, (void (*)(void *)) freeAirportADT);
 }
 
 void addAirportElem(AirportList list, AirportADT elem){

@@ -126,9 +126,9 @@ void addAirportElem(AirportList list, AirportADT elem);
  */
 AirportADT getAirportElem(AirportList list, OACI oaci);
 
-/* TODO FREE AIRPORT
+/*
  * Free memory
  */
-void freeAiportADT(AirportADT airport);
+void freeAirportADT(AirportADT airport);
 
 #endif
