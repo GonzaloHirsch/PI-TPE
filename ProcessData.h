@@ -7,7 +7,7 @@
 
 //	Constants Definitions
 //  Movement Constants
-#define MAX_TEXT_MOVEMENT 150
+#define MAX_TEXT_MOVEMENT 180
 //  --------------  Named Fields
 #define ARRIVAL "Aterrizaje"
 #define M_DEPARTURE "Despegue"
@@ -15,7 +15,7 @@
 #define M_LOCAL "Cabotaje"
 
 //  Airport Constants
-#define MAX_TEXT_AIRPORT 350
+#define MAX_TEXT_AIRPORT 370
 //  --------------  Named Fields
 #define A_NATIONAL "Nacional"
 
