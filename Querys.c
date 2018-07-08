@@ -43,11 +43,16 @@ Query1and2(AirportList airportList){
 
         AirportADT airport = (AirportADT) getNext(airportList);
 
+        int internationalTotal = getAirportInternationalDepartures(airport) + getAirportInternationalArrivals(airport);
+        int totalMovements = getAirportTotalMovements(airport);
+
         //  Prints to the new file for query 1
-        fprintf(newFileQ1, "%s;%s;%s;%d\n", getAirportOACI(airport), getAirportLocal(airport), getAirportDenomination(airport), getAirportTotalMovements(airport));
+        if (totalMovements != 0)
+            fprintf(newFileQ1, "%s;%s;%s;%d\n", getAirportOACI(airport), getAirportLocal(airport), getAirportDenomination(airport), totalMovements);
 
         //  Prints to the new file for query 2
-        fprintf(newFileQ2, "%s;%s;%d;%d;%d\n", getAirportOACI(airport), getAirportIATA(airport), getAirportInternationalDepartures(airport), getAirportInternationalArrivals(airport), getAirportInternationalDepartures(airport) + getAirportInternationalArrivals(airport));
+        if (internationalTotal != 0)
+            fprintf(newFileQ2, "%s;%s;%d;%d;%d\n", getAirportOACI(airport), getAirportIATA(airport), getAirportInternationalDepartures(airport), getAirportInternationalArrivals(airport), internationalTotal);
     }
 
     fclose(newFileQ2);
