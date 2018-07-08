@@ -65,7 +65,15 @@ main (int argc, char *argv[]){
     //	Verify if there was an error.
     verifyErrorType(errorType);
 
-	//TODO llamar a los queries
+    errorType = Query4(airportList);
+
+    //	Verify if there was an error.
+    verifyErrorType(errorType);
+
+    errorType = Query1and2(airportList);
+
+    //	Verify if there was an error.
+    verifyErrorType(errorType);
 
 	return 0;
 }
