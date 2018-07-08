@@ -253,10 +253,10 @@ airportProcessing (AirportList airportList){
     char * tokens[23];
 
     //	 We discard the first line because it has the field names.
-    fgets(fileLine, MAX_TEXT_MOVEMENT, movementsFile);
+    fgets(fileLine, MAX_TEXT_AIRPORT, movementsFile);
 
     //  Iterating for each line in the file
-    while (fgets(fileLine, MAX_TEXT_MOVEMENT, movementsFile) != NULL){
+    while (fgets(fileLine, MAX_TEXT_AIRPORT, movementsFile) != NULL){
 
         //	We separate the line extracted into all the tokes, knowing the ones we want
         separateToken(fileLine, separator, tokens, 23);
