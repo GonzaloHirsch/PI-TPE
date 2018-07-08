@@ -75,6 +75,8 @@ Query4(AirportList airportList){
 
         toStart(movementList);
 
+        fprintf(newFile, "%s;;%d;%d\n", getAirportOACI(airport), getAirportUnknownDepartures(airport), getAirportUnknownArrivals(airport));
+
         while(hasNext(movementList)){
 
             MovementADT movement = (MovementADT) getNext(movementList);

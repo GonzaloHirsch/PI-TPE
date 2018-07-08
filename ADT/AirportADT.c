@@ -77,6 +77,14 @@ int getAirportInternationalArrivals(AirportADT airport){
     return airport->internationalArrivals;
 }
 
+int getAirportUnknownDepartures(AirportADT airport){
+    return airport->unknownDepartures;
+}
+
+int getAirportUnknownArrivals(AirportADT airport){
+    return airport->unknownArrivals;
+}
+
 int getAirportInternationalDepartures(AirportADT airport){
     return airport->internationalDepartures;
 }
