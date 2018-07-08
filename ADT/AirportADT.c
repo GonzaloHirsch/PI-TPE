@@ -35,6 +35,12 @@ AirportADT newAirportFromTokens(char ** tokens) {
 	return retVal;
 }
 
+/// ---- SETTERS & GETTERS ----
+/*
+ * Setters & Getters are used in order to facilitate any future modifications to any specific Airport.
+ */
+
+
  void setLocalCode(AirportADT airport, Local local){
      strcpy(airport -> local, local);
  }
@@ -50,26 +56,6 @@ AirportADT newAirportFromTokens(char ** tokens) {
  void setTraffic(AirportADT airport, TTraffic traffic){
  	airport->traffic = traffic;
  }
-
- void addUnknownDeparture (AirportADT airport, int amount){
-     airport->unknownDepartures += amount;
- }
-
- void addUnknownArrival (AirportADT airport, int amount){
-    airport->unknownArrivals += amount;
-}
-
-void addInternationalArrival (AirportADT airport, int amount){
-    airport->internationalArrivals += amount;
-}
-
-void addInternationalDeparture (AirportADT airport, int amount){
-    airport->internationalDepartures += amount;
-}
-
-void addTotalMovement (AirportADT airport, int amount){
-    airport->totalMovements += amount;
-}
 
 OACI getAirportOACI(AirportADT airport){
  	return airport->oaci;
@@ -97,6 +83,28 @@ int getAirportInternationalDepartures(AirportADT airport){
 
 IATA getAirportIATA(AirportADT airport){
     return airport->iata;
+}
+
+/// ---- ----
+
+void addUnknownDeparture (AirportADT airport, int amount){
+    airport->unknownDepartures += amount;
+}
+
+void addUnknownArrival (AirportADT airport, int amount){
+    airport->unknownArrivals += amount;
+}
+
+void addInternationalArrival (AirportADT airport, int amount){
+    airport->internationalArrivals += amount;
+}
+
+void addInternationalDeparture (AirportADT airport, int amount){
+    airport->internationalDepartures += amount;
+}
+
+void addTotalMovement (AirportADT airport, int amount){
+    airport->totalMovements += amount;
 }
 
  void addMovement(AirportADT airport, MovementADT movement){

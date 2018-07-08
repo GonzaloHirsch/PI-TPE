@@ -27,6 +27,6 @@ verifyErrorType (TErrors errorType){
 
     }
 
-    if(errorType != NO_ERROR)
+    if(errorType != NO_ERROR) // TODO: REMOVE EXIT
         exit(errorType);
 }

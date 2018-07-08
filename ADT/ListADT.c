@@ -48,7 +48,7 @@ void addElem(ListADT list, void * elem) {
 }
 
 
-void *getElem(ListADT list, OACI oaci) {
+void * getElem(ListADT list, OACI oaci) {
     TNode node = list -> head;
     while(node != NULL){
         if(strcmp(list -> getOaci(node ->elem), oaci) == 0)

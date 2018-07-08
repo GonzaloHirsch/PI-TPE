@@ -37,7 +37,7 @@ int getDepartures(MovementADT movement){
 	return movement->departures;
 }
 
-bool isMovementLocal(MovementADT movement) {
+bool isMovementNational(MovementADT movement) {
     return movement -> isNational;
 }
 

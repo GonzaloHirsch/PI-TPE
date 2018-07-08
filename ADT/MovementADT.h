@@ -42,9 +42,9 @@ int getArrivals(MovementADT movement);
 int getDepartures(MovementADT movement);
 
 /*
- * Returns if the movement is Local or International
+ * Returns if the movement is National or International
  */
-bool isMovementLocal(MovementADT movement);
+bool isMovementNational(MovementADT movement);
 
 /*
  * Creates a new ListADT, specific for AirportADTs.
