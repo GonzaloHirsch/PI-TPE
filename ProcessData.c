@@ -34,16 +34,15 @@ separateToken(char *str, char del, char ** strArr, size_t dim) {
 int
 isUnknownOACI(const char * airportOACI){
 
-    int formatA, formatB, formatC, formatD;
-    int aux;
-    char auxStr;
+    int formatA, formatB, aux;
 
+    //  In case the OACI has the format SA##
     formatA = sscanf(airportOACI, "SA%2d", &aux);
-    formatB = sscanf(airportOACI, "AR-%4d", &aux);
-    formatC = sscanf(airportOACI, "N/%1s", &auxStr);
-    formatD = strlen(airportOACI) > 4;
 
-    return formatA || formatB || formatC || formatD;
+    //  In case the OACI has more/less than 4 characters
+    formatB = strlen(airportOACI) != 4;
+
+    return formatA || formatB;
 
 }
 
@@ -131,27 +130,11 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
         //	It separates the line into the tokens
         separateToken(fileLine, separator, tokens, 10);
 
-        /*
-        counter = 0;
-        token = strtok(fileLine, separator);
-        */
-
         //  If the year is correct, it runs this
         if (verifyYear(tokens[M_DATE], yearGiven)){
 
             //  Makes the change to day of the week and increments the counter for that day
             movPerDay[dateToDayOfWeek(tokens[M_DATE], dayCode, monthCode, yearCode)]++;
-
-            /*
-            //  It gets the rest of the tokens from that line
-            while( token != NULL ) {
-
-                strcpy(tokens[counter++], token);
-
-            	//	We use NULL inside strtok for it to continue where it finished the previous iteration
-                token = strtok(NULL, separator);
-            }
-            */
 
             MovementADT auxMovement;
             AirportADT auxAirport;
@@ -278,14 +261,11 @@ airportProcessing (AirportList airportList){
             //	If there is no airport with that OACI code, it adds it to the airport list
             if (airportAux == NULL){
 
-                bool isNational = !strcmp(tokens[A_TYPE], A_NATIONAL);
-
                 //	Creating a new airport with all its fields complete
                 airportAux = newAirport(tokens[A_OACI]);
                 setLocalCode(airportAux, tokens[A_LOCAL]);
                 setIATA(airportAux, tokens[A_IATA]);
                 setDenomination(airportAux, tokens[A_DENOM]);
-                setTraffic(airportAux, isNational ?  NATIONAL : INTERNATIONAL);
 
                 //	Adds the new airport to the airport list
                 addAirportElem(airportList, airportAux);

@@ -3,6 +3,45 @@
 #include "ErrorHandler.h"
 
 TErrors
+Query1and2(AirportList airportList){
+
+    //  Creates new files for writing
+    FILE * newFileQ1 = fopen("movs_aeropuerto.csv", "w");
+    FILE * newFileQ2 = fopen("movs_international.csv", "w");
+
+    //  If the pointer is NULL, it means it couldn't create it
+    if (newFileQ1 == NULL || newFileQ2 == NULL)
+        return CANT_CREATE_FILE;
+
+
+    ///     ------------    Iterating through each airport in the list  ------------
+
+    toStart(airportList);
+
+    while(hasNext(airportList)){
+
+        AirportADT airport = (AirportADT) getNext(airportList);
+
+        int internationalTotal = getAirportInternationalDepartures(airport) + getAirportInternationalArrivals(airport);
+        int totalMovements = getAirportTotalMovements(airport);
+
+        //  Prints to the new file for query 1
+        if (totalMovements != 0)
+            fprintf(newFileQ1, "%s;%s;%s;%d\n", getAirportOACI(airport), getAirportLocal(airport), getAirportDenomination(airport), totalMovements);
+
+        //  Prints to the new file for query 2
+        if (internationalTotal != 0)
+            fprintf(newFileQ2, "%s;%s;%d;%d;%d\n", getAirportOACI(airport), getAirportIATA(airport), getAirportInternationalDepartures(airport), getAirportInternationalArrivals(airport), internationalTotal);
+    }
+
+    ///     ------------------------
+
+    fclose(newFileQ2);
+    fclose(newFileQ1);
+    return NO_ERROR;
+}
+
+TErrors
 Query3(int * movPerDay){
 
     //  Creates a new file for writing
@@ -27,40 +66,6 @@ Query3(int * movPerDay){
 }
 
 TErrors
-Query1and2(AirportList airportList){
-
-    //  Creates new files for writing
-    FILE * newFileQ1 = fopen("movs_aeropuerto.csv", "w");
-    FILE * newFileQ2 = fopen("movs_international.csv", "w");
-
-    //  If the pointer is NULL, it means it couldn't create it
-    if (newFileQ1 == NULL || newFileQ2 == NULL)
-        return CANT_CREATE_FILE;
-
-    toStart(airportList);
-
-    while(hasNext(airportList)){
-
-        AirportADT airport = (AirportADT) getNext(airportList);
-
-        int internationalTotal = getAirportInternationalDepartures(airport) + getAirportInternationalArrivals(airport);
-        int totalMovements = getAirportTotalMovements(airport);
-
-        //  Prints to the new file for query 1
-        if (totalMovements != 0)
-            fprintf(newFileQ1, "%s;%s;%s;%d\n", getAirportOACI(airport), getAirportLocal(airport), getAirportDenomination(airport), totalMovements);
-
-        //  Prints to the new file for query 2
-        if (internationalTotal != 0)
-            fprintf(newFileQ2, "%s;%s;%d;%d;%d\n", getAirportOACI(airport), getAirportIATA(airport), getAirportInternationalDepartures(airport), getAirportInternationalArrivals(airport), internationalTotal);
-    }
-
-    fclose(newFileQ2);
-    fclose(newFileQ1);
-    return NO_ERROR;
-}
-
-TErrors
 Query4(AirportList airportList){
 
     //  Creates a new file for writing
@@ -69,6 +74,8 @@ Query4(AirportList airportList){
     //  If the pointer is NULL, it means it couldn't create it
     if (newFile == NULL)
         return CANT_CREATE_FILE;
+
+    ///     ------------    Iterating through each airport in the list  ------------
 
     toStart(airportList);
 
@@ -94,6 +101,9 @@ Query4(AirportList airportList){
             }
         }
     }
+
+    ///     ------------------------
+
     fclose(newFile);
     return NO_ERROR;
 }

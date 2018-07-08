@@ -76,6 +76,9 @@ main (int argc, char *argv[]){
 
     freeListADT(airportList);
 
+    //  If there are no errors, the program should reach this point.
+    printf("El programa se ejecutó de forma exitosa!");
+
 	return 0;
 }
 

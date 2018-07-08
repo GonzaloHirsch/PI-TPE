@@ -14,20 +14,9 @@ typedef ListADT AirportList;
  */
 AirportADT newAirport(OACI oaci);
 
-/*
- * Generates and returns new AirportADT from an array of tokens
- */
-AirportADT newAirportFromTokens(char ** tokens);
 
-/*
- * Returns the amount of unknown departuras of the airport passed through the parameters.
- */
-int getAirportUnknownDepartures(AirportADT airport);
+/// ---- SETTERS & GETTERS ----
 
-/*
- * Returns the amount of unknown arrivals of the airport passed through the parameters.
- */
-int getAirportUnknownArrivals(AirportADT airport);
 
 /*
  * Sets the airport's Local Code
@@ -45,9 +34,14 @@ void setIATA(AirportADT airport, IATA iata);
 void setDenomination(AirportADT airport, char denomination[]);
 
 /*
- * Sets the airport's traffic
+ * Returns the amount of unknown departures of the airport passed through the parameters.
  */
-void setTraffic(AirportADT airport, TTraffic traffic);
+int getAirportUnknownDepartures(AirportADT airport);
+
+/*
+ * Returns the amount of unknown arrivals of the airport passed through the parameters.
+ */
+int getAirportUnknownArrivals(AirportADT airport);
 
 /*
  * Returns the OACI of the airport passed through the parameters.
@@ -90,6 +84,16 @@ int getAirportInternationalDepartures(AirportADT airport);
 IATA getAirportIATA(AirportADT airport);
 
 /*
+ * Returns the MovementADT which corresponds to the OACI specified in the airport's movements list
+ * Returns null if the OACI doesn't correspond to any movement
+ */
+MovementADT getMovement(AirportADT airport, OACI oaci);
+
+
+/// ---- ----
+
+
+/*
  * Adds a MovementADT to the Airport's list of movements
  */
 void addMovement(AirportADT airport, MovementADT movement);
@@ -120,10 +124,13 @@ void addInternationalDeparture (AirportADT airport, int amount);
 void addTotalMovement (AirportADT airport, int amount);
 
 /*
- * Returns the MovementADT which corresponds to the OACI specified in the airport's movements list
- * Returns null if the OACI doesn't correspond to any movement
+ * Free memory
  */
-MovementADT getMovement(AirportADT airport, OACI oaci);
+void freeAirportADT(AirportADT airport);
+
+
+/// --- LIST FUNCTIONS ---
+
 
 /*
  * Creates a new ListADT, specific for AirportADTs.
@@ -140,10 +147,5 @@ void addAirportElem(AirportList list, AirportADT elem);
  * Returns NULL if no element was found.
  */
 AirportADT getAirportElem(AirportList list, OACI oaci);
-
-/*
- * Free memory
- */
-void freeAirportADT(AirportADT airport);
 
 #endif

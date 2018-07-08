@@ -9,7 +9,6 @@ typedef struct AirportCDT {
     tOACI oaci;
     tIATA iata;
     tDenomination denomination;
-    TTraffic traffic;
     MovementList movements;
     int totalMovements;
     int internationalArrivals;
@@ -21,19 +20,10 @@ typedef struct AirportCDT {
  AirportADT newAirport(OACI oaci){
  	AirportADT retVal = malloc(sizeof(AirportCDT));
  	strcpy(retVal->oaci, oaci);
- 	retVal->movements =  newMovementList(); //        funcion de MovementADT.h
+ 	retVal->movements =  newMovementList();
  	retVal -> unknownArrivals = retVal -> unknownDepartures = 0;
  	return retVal;
  }
-
-AirportADT newAirportFromTokens(char ** tokens) {
-	AirportADT retVal = newAirport(tokens[A_OACI]);
-	setLocalCode(retVal, tokens[A_LOCAL]);
-	setIATA(retVal, tokens[A_IATA]);
-	setDenomination(retVal, tokens[A_DENOM]);
-	setTraffic(retVal, strcmp(tokens[A_TYPE], A_NATIONAL) ?  NATIONAL : INTERNATIONAL);
-	return retVal;
-}
 
 /// ---- SETTERS & GETTERS ----
 /*
@@ -51,10 +41,6 @@ AirportADT newAirportFromTokens(char ** tokens) {
 
  void setDenomination(AirportADT airport, Denomination denomination){
  	strcpy(airport->denomination, denomination);
- }
-
- void setTraffic(AirportADT airport, TTraffic traffic){
- 	airport->traffic = traffic;
  }
 
 OACI getAirportOACI(AirportADT airport){
@@ -120,11 +106,11 @@ void addTotalMovement (AirportADT airport, int amount){
 }
 
  void addMovement(AirportADT airport, MovementADT movement){
- 	addMovementElem(airport->movements, movement);                         //funcion de listADT.h
+ 	addMovementElem(airport->movements, movement);
  }
 
 MovementADT getMovement(AirportADT airport, OACI oaci){ // TODO: SE PODRIA BORRAR ESTA FUNCION
-	return getMovementElem(airport->movements, oaci);                       //funcion de listADT.h
+	return getMovementElem(airport->movements, oaci);
 }
 
 

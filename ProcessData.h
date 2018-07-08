@@ -9,15 +9,11 @@
 //  Movement Constants
 #define MAX_TEXT_MOVEMENT 180
 //  --------------  Named Fields
-#define ARRIVAL "Aterrizaje"
 #define M_DEPARTURE "Despegue"
-#define C_INTERNATIONAL "Internacional"
 #define M_LOCAL "Cabotaje"
 
 //  Airport Constants
 #define MAX_TEXT_AIRPORT 370
-//  --------------  Named Fields
-#define A_NATIONAL "Nacional"
 
 //  All the token indexes we are interested in, in the movements file.
 /*
@@ -32,14 +28,13 @@ typedef enum { M_DATE = 0, M_TYPE = 3, M_CLASS = 4, M_ORIGIN = 5, M_DESTIN = 6 }
 
 //  All the token indexes we are interested in, in the airports file.
 /*
-	 * We are interested in tokens with indexes 0 / 1 / 2 / 4 / 18
+	 * We are interested in tokens with indexes 0 / 1 / 2 / 4
 	 * 		Token 0 :	Local Code
 	 * 		Token 1 :	OACI Code
 	 * 		Token 2 :	IATA Code
 	 * 		Token 4 :	Denomination
-	 * 		Token 18 :	Traffic Type (Nacional o Internacional)
 	 */
-typedef enum {A_LOCAL = 0, A_OACI = 1, A_IATA = 2, A_DENOM = 4, A_TYPE = 18 } TokenAirpIndex;
+typedef enum { A_LOCAL = 0, A_OACI = 1, A_IATA = 2, A_DENOM = 4 } TokenAirpIndex;
 
 /*
  * Alternative for strtok. separateToken replaces delimiter with NULL and stores each token in an array.
@@ -54,9 +49,9 @@ size_t separateToken(char *str, char del, char ** strArr, size_t dim);
 
 /*
  *  Verifies whether or not the OACI code from the airport is unknown.
- *  Unknown OACI codes have this layout (x is a digit):
- *      SAxx
- *      AR-xxxx
+ *  Unknown OACI codes have this layout (# is a digit):
+ *      SA##
+ *      AR-####
  *  Parameters:
  *      const char * airportOACI --> Constant string containing the airport OACI.
  *  Return values:
