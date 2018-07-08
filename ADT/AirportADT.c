@@ -11,6 +11,9 @@ typedef struct AirportCDT {
     Denomination denomination;
     TTraffic traffic;
     MovementList movements;
+    int totalMovements;
+    int internationalArrivals;
+    int internationalDepartures;
     int unknownDepartures;
     int unknownArrivals;
  } AirportCDT;
@@ -54,6 +57,18 @@ AirportADT newAirportFromTokens(char ** tokens) {
 
  void addUnknownArrival (AirportADT airport, int amount){
     airport->unknownArrivals += amount;
+}
+
+void addInternationalArrival (AirportADT airport, int amount){
+    airport->internationalArrivals += amount;
+}
+
+void addInternationalDeparture (AirportADT airport, int amount){
+    airport->internationalDepartures += amount;
+}
+
+void addTotalMovement (AirportADT airport, int amount){
+    airport->totalMovements += amount;
 }
 
  OACI getAirportOACI(AirportADT airport){

@@ -60,6 +60,21 @@ void addUnknownDeparture (AirportADT airport, int amount);
 void addUnknownArrival (AirportADT airport, int amount);
 
 /*
+ * Adds a certain amount of international arrivals to the airport passed.
+ */
+void addInternationalArrival (AirportADT airport, int amount);
+
+/*
+ * Adds a certain amount of international departures to the airport passed.
+ */
+void addInternationalDeparture (AirportADT airport, int amount);
+
+/*
+ * Adds a certain amount of movements to the airport passed.
+ */
+void addTotalMovement (AirportADT airport, int amount);
+
+/*
  * Returns the MovementADT which corresponds to the OACI specified in the airport's movements list
  * Returns null if the OACI doesn't correspond to any movement
  */

@@ -186,6 +186,11 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
 
                     //  Increases the unknown departures by 1.
                     addUnknownDeparture(auxAirport, 1);
+
+                    if (!isLocal)
+                        addInternationalDeparture(auxAirport, 1);
+
+                    addTotalMovement(auxAirport, 1);
                 }
             } else {	//	This is if the movement is an arrival
 
@@ -216,6 +221,11 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
 
                     //  Increases the unknown arrivals counter by 1.
                     addUnknownArrival(auxAirport, 1);
+
+                    if (!isLocal)
+                        addInternationalArrival(auxAirport, 1);
+
+                    addTotalMovement(auxAirport, 1);
                 }
             }
         }
