@@ -8,7 +8,7 @@ typedef struct ListCDT * ListADT;
 /*
  * Generates and returns a new ListADT and sets the Generic getOaci function.
  */
-ListADT newList(OACI (*getOaci)(void *));
+ListADT newList(OACI (*getOaci)(void *), void (*freeElem) (void *));
 
 /*
  * Adds element to the ListADT, arranged in Alphabetic Order based on its OACI.
@@ -36,7 +36,7 @@ void * getNext(ListADT list);
  */
 bool hasNext(ListADT list);
 
-/* TODO FREE LIST
+/*
  * Free memory
  */
 void freeListADT(ListADT list);
