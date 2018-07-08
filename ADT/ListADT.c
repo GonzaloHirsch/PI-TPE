@@ -28,13 +28,13 @@ ListADT newList(OACI (*getOaci)(void *), void (* freeElem)(void *)) {
 
 TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *)){
     int c;
-    if(node == NULL || (c = strcmp(getOaci(elem), getOaci(node -> elem))) > 0){
+    if(node == NULL || (c = strcmp(getOaci(elem), getOaci(node -> elem))) < 0){
         TNode newNode = malloc(sizeof(*newNode));
         newNode -> elem = elem;
         newNode -> tail = node;
         return newNode;
     }
-    else if(c < 0){
+    else if(c > 0){
         node -> tail = addElemRec(node -> tail, elem, getOaci);
         return node;
     } else {
