@@ -38,7 +38,6 @@ TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *)){
         node -> tail = addElemRec(node -> tail, elem, getOaci);
         return node;
     } else {
-
         verifyErrorType(MULTIPLE_ELEMS_OACI);
     }
 }
