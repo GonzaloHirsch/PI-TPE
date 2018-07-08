@@ -102,7 +102,7 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
     //  ------------------------------------------------------------------------------------------
     FILE * movementsFile;
 
-    movementsFile = fopen("Dataset/archivoVuelos.csv", "r");
+    movementsFile = fopen("Datasets/archivoVuelos.csv", "r");
     if (movementsFile == NULL)
         return CANT_OPEN_MOV;
     //  ------------------------------------------------------------------------------------------
@@ -243,7 +243,7 @@ airportProcessing (AirportList airportList){
     //  ------------------------------------------------------------------------------------------
     FILE * movementsFile;
 
-    movementsFile = fopen("Dataset/archivoAeropuertos.csv", "r");
+    movementsFile = fopen("Datasets/archivoAeropuertos.csv", "r");
     if (movementsFile == NULL)
         return CANT_OPEN_AIRP;
     //  ------------------------------------------------------------------------------------------
