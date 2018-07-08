@@ -23,5 +23,15 @@ TErrors Query3(int * movPerDay);
  */
 TErrors Query1and2(AirportList airportList);
 
+/*
+ *  Query function 4, it creates a new file and then it prints all the info.
+ *  Parameters:
+ *      AirportList airportList --> List containing all the airports.
+ *  Return Values:
+ *      NO_ERROR --> If no errors occurred
+ *      CANT_CREATE_FILE --> If there was an error when creating the new file
+ */
+TErrors Query4(AirportList airportList);
+
 #endif
 
