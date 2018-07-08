@@ -25,3 +25,26 @@ Query3(int * movPerDay){
     fclose(newFile);
     return NO_ERROR;
 }
+
+TErrors
+Query1(AirportList airportList){
+
+    //  Creates a new file for writing
+    FILE * newFile = fopen("movs_international.csv", "w");
+
+    //  If the pointer is NULL, it means it couldn't create it
+    if (newFile == NULL)
+        return CANT_CREATE_FILE_Q1;
+
+    toStart(airportList);
+
+    while(hasNext(airportList)){
+
+
+
+        fprintf(newFile, "%s;%s;%s;%d", );
+
+    }
+
+
+}

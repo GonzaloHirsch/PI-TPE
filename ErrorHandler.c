@@ -23,6 +23,8 @@ verifyErrorType (TErrors errorType){
 
         case MULTIPLE_ELEMS_OACI    :   fprintf(stderr, "ERROR: Múltiples elementos con el mismo codigo OACI en una lista.\n");  break;
 
+        case CANT_CREATE_FILE_Q1    :   fprintf(stderr, "ERROR: Al tratar de crear un archivo en el Query 1.\n");   break;
+
         case CANT_CREATE_FILE_Q3    :   fprintf(stderr, "ERROR: Al tratar de crear un archivo en el Query 3.\n");   break;
 
     }
