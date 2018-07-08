@@ -3,7 +3,7 @@
 #include "MovementADT.h"
 
 typedef struct MovementCDT{
-  OACI oaci;
+  tOACI oaci;
   bool isNational;
   int arrivals;
   int departures;
