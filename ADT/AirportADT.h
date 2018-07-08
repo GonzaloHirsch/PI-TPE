@@ -45,6 +45,36 @@ void setTraffic(AirportADT airport, TTraffic traffic);
 OACI getAirportOACI(AirportADT airport);
 
 /*
+ * Returns the local code of the airport passed through the parameters.
+ */
+Local getAirportLocal(AirportADT airport);
+
+/*
+ * Returns the denomination of the airport passed through the parameters.
+ */
+Denomination getAirportDenomination(AirportADT airport);
+
+/*
+ * Returns the amount of total movements of the airport passed through the parameters.
+ */
+int getAirportTotalMovements(AirportADT airport);
+
+/*
+ * Returns the amount of international arrivals of the airport passed through the parameters.
+ */
+int getAirportInternationalArrivals(AirportADT airport);
+
+/*
+ * Returns the amount of international departures of the airport passed through the parameters.
+ */
+int getAirportInternationalDepartures(AirportADT airport);
+
+/*
+ * Returns the IATA code of the airport passed through the parameters.
+ */
+IATA getAirportIATA(AirportADT airport);
+
+/*
  * Adds a MovementADT to the Airport's list of movements
  */
 void addMovement(AirportADT airport, MovementADT movement);

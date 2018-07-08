@@ -10,7 +10,7 @@ Query3(int * movPerDay){
 
     //  If the pointer is NULL, it means it couldn't create it
     if (newFile == NULL)
-        return CANT_CREATE_FILE_Q3;
+        return CANT_CREATE_FILE;
 
     char * days[7] = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
 
@@ -27,24 +27,30 @@ Query3(int * movPerDay){
 }
 
 TErrors
-Query1(AirportList airportList){
+Query1and2(AirportList airportList){
 
-    //  Creates a new file for writing
-    FILE * newFile = fopen("movs_international.csv", "w");
+    //  Creates new files for writing
+    FILE * newFileQ1 = fopen("movs_aeropuerto.csv", "w");
+    FILE * newFileQ2 = fopen("movs_international.csv", "w");
 
     //  If the pointer is NULL, it means it couldn't create it
-    if (newFile == NULL)
-        return CANT_CREATE_FILE_Q1;
+    if (newFileQ1 == NULL || newFileQ2 == NULL)
+        return CANT_CREATE_FILE;
 
     toStart(airportList);
 
     while(hasNext(airportList)){
 
+        AirportADT airport = (AirportADT) getNext(airportList);
 
+        //  Prints to the new file for query 1
+        fprintf(newFileQ1, "%s;%s;%s;%d\n", getAirportOACI(airport), getAirportLocal(airport), getAirportDenomination(airport), getAirportTotalMovements(airport));
 
-        fprintf(newFile, "%s;%s;%s;%d", );
-
+        //  Prints to the new file for query 2
+        fprintf(newFileQ2, "%s;%s;%d;%d;%d\n", getAirportOACI(airport), getAirportIATA(airport), getAirportInternationalDepartures(airport), getAirportInternationalArrivals(airport), getAirportInternationalDepartures(airport) + getAirportInternationalArrivals(airport));
     }
 
-
+    fclose(newFileQ2);
+    fclose(newFileQ1);
+    return NO_ERROR;
 }

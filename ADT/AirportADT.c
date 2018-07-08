@@ -71,9 +71,33 @@ void addTotalMovement (AirportADT airport, int amount){
     airport->totalMovements += amount;
 }
 
- OACI getAirportOACI(AirportADT airport){
+OACI getAirportOACI(AirportADT airport){
  	return airport->oaci;
- }
+}
+
+Local getAirportLocal(AirportADT airport){
+    return airport->local;
+}
+
+Denomination getAirportDenomination(AirportADT airport){
+    return airport->denomination;
+}
+
+int getAirportTotalMovements(AirportADT airport){
+    return airport->totalMovements;
+}
+
+int getAirportInternationalArrivals(AirportADT airport){
+    return airport->internationalArrivals;
+}
+
+int getAirportInternationalDepartures(AirportADT airport){
+    return airport->internationalDepartures;
+}
+
+IATA getAirportIATA(AirportADT airport){
+    return airport->iata;
+}
 
  void addMovement(AirportADT airport, MovementADT movement){
  	addMovementElem(airport->movements, movement);                         //funcion de listADT.h
