@@ -75,6 +75,8 @@ main (int argc, char *argv[]){
     //	Verify if there was an error.
     verifyErrorType(errorType);
 
+    freeListADT(airportList);
+
 	return 0;
 }
 
