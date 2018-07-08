@@ -15,7 +15,7 @@
 #define M_LOCAL "Cabotaje"
 
 //  Airport Constants
-#define MAX_TEXT_AIRPORT 300
+#define MAX_TEXT_AIRPORT 350
 //  --------------  Named Fields
 #define A_NATIONAL "Nacional"
 
