@@ -71,7 +71,7 @@ Query4(AirportList airportList){
 
         AirportADT airport = (AirportADT) getNext(airportList);
 
-        MovementList movementList = ;
+        MovementList movementList =;
 
         toStart(movementList);
 
