@@ -85,6 +85,10 @@ IATA getAirportIATA(AirportADT airport){
     return airport->iata;
 }
 
+MovementList getMovementList(AirportADT airport){
+     return airport->movements;
+ }
+
 /// ---- ----
 
 void addUnknownDeparture (AirportADT airport, int amount){
