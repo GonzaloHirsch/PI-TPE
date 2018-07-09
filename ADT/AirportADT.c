@@ -118,8 +118,11 @@ void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata ,Den
     //  Creates a new airport with all the data
     AirportADT airportAux = newAirport(oaci, iata, local, denomination);
 
+    // Adds the airport to the list;
+    bool wasAdded = addElem(airportList, airportAux);
+
     //	If it can't add the airport, it frees it
-    if (!addElem(airportList, airportAux))
+    if (!wasAdded)
         freeAirportADT(airportAux);
  }
 
