@@ -119,6 +119,7 @@ bool addMovementArrival(AirportADT airport, bool isOaciKnown, OACI oaci) {
      }
      else {
          airport->unknownArrivals++;
+         airport->totalMovements++;
          return true;
      }
 }
@@ -137,12 +138,22 @@ bool addMovementDeparture(AirportADT airport, bool isOaciKnown, OACI oaci) {
      }
      else {
          airport->unknownDepartures++;
+         airport->totalMovements++;
          return true;
      }
 }
 
- void addMovement(AirportADT airport, MovementADT movement){
- 	addMovementElem(airport->movements, movement);
+ void addMovement(AirportADT airport, MovementADT movement, TMovement movType){
+     addMovementElem(airport->movements, movement);
+     airport->totalMovements++;
+     if(movType == ARRIVAL){
+         airport->internationalArrivals += !isMovementNational(movement);
+         addArrival(movement,1);
+     } else{
+         airport->internationalDepartures += !isMovementNational(movement);
+         addDeparture(movement,1);
+     }
+
  }
 
 MovementADT getMovement(AirportADT airport, OACI oaci){ // TODO: BORRAR

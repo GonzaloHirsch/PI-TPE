@@ -108,7 +108,7 @@ bool addMovementDeparture(AirportADT airport, bool isOaciKnown, OACI oaci);
 /*
  * Adds a MovementADT to the Airport's list of movements
  */
-void addMovement(AirportADT airport, MovementADT movement);
+void addMovement(AirportADT airport, MovementADT movement, TMovement movType);
 
 /*
  * Adds a certain amount of unknown departures to the airport passed.
