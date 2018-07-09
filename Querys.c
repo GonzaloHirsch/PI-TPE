@@ -89,7 +89,10 @@ Query4(AirportList airportList){
 
             toStart(movementList);
 
-            fprintf(newFile, "%s;;%d;%d\n", getAirportOACI(airport), getAirportUnknownDepartures(airport), getAirportUnknownArrivals(airport));
+            int unknownDepartures = getAirportUnknownDepartures(airport), unknownArrivals = getAirportUnknownArrivals(airport);
+
+            if (unknownArrivals != 0 || unknownDepartures != 0)
+                fprintf(newFile, "%s;;%d;%d\n", getAirportOACI(airport), unknownDepartures, unknownArrivals);
 
             while(hasNext(movementList)){
 
