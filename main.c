@@ -44,35 +44,8 @@ main (int argc, char *argv[]){
 	 */
 	int yearCode[5] = {3, 4, 6, 0, 1};
 
-    /// UN POSIBLE MAIN QUE NO ABORTA
-    /*
-    //	Creates the list containing all the airports.
-    if (errorType == NO_ERROR){
-        AirportList airportList = newAirportList();
-        //  METER TODAS LAS DECLARACIONES DE ARRIBA ACA SI SE USA ESTE
-        if ((errorType = airportProcessing(airportList)) == NO_ERROR){
-            if ((errorType = movementsProcessing(airportList, year, movPerDay, dayCode, monthCode, yearCode)) == NO_ERROR){
-                if ((errorType = Query1and2(airportList)) == NO_ERROR){
-                    if ((errorType = Query3(movPerDay)) == NO_ERROR)
-                        errorType = Query4(airportList);
-                }
-            }
-        }
-    }
-
-    freeListADT(airportList);
-
-     //	Verify if there was an error during the whole execution and print a message
-    verifyErrorType(errorType);
-
-    return errorType;
-    */
-
-	/// OTRO POSIBLE MAIN QUE NO ABORTA
-	/*
 	//	Creates the list containing all the airports.
-	if (errorType == NO_ERROR)
-	    AirportList airportList = newAirportList();
+	AirportList airportList = newAirportList();
 
 	//	Processes all movements.
 	if (errorType == NO_ERROR)
@@ -97,45 +70,6 @@ main (int argc, char *argv[]){
     verifyErrorType(errorType);
 
 	return errorType;
-	*/
-
-	/// UN MAIN QUE SI ABORTA
-	//	Creates the list containing all the airports.
-	AirportList airportList = newAirportList();
-
-	//	Processes all movements.
-	errorType = airportProcessing(airportList);
-
-	//	Verify if there was an error.
-	verifyErrorType(errorType);
-
-	//	Processes all movements.
-	errorType = movementsProcessing(airportList, year, movPerDay, dayCode, monthCode, yearCode);
-
-	//	Verify if there was an error.
-	verifyErrorType(errorType);
-
-    errorType = Query3(movPerDay);
-
-    //	Verify if there was an error.
-    verifyErrorType(errorType);
-
-    errorType = Query4(airportList);
-
-    //	Verify if there was an error.
-    verifyErrorType(errorType);
-
-    errorType = Query1and2(airportList);
-
-    //	Verify if there was an error.
-    verifyErrorType(errorType);
-
-    freeListADT(airportList);
-
-    //  If there are no errors, the program should reach this point.
-    printf("El programa se ejecutó de forma exitosa!");
-
-	return 0;
 }
 
 int
@@ -164,9 +98,6 @@ verifyInput (int argc, char ** argv, TErrors * errorType){
 	} else {
 		*errorType = FEW_ARGS;
 	}
-
-	//  After the argument is received, it verifies whether or not it produced an error.
-	//verifyErrorType(errorType);
 
 	return year;
 }

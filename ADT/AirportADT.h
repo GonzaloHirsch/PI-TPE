@@ -17,22 +17,6 @@ AirportADT newAirport(OACI oaci);
 
 /// ---- SETTERS & GETTERS ----
 
-
-/*
- * Sets the airport's Local Code
- */
-void setLocalCode(AirportADT airport, Local local);
-
-/*
- * Sets the airport's IATA
- */
-void setIATA(AirportADT airport, IATA iata);
-
-/*
- * Allocates memory in heap and copies the passed denomination. Then sets the airport's to denomination to the allocated memory.
- */
-void setDenomination(AirportADT airport, char denomination[]);
-
 /*
  * Returns the amount of unknown departures of the airport passed through the parameters.
  */
@@ -83,12 +67,6 @@ int getAirportInternationalDepartures(AirportADT airport);
  */
 IATA getAirportIATA(AirportADT airport);
 
-/*
- * Returns the MovementADT which corresponds to the OACI specified in the airport's movements list
- * Returns null if the OACI doesn't correspond to any movement
- */
-MovementADT getMovement(AirportADT airport, OACI oaci);
-
 /// ---- ----
 
 
@@ -101,31 +79,6 @@ void addMovement(AirportADT airport,OACI oaci, bool isOaciKnown, bool isNational
  * Adds an airport to the airport list, if there is no airport with the given oaci code
  */
 void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata, Denomination denomination);
-
-/*
- * Adds a certain amount of unknown departures to the airport passed.
- */
-void addUnknownDeparture (AirportADT airport, int amount);
-
-/*
- * Adds a certain amount of unknown arrivals to the airport passed.
- */
-void addUnknownArrival (AirportADT airport, int amount);
-
-/*
- * Adds a certain amount of international arrivals to the airport passed.
- */
-void addInternationalArrival (AirportADT airport, int amount);
-
-/*
- * Adds a certain amount of international departures to the airport passed.
- */
-void addInternationalDeparture (AirportADT airport, int amount);
-
-/*
- * Adds a certain amount of movements to the airport passed.
- */
-void addTotalMovement (AirportADT airport, int amount);
 
 /*
  * Free memory

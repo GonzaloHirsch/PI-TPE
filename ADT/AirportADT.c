@@ -30,19 +30,6 @@ typedef struct AirportCDT {
  * Setters & Getters are used in order to facilitate any future modifications to any specific Airport.
  */
 
-
- void setLocalCode(AirportADT airport, Local local){
-     strcpy(airport -> local, local);
- }
-
- void setIATA(AirportADT airport, IATA iata){
- 	strcpy(airport->iata, iata);
- }
-
- void setDenomination(AirportADT airport, Denomination denomination){
- 	strcpy(airport->denomination, denomination);
- }
-
 OACI getAirportOACI(AirportADT airport){
  	return airport->oaci;
 }
@@ -85,33 +72,13 @@ MovementList getMovementList(AirportADT airport){
 
 /// ---- ----
 
-void addUnknownDeparture (AirportADT airport, int amount){
-    airport->unknownDepartures += amount;
-}
-
-void addUnknownArrival (AirportADT airport, int amount){
-    airport->unknownArrivals += amount;
-}
-
-void addInternationalArrival (AirportADT airport, int amount){ // TODO BORRAR
-    airport->internationalArrivals += amount;
-}
-
-void addInternationalDeparture (AirportADT airport, int amount){ // TODO BORRAR
-    airport->internationalDepartures += amount;
-}
-
-void addTotalMovement (AirportADT airport, int amount){ // TODO BORRAR
-    airport->totalMovements += amount;
-}
-
 void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture){
 
      if(isOaciKnown) {
 
          MovementADT movement = getMovementElem(airport->movements, oaci);
          if (movement == NULL) {
-             movement = newMovement(oaci, isNational);
+             movement = newMovement(oaci);
              addMovementElem(airport->movements, movement);
          }
 
@@ -158,12 +125,6 @@ void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata ,Den
 
     }
  }
-
-
-MovementADT getMovement(AirportADT airport, OACI oaci){ // TODO: BORRAR
-	return getMovementElem(airport->movements, oaci);
-}
-
 
 void freeAirportADT(AirportADT airport) {
      freeListADT(airport -> movements);

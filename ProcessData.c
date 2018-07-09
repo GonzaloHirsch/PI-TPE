@@ -193,25 +193,8 @@ airportProcessing (AirportList airportList){
          * If the OACI code for that airport is blank (length 0 / it contains only a 0),
          * it is not going to have recorded movements, so we don't care about it.
          */
-        //  ACA PODEMOS USAR isOACIUnknown directamente
-        if (tokens[A_OACI][0] != 0){
-
-            AirportADT airportAux = getAirportElem(airportList, tokens[A_OACI]);
-
-            //	If there is no airport with that OACI code, it adds it to the airport list
-            if (airportAux == NULL){
-
-                //	Creating a new airport with all its fields complete
-                airportAux = newAirport(tokens[A_OACI]);
-                setLocalCode(airportAux, tokens[A_LOCAL]);
-                setIATA(airportAux, tokens[A_IATA]);
-                setDenomination(airportAux, tokens[A_DENOM]);
-
-                //	Adds the new airport to the airport list
-                addAirportElem(airportList, airportAux);
-
-            }
-        }
+        if (!isUnknownOACI(tokens[A_OACI]))
+            addAirport(airportList, tokens[A_OACI], tokens[A_LOCAL], tokens[A_IATA], tokens[A_DENOM]);
     }
     fclose(movementsFile);
     return NO_ERROR;

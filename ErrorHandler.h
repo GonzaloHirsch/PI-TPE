@@ -7,7 +7,7 @@ typedef enum { NO_ERROR = 0, MANY_ARGS, FEW_ARGS, ARG_NOT_YEAR, ARG_OUTOF_RANGE,
 
 typedef enum { MULTIPLE_OACI_ELEM } TWarnings;
 
-//  Receives the error number and prints an error message (to stderr) according to the error and aborts the program with the corresponding error code.
+//  Receives the error number and prints an error message (to stderr) according to the error.
 void verifyErrorType (TErrors errorType);
 
 void printWarning(TWarnings warning);

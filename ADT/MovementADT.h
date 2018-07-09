@@ -14,7 +14,7 @@ typedef ListADT MovementList;
 /*
  * Generates and returns new MovementADT, setting its OACI and if it's a local airport.
  */
-MovementADT newMovement(OACI oaci, bool isNational);
+MovementADT newMovement(OACI oaci);
 
 /*
  * Returns the OACI of the MovementADT passed through the parameters.
@@ -40,11 +40,6 @@ int getArrivals(MovementADT movement);
  * Returns the MovementADT's total amount of departures
  */
 int getDepartures(MovementADT movement);
-
-/*
- * Returns if the movement is National or International
- */
-bool isMovementNational(MovementADT movement);
 
 /*
  * Creates a new ListADT, specific for AirportADTs.

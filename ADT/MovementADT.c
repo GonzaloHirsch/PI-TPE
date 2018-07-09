@@ -4,15 +4,13 @@
 
 typedef struct MovementCDT{
   tOACI oaci;
-  bool isNational;
   int arrivals;
   int departures;
 } MovementCDT;
 
-MovementADT newMovement(OACI oaci, bool isNational){
+MovementADT newMovement(OACI oaci){
 	MovementADT retVal = malloc(sizeof(MovementCDT));
 	strcpy(retVal->oaci,oaci);
-	retVal->isNational = isNational;
 	retVal->arrivals = retVal->departures = 0;
 	return retVal;
 }
@@ -35,10 +33,6 @@ int getArrivals(MovementADT movement){
 
 int getDepartures(MovementADT movement){
 	return movement->departures;
-}
-
-bool isMovementNational(MovementADT movement) {
-    return movement -> isNational;
 }
 
 void freeMovementADT(MovementADT movement){

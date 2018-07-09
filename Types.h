@@ -27,6 +27,4 @@ typedef char * IATA;
 typedef char tDenomination[71];
 typedef char * Denomination;
 
-typedef enum { ARRIVAL , DEPARTURE} TMovement;
-
 #endif
