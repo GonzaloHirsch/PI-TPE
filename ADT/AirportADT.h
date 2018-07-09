@@ -89,9 +89,9 @@ IATA getAirportIATA(AirportADT airport);
  */
 MovementADT getMovement(AirportADT airport, OACI oaci);
 
-bool addMovementArrival(OACI oaci);
+bool addMovementArrival(AirportADT airport, OACI oaci);
 
-bool addMovementDeparture(OACI oaci);
+bool addMovementDeparture(AirportADT airport, OACI oaci);
 
 
 /// ---- ----
