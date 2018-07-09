@@ -105,42 +105,27 @@ void addTotalMovement (AirportADT airport, int amount){ // TODO BORRAR
     airport->totalMovements += amount;
 }
 
-bool addMovementArrival(AirportADT airport, bool isOaciKnown, OACI oaci) {
-     if(isOaciKnown) {
-         MovementADT movement = getMovementElem(airport->movements, oaci);
-         if (movement != NULL) {
-             addArrival(movement, 1);
-             airport->totalMovements++;
-             if (!isMovementNational(movement))
-                 airport->internationalArrivals++;
-             return true;
-         } else
-             return false;
-     }
-     else {
-         airport->unknownArrivals++;
-         airport->totalMovements++;
-         return true;
-     }
-}
-
-bool addMovementDeparture(AirportADT airport, bool isOaciKnown, OACI oaci) {
-     if(isOaciKnown) {
-         MovementADT movement = getMovementElem(airport->movements, oaci);
-         if (movement != NULL) {
-             addDeparture(movement, 1);
-             airport->totalMovements++;
-             if (!isMovementNational(movement))
-                 airport->internationalDepartures++;
-             return true;
-         } else
-             return false;
-     }
-     else {
-         airport->unknownDepartures++;
-         airport->totalMovements++;
-         return true;
-     }
+bool incrementMovement(AirportADT airport, TMovement movType, bool isOaciKnown, OACI oaci) {
+    if(isOaciKnown) {
+        MovementADT movement = getMovementElem(airport->movements, oaci);
+        if (movement != NULL) {
+            airport->totalMovements++;
+            if(movType == DEPARTURE) {
+                addDeparture(movement, 1);
+                airport->internationalDepartures += !isMovementNational(movement) ;
+            } else {
+                addArrival(movement, 1);
+                airport->internationalArrivals += !isMovementNational(movement);
+            }
+            return true;
+        } else
+            return false;
+    }
+    else {
+        airport->unknownDepartures++;
+        airport->totalMovements++;
+        return true;
+    };
 }
 
  void addMovement(AirportADT airport, MovementADT movement, TMovement movType){

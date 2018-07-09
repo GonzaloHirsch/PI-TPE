@@ -90,17 +90,11 @@ IATA getAirportIATA(AirportADT airport);
 MovementADT getMovement(AirportADT airport, OACI oaci);
 
 /*
- * Increments the arrival counter to the movement with the specified OACI
+ * Increments the Departure/Arrival counter to the movement with the specified OACI
  * Returns false if the oaci wasn't found in any movement in the list
  */
-bool addMovementArrival(AirportADT airport, bool isOaciKnown, OACI oaci);
 
-/*
- * Increments the departure counter to the movement with the specified OACI
- * Returns false if the oaci wasn't found in any movement in the list
- */
-bool addMovementDeparture(AirportADT airport, bool isOaciKnown, OACI oaci);
-
+bool incrementMovement(AirportADT airport, TMovement movType, bool isOaciKnown, OACI oaci);
 
 /// ---- ----
 
