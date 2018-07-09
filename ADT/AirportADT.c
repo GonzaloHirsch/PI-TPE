@@ -118,7 +118,7 @@ bool addMovementArrival(AirportADT airport, bool isOaciKnown, OACI oaci) {
              return false;
      }
      else {
-         airport->unknownDepartures++;
+         airport->unknownArrivals++;
          return true;
      }
 }
