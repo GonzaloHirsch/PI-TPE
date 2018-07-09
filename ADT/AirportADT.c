@@ -93,23 +93,49 @@ void addUnknownArrival (AirportADT airport, int amount){
     airport->unknownArrivals += amount;
 }
 
-void addInternationalArrival (AirportADT airport, int amount){
+void addInternationalArrival (AirportADT airport, int amount){ // TODO BORRAR
     airport->internationalArrivals += amount;
 }
 
-void addInternationalDeparture (AirportADT airport, int amount){
+void addInternationalDeparture (AirportADT airport, int amount){ // TODO BORRAR
     airport->internationalDepartures += amount;
 }
 
-void addTotalMovement (AirportADT airport, int amount){
+void addTotalMovement (AirportADT airport, int amount){ // TODO BORRAR
     airport->totalMovements += amount;
+}
+
+bool addMovementArrival(AirportADT airport, OACI oaci) {
+    MovementADT movement = getMovementElem(airport->movements, oaci);
+    if(movement != NULL){
+        addArrival(movement,1);
+        airport->totalMovements++;
+        if(!isMovementNational(movement))
+            airport->internationalArrivals++;
+        return true;
+    }
+    else
+        return false;
+}
+
+bool addMovementDeparture(AirportADT airport, OACI oaci) {
+    MovementADT movement = getMovementElem(airport->movements, oaci);
+    if(movement != NULL){
+        addDeparture(movement,1);
+        airport->totalMovements++;
+        if(!isMovementNational(movement))
+            airport->internationalDepartures++;
+        return true;
+    }
+    else
+        return false;
 }
 
  void addMovement(AirportADT airport, MovementADT movement){
  	addMovementElem(airport->movements, movement);
  }
 
-MovementADT getMovement(AirportADT airport, OACI oaci){ // TODO: SE PODRIA BORRAR ESTA FUNCION
+MovementADT getMovement(AirportADT airport, OACI oaci){ // TODO: BORRAR
 	return getMovementElem(airport->movements, oaci);
 }
 
