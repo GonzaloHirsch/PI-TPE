@@ -139,6 +139,27 @@ void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNationa
 
  }
 
+
+void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata ,Denomination denomination){
+
+    AirportADT airportAux = getAirportElem(airportList, oaci);
+
+    //	If there is no airport with that OACI code, it adds it to the airport list
+    if (airportAux == NULL){
+
+        //	Creating a new airport with all its fields complete
+        airportAux = newAirport(oaci);
+        setLocalCode(airportAux, local);
+        setIATA(airportAux, iata);
+        setDenomination(airportAux, denomination);
+
+        //	Adds the new airport to the airport list
+        addAirportElem(airportList, airportAux);
+
+    }
+ }
+
+
 MovementADT getMovement(AirportADT airport, OACI oaci){ // TODO: BORRAR
 	return getMovementElem(airport->movements, oaci);
 }

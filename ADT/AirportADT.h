@@ -98,6 +98,11 @@ MovementADT getMovement(AirportADT airport, OACI oaci);
 void addMovement(AirportADT airport,OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture);
 
 /*
+ * Adds an airport to the airport list, if there is no airport with the given oaci code
+ */
+void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata, Denomination denomination);
+
+/*
  * Adds a certain amount of unknown departures to the airport passed.
  */
 void addUnknownDeparture (AirportADT airport, int amount);
