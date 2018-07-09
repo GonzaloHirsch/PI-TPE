@@ -105,30 +105,34 @@ void addTotalMovement (AirportADT airport, int amount){ // TODO BORRAR
     airport->totalMovements += amount;
 }
 
-bool addMovementArrival(AirportADT airport, OACI oaci) {
-    MovementADT movement = getMovementElem(airport->movements, oaci);
-    if(movement != NULL){
-        addArrival(movement,1);
-        airport->totalMovements++;
-        if(!isMovementNational(movement))
-            airport->internationalArrivals++;
-        return true;
-    }
-    else
-        return false;
+bool addMovementArrival(AirportADT airport, bool isOaciKnown, OACI oaci) {
+     if(isOaciKnown) {
+         MovementADT movement = getMovementElem(airport->movements, oaci);
+         if (movement != NULL) {
+             addArrival(movement, 1);
+             airport->totalMovements++;
+             if (!isMovementNational(movement))
+                 airport->internationalArrivals++;
+             return true;
+         } else
+             return false;
+     }
 }
 
-bool addMovementDeparture(AirportADT airport, OACI oaci) {
-    MovementADT movement = getMovementElem(airport->movements, oaci);
-    if(movement != NULL){
-        addDeparture(movement,1);
-        airport->totalMovements++;
-        if(!isMovementNational(movement))
-            airport->internationalDepartures++;
-        return true;
-    }
-    else
-        return false;
+bool addMovementDeparture(AirportADT airport, bool isOaciKnown, OACI oaci) {
+     if(isOaciKnown) {
+         MovementADT movement = getMovementElem(airport->movements, oaci);
+         if (movement != NULL) {
+             addDeparture(movement, 1);
+             airport->totalMovements++;
+             if (!isMovementNational(movement))
+                 airport->internationalDepartures++;
+             return true;
+         } else
+             return false;
+     }
+     else
+         airport->unknownDepartures++;
 }
 
  void addMovement(AirportADT airport, MovementADT movement){
