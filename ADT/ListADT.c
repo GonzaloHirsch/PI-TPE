@@ -26,16 +26,17 @@ ListADT newList(OACI (*getOaci)(void *), void (* freeElem)(void *)) {
 }
 
 
-TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *)){
+TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *), bool * wasAdded){
     int c;
     if(node == NULL || (c = strcmp(getOaci(elem), getOaci(node -> elem))) < 0){
         TNode newNode = malloc(sizeof(*newNode));
         newNode -> elem = elem;
         newNode -> tail = node;
+        *wasAdded = true;
         return newNode;
     }
     else if(c > 0){
-        node -> tail = addElemRec(node -> tail, elem, getOaci);
+        node -> tail = addElemRec(node -> tail, elem, getOaci, wasAdded);
         return node;
     } else {
         printWarning(MULTIPLE_OACI_ELEM);
@@ -43,8 +44,10 @@ TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *)){
     }
 }
 
-void addElem(ListADT list, void * elem) {
-    list -> head = addElemRec(list -> head, elem, list -> getOaci);
+bool addElem(ListADT list, void * elem) {
+    bool wasAdded = false;
+    list -> head = addElemRec(list -> head, elem, list -> getOaci, &wasAdded);
+    return wasAdded;
 }
 
 

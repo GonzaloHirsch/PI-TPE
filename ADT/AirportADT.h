@@ -14,9 +14,6 @@ typedef ListADT AirportList;
  */
 AirportADT newAirport(OACI oaci, IATA iata, Local local, Denomination denomination);
 
-
-/// ---- SETTERS & GETTERS ----
-
 /*
  * Returns the amount of unknown departures of the airport passed through the parameters.
  */
@@ -28,24 +25,31 @@ int getAirportUnknownDepartures(AirportADT airport);
 int getAirportUnknownArrivals(AirportADT airport);
 
 /*
+ * Returns the local code of the airport passed through the parameters.
+ */
+Local getAirportLocal(AirportADT airport);
+
+
+/*
  * Returns the OACI of the airport passed through the parameters.
  */
 OACI getAirportOACI(AirportADT airport);
 
 /*
- * Returns the local code of the airport passed through the parameters.
+ * Returns the IATA code of the airport passed through the parameters.
  */
-Local getAirportLocal(AirportADT airport);
-
-/*
- * Returns a list containing all the movements of the airport passed through the parameters.
- */
-MovementList getMovementList(AirportADT airport);
+IATA getAirportIATA(AirportADT airport);
 
 /*
  * Returns the denomination of the airport passed through the parameters.
  */
 Denomination getAirportDenomination(AirportADT airport);
+
+
+/*
+ * Returns a list containing all the movements of the airport passed through the parameters.
+ */
+MovementList getMovementList(AirportADT airport);
 
 /*
  * Returns the amount of total movements of the airport passed through the parameters.
@@ -61,14 +65,6 @@ int getAirportInternationalArrivals(AirportADT airport);
  * Returns the amount of international departures of the airport passed through the parameters.
  */
 int getAirportInternationalDepartures(AirportADT airport);
-
-/*
- * Returns the IATA code of the airport passed through the parameters.
- */
-IATA getAirportIATA(AirportADT airport);
-
-/// ---- ----
-
 
 /*
  * Adds a MovementADT to the Airport's list of movements
@@ -96,8 +92,9 @@ AirportList newAirportList();
 
 /*
  * Adds an element to the AirportList, in order of OACI.
+ * Returns false if the element wasn't added because another element with same OACI exists.
  */
-void addAirportElem(AirportList list, AirportADT elem);
+bool addAirportElem(AirportList list, AirportADT elem);
 
 /*
  * Returns an element with the specific OACI code from an AirportList.
@@ -105,4 +102,5 @@ void addAirportElem(AirportList list, AirportADT elem);
  */
 AirportADT getAirportElem(AirportList list, OACI oaci);
 
+/// --- ---
 #endif

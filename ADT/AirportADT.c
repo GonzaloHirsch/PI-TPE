@@ -100,11 +100,14 @@ void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNationa
 
      }
 
-     if (isDeparture) {
-         airport->internationalDepartures += !isNational;
-     } else {
-         airport->internationalArrivals += !isNational;
+     if(!isNational) {
+         if (isDeparture) {
+             airport->internationalDepartures++;
+         } else {
+             airport->internationalArrivals++;
+         }
      }
+
      airport->totalMovements++;
 
  }
@@ -138,8 +141,8 @@ AirportList newAirportList(){
 	return newList((OACI (*) (void *)) getAirportOACI, (void (*)(void *)) freeAirportADT);
 }
 
-void addAirportElem(AirportList list, AirportADT elem){
-	addElem(list,elem);
+bool addAirportElem(AirportList list, AirportADT elem){
+	return addElem(list,elem);
 }
 
 AirportADT getAirportElem(AirportList list, OACI oaci){

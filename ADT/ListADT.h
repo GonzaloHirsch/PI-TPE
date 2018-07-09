@@ -12,8 +12,9 @@ ListADT newList(OACI (*getOaci)(void *), void (*freeElem) (void *));
 
 /*
  * Adds element to the ListADT, arranged in Alphabetic Order based on its OACI.
+ * Returns false if the element wasn't added because another element with same OACI exists.
  */
-void addElem(ListADT list, void * elem);
+bool addElem(ListADT list, void * elem);
 
 /*
  * Returns an element of the list based on its OACI.
