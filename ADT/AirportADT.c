@@ -79,18 +79,22 @@ void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNationa
 
      if(isOaciKnown) {
 
+         // Gets the movement with the specified OACI from the movements list in the airport
          MovementADT movement = getMovementElem(airport->movements, oaci);
+         // If the movement doesn't exist it creates it
          if (movement == NULL) {
              movement = newMovement(oaci);
              addMovementElem(airport->movements, movement);
          }
 
+         // Increments the movement Departure/Arrival Counter
          if (isDeparture) {
              addDeparture(movement, 1);
          } else {
              addArrival(movement, 1);
          }
 
+     // If the OACI is unknown, it increments the airport's Unknown Departure/Arrival counter
      } else {
 
          if(isDeparture)
@@ -100,6 +104,7 @@ void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNationa
 
      }
 
+     // If the movement is internationa, it increments the airport's International Departure/Arrival counter
      if(!isNational) {
          if (isDeparture) {
              airport->internationalDepartures++;
@@ -108,6 +113,7 @@ void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNationa
          }
      }
 
+     // Increments the total movement counter of the airport
      airport->totalMovements++;
 
  }
@@ -141,7 +147,7 @@ AirportList newAirportList(){
 	return newList((OACI (*) (void *)) getAirportOACI, (void (*)(void *)) freeAirportADT);
 }
 
-bool addAirportElem(AirportList list, AirportADT elem){
+bool addAirportElem(AirportList list, AirportADT elem){ // TODO BORRAR
 	return addElem(list,elem);
 }
 
