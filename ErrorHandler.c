@@ -7,7 +7,7 @@ verifyErrorType (TErrors errorType){
 
     switch (errorType){
 
-        case NO_ERROR   :   break;
+        case NO_ERROR   :   printf("Se ejecutó de forma exitosa el programa!"); break;
 
         case MANY_ARGS  :   fprintf(stderr, "ERROR: Se recibieron demasiados argumentos, se espera 1 solo argumento.\n"); break;
 
