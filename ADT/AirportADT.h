@@ -91,12 +91,6 @@ void freeAirportADT(AirportADT airport);
 AirportList newAirportList();
 
 /*
- * Adds an element to the AirportList, in order of OACI.
- * Returns false if the element wasn't added because another element with same OACI exists.
- */
-bool addAirportElem(AirportList list, AirportADT elem);
-
-/*
  * Returns an element with the specific OACI code from an AirportList.
  * Returns NULL if no element was found.
  */
