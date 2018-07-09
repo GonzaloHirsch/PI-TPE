@@ -149,7 +149,7 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
                 if (isOriginKnown && auxAirport != NULL)
                     addMovement(auxAirport, tokens[M_DESTIN], isDestinKnown, isLocal, isDeparture);
 
-            } else {	//	This is if the movement is an arrival
+            } else {	//This is if the movement is an arrival
 
                 //	It gets the airport with the specified OACI code
                 auxAirport = getAirportElem(airportList, tokens[M_DESTIN]);
