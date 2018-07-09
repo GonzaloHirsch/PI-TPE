@@ -116,12 +116,11 @@ void addTotalMovement (AirportADT airport, int amount){ // TODO BORRAR
 
          if (isDeparture) {
              addDeparture(movement, 1);
-             airport->internationalDepartures += !isMovementNational(movement);
          } else {
              addArrival(movement, 1);
-             airport->internationalArrivals += !isMovementNational(movement);
          }
      }
+
      else {
          if(isDeparture)
              airport->unknownDepartures++;
@@ -129,6 +128,12 @@ void addTotalMovement (AirportADT airport, int amount){ // TODO BORRAR
              airport->unknownArrivals++;
      }
 
+
+     if (isDeparture) {
+         airport->internationalDepartures += !isNational;
+     } else {
+         airport->internationalArrivals += !isNational;
+     }
      airport->totalMovements++;
 
 
