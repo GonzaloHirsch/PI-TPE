@@ -160,7 +160,7 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
                             //	It creates a new movement, increases the counter and adds it to the airport
                             auxMovement = newMovement(tokens[M_DESTIN], isLocal);
                             //	We can't increment outside the if statement because we have to do it before adding it to the list
-                            addDeparture(auxMovement, 1);
+                            addDeparture(auxMovement, 1);  // TODO MODIFICAR PARA PODER SOLO TENER QUE USAR ADDDEPARTURE Y ADDARRIVAL. BORRAR ADDUNKNOWNDEPARTURE ADDINTERNATIONAL DEPARTURE ETC
                             addMovement(auxAirport, auxMovement);
 
                         } else {
