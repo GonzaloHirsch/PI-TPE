@@ -131,7 +131,6 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
             //  Makes the change to day of the week and increments the counter for that day
             movPerDay[dateToDayOfWeek(tokens[M_DATE], dayCode, monthCode, yearCode)]++;
 
-            MovementADT auxMovement;
             AirportADT auxAirport;
             bool isLocal = !strcmp(tokens[M_TYPE], M_LOCAL);
             bool isDeparture = !strcmp(tokens[M_CLASS], M_DEPARTURE);
@@ -147,74 +146,17 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
                 auxAirport = getAirportElem(airportList, tokens[M_ORIGIN]);
 
                 //  If the OACI code from the departure airport is unknown, or if it's not in the airports file, we skip it
-                if (isOriginKnown && auxAirport != NULL){
+                if (isOriginKnown && auxAirport != NULL)
+                    addMovement(auxAirport, tokens[M_DESTIN], isDestinKnown, isLocal, isDeparture);
 
-                    //  If the OACI code from the arrival airport is unknown, we can't add it to the list, but the movement counts
-                    if (isDestinKnown) {
-
-                        auxMovement = getMovement(auxAirport, tokens[M_DESTIN]);
-
-                        //	If the pointer is NULL, it means there is no previous movement with that airport
-                        if (auxMovement == NULL) {
-
-                            //	It creates a new movement, increases the counter and adds it to the airport
-                            auxMovement = newMovement(tokens[M_DESTIN], isLocal);
-                            //	We can't increment outside the if statement because we have to do it before adding it to the list
-                            addDeparture(auxMovement, 1);  // TODO MODIFICAR PARA PODER SOLO TENER QUE USAR ADDDEPARTURE Y ADDARRIVAL. BORRAR ADDUNKNOWNDEPARTURE ADDINTERNATIONAL DEPARTURE ETC
-                            addMovement(auxAirport, auxMovement);
-
-                        } else {
-                            addDeparture(auxMovement, 1);
-                        }
-                    } else {
-                        //  Increases the unknown departures by 1.
-                        addUnknownDeparture(auxAirport, 1);
-                    }
-
-                    //  Increases the international departure amount.
-                    if (!isLocal)
-                        addInternationalDeparture(auxAirport, 1);
-
-                    //  Increases the total movement amount.
-                    addTotalMovement(auxAirport, 1);
-                }
             } else {	//	This is if the movement is an arrival
 
                 //	It gets the airport with the specified OACI code
                 auxAirport = getAirportElem(airportList, tokens[M_DESTIN]);
 
                 //  If the OACI code from the arrival airport is unknown, or if it's not in the airports file, we skip it
-                if (isDestinKnown && auxAirport != NULL) {
-
-                    //  If the OACI code form the departure airport is unknown, we cant add it to the list, but the movement counts
-                    if (isOriginKnown) {
-
-                        auxMovement = getMovement(auxAirport, tokens[M_ORIGIN]);
-
-                        //	If the pointer is NULL, it means there is no previous movement with that airport
-                        if (auxMovement == NULL) {
-
-                            //	It creates a new movement, increases the counter and adds it to the airport
-                            auxMovement = newMovement(tokens[M_ORIGIN], isLocal);
-                            //	We can't increment outside the if statement because we have to do it before adding it to the list
-                            addArrival(auxMovement, 1);
-                            addMovement(auxAirport, auxMovement);
-
-                        } else {
-                            addArrival(auxMovement, 1);
-                        }
-                    } else {
-                        //  Increases the unknown arrivals counter by 1.
-                        addUnknownArrival(auxAirport, 1);
-                    }
-
-                    //  Increases the international arrival amount.
-                    if (!isLocal)
-                        addInternationalArrival(auxAirport, 1);
-
-                    //  Increases the total movement amount.
-                    addTotalMovement(auxAirport, 1);
-                }
+                if (isDestinKnown && auxAirport != NULL)
+                    addMovement(auxAirport, tokens[M_ORIGIN], isOriginKnown, isLocal, isDeparture);
             }
         }
     }
