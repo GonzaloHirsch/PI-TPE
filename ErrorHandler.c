@@ -21,12 +21,18 @@ verifyErrorType (TErrors errorType){
 
         case CANT_OPEN_AIRP :   fprintf(stderr, "ERROR: Al tratar de abrir el archivo de aeropuertos.\n");   break;
 
-        case MULTIPLE_ELEMS_OACI    :   fprintf(stderr, "ERROR: Múltiples elementos con el mismo codigo OACI en una lista.\n");  break;
-
         case CANT_CREATE_FILE    :   fprintf(stderr, "ERROR: Al tratar de crear un archivo en un Query..\n");   break;
 
     }
 
     if(errorType != NO_ERROR) // TODO: REMOVE EXIT
         exit(errorType);
+}
+
+void printWarning(TWarnings warning) {
+    switch (warning){
+
+        case MULTIPLE_OACI_ELEM :   printf("WARNING: Se intento agregar un elemento con un OACI ya existente.\n"); break;
+    }
+
 }
