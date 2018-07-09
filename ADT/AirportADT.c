@@ -105,12 +105,12 @@ void addTotalMovement (AirportADT airport, int amount){ // TODO BORRAR
     airport->totalMovements += amount;
 }
 
-bool incrementMovement(AirportADT airport, TMovement movType, bool isOaciKnown, OACI oaci) {
+bool incrementMovement(AirportADT airport, bool isDeparture, bool isOaciKnown, OACI oaci) {
     if(isOaciKnown) {
         MovementADT movement = getMovementElem(airport->movements, oaci);
         if (movement != NULL) {
             airport->totalMovements++;
-            if(movType == DEPARTURE) {
+            if(isDeparture) {
                 addDeparture(movement, 1);
                 airport->internationalDepartures += !isMovementNational(movement) ;
             } else {
@@ -118,25 +118,29 @@ bool incrementMovement(AirportADT airport, TMovement movType, bool isOaciKnown, 
                 airport->internationalArrivals += !isMovementNational(movement);
             }
             return true;
-        } else
+        } else {
             return false;
+        }
     }
     else {
-        airport->unknownDepartures++;
+        if(isDeparture)
+            airport->unknownDepartures++;
+        else
+            airport->unknownArrivals++;
         airport->totalMovements++;
         return true;
     };
 }
 
- void addMovement(AirportADT airport, MovementADT movement, TMovement movType){
+ void addMovement(AirportADT airport, MovementADT movement, bool isDeparture){
      addMovementElem(airport->movements, movement);
      airport->totalMovements++;
-     if(movType == ARRIVAL){
-         airport->internationalArrivals += !isMovementNational(movement);
-         addArrival(movement,1);
-     } else{
+     if(isDeparture){
          airport->internationalDepartures += !isMovementNational(movement);
          addDeparture(movement,1);
+     } else{
+         airport->internationalArrivals += !isMovementNational(movement);
+         addArrival(movement,1);
      }
 
  }
