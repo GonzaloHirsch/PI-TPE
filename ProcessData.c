@@ -114,11 +114,6 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
 
     char fileLine[MAX_TEXT_MOVEMENT];
     char separator = ';';
-    /*
-    char tokens[10][30];
-    char * token;
-    int counter;
-    */
     char * tokens[10];
 
     //	We discard the first line of the file for being the names of the fields
@@ -142,6 +137,8 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
             bool isDeparture = !strcmp(tokens[M_CLASS], M_DEPARTURE);
             bool isOriginKnown = !(isUnknownOACI(tokens[M_ORIGIN]));
             bool isDestinKnown = !(isUnknownOACI(tokens[M_DESTIN]));
+
+            //  All these verifications are needed in order to be able to store the data and to make sense of the file
 
             //	Checks if the movement is a departure
             if (isDeparture){
