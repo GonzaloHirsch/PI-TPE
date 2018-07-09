@@ -31,5 +31,4 @@ void printWarning(TWarnings warning) {
 
         case MULTIPLE_OACI_ELEM :   printf("WARNING: Se intento agregar un elemento con un OACI ya existente.\n"); break;
     }
-
 }
