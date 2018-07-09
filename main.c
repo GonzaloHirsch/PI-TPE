@@ -48,21 +48,26 @@ main (int argc, char *argv[]){
 	AirportList airportList = newAirportList();
 
 	//	Processes all movements.
-	if (errorType == NO_ERROR)
-	    errorType = airportProcessing(airportList);
+	if (errorType == NO_ERROR) {
+        errorType = airportProcessing(airportList);
+    }
 
 	//	Processes all movements.
-	if (errorType == NO_ERROR)
-	    errorType = movementsProcessing(airportList, year, movPerDay, dayCode, monthCode, yearCode);
+	if (errorType == NO_ERROR) {
+		errorType = movementsProcessing(airportList, year, movPerDay, dayCode, monthCode, yearCode);
+	}
 
-    if (errorType == NO_ERROR)
+    if (errorType == NO_ERROR) {
         errorType = Query3(movPerDay);
+    }
 
-	if (errorType == NO_ERROR)
+	if (errorType == NO_ERROR) {
         errorType = Query4(airportList);
+    }
 
-	if (errorType == NO_ERROR)
+	if (errorType == NO_ERROR) {
         errorType = Query1and2(airportList);
+    }
 
 	freeListADT(airportList);
 
