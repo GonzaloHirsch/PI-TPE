@@ -115,18 +115,12 @@ void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNationa
 
 void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata ,Denomination denomination){
 
-    AirportADT airportAux = getAirportElem(airportList, oaci);
+    //  Creates a new airport with all the data
+    AirportADT airportAux = newAirport(oaci, iata, local, denomination);
 
-    //	If there is no airport with that OACI code, it adds it to the airport list
-    if (airportAux == NULL){
-
-        //	Creating a new airport with all its fields complete
-        airportAux = newAirport(oaci, iata, local, denomination);
-
-        //	Adds the new airport to the airport list
-        addAirportElem(airportList, airportAux);
-
-    }
+    //	If it can't add the airport, it frees it
+    if (!addElem(airportList, airportAux))
+        freeAirportADT(airportAux);
  }
 
 void freeAirportADT(AirportADT airport) {
@@ -139,10 +133,6 @@ void freeAirportADT(AirportADT airport) {
 
 AirportList newAirportList(){
 	return newList((OACI (*) (void *)) getAirportOACI, (void (*)(void *)) freeAirportADT);
-}
-
-bool addAirportElem(AirportList list, AirportADT elem){
-	return addElem(list,elem);
 }
 
 AirportADT getAirportElem(AirportList list, OACI oaci){
