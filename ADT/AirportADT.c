@@ -117,6 +117,10 @@ bool addMovementArrival(AirportADT airport, bool isOaciKnown, OACI oaci) {
          } else
              return false;
      }
+     else {
+         airport->unknownDepartures++;
+         return true;
+     }
 }
 
 bool addMovementDeparture(AirportADT airport, bool isOaciKnown, OACI oaci) {
@@ -131,8 +135,10 @@ bool addMovementDeparture(AirportADT airport, bool isOaciKnown, OACI oaci) {
          } else
              return false;
      }
-     else
+     else {
          airport->unknownDepartures++;
+         return true;
+     }
 }
 
  void addMovement(AirportADT airport, MovementADT movement){
