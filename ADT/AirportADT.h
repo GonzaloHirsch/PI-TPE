@@ -89,20 +89,13 @@ IATA getAirportIATA(AirportADT airport);
  */
 MovementADT getMovement(AirportADT airport, OACI oaci);
 
-/*
- * Increments the Departure/Arrival counter to the movement with the specified OACI
- * Returns false if the oaci wasn't found in any movement in the list
- */
-
-bool incrementMovement(AirportADT airport, bool isDeparture, bool isOaciKnown, OACI oaci);
-
 /// ---- ----
 
 
 /*
  * Adds a MovementADT to the Airport's list of movements
  */
-void addMovement(AirportADT airport, MovementADT movement, bool isDeparture);
+void addMovement(AirportADT airport,OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture);
 
 /*
  * Adds a certain amount of unknown departures to the airport passed.

@@ -105,43 +105,33 @@ void addTotalMovement (AirportADT airport, int amount){ // TODO BORRAR
     airport->totalMovements += amount;
 }
 
-bool incrementMovement(AirportADT airport, bool isDeparture, bool isOaciKnown, OACI oaci) {
-    if(isOaciKnown) {
-        MovementADT movement = getMovementElem(airport->movements, oaci);
-        if (movement != NULL) {
-            airport->totalMovements++;
-            if(isDeparture) {
-                addDeparture(movement, 1);
-                airport->internationalDepartures += !isMovementNational(movement) ;
-            } else {
-                addArrival(movement, 1);
-                airport->internationalArrivals += !isMovementNational(movement);
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-    else {
-        if(isDeparture)
-            airport->unknownDepartures++;
-        else
-            airport->unknownArrivals++;
-        airport->totalMovements++;
-        return true;
-    };
-}
+ void addMovement(AirportADT airport,OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture){
 
- void addMovement(AirportADT airport, MovementADT movement, bool isDeparture){
-     addMovementElem(airport->movements, movement);
-     airport->totalMovements++;
-     if(isDeparture){
-         airport->internationalDepartures += !isMovementNational(movement);
-         addDeparture(movement,1);
-     } else{
-         airport->internationalArrivals += !isMovementNational(movement);
-         addArrival(movement,1);
+     if(isOaciKnown) {
+         MovementADT movement = getMovementElem(airport->movements, oaci);
+         if (movement == NULL) {
+             movement = newMovement(oaci, isNational);
+             addMovementElem(airport->movements,movement);
+         }
+
+         if (isDeparture) {
+             addDeparture(movement, 1);
+             airport->internationalDepartures += !isMovementNational(movement);
+         } else {
+             addArrival(movement, 1);
+             airport->internationalArrivals += !isMovementNational(movement);
+         }
      }
+     else {
+         if(isDeparture)
+             airport->unknownDepartures++;
+         else
+             airport->unknownArrivals++;
+     }
+
+     airport->totalMovements++;
+
+
 
  }
 
