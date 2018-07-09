@@ -112,7 +112,7 @@ void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNationa
          MovementADT movement = getMovementElem(airport->movements, oaci);
          if (movement == NULL) {
              movement = newMovement(oaci, isNational);
-             addMovementElem(airport->movements,movement);
+             addMovementElem(airport->movements, movement);
          }
 
          if (isDeparture) {
@@ -149,9 +149,9 @@ void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata ,Den
 
         //	Creating a new airport with all its fields complete
         airportAux = newAirport(oaci);
-        setLocalCode(airportAux, local);
-        setIATA(airportAux, iata);
-        setDenomination(airportAux, denomination);
+        strcpy(airportAux -> local, local);
+        strcpy(airportAux -> iata, iata);
+        strcpy(airportAux -> denomination, denomination);
 
         //	Adds the new airport to the airport list
         addAirportElem(airportList, airportAux);
