@@ -39,6 +39,7 @@ TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *)){
         return node;
     } else {
         printWarning(MULTIPLE_OACI_ELEM);
+        return node;
     }
 }
 
