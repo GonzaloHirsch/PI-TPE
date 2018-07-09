@@ -17,11 +17,14 @@ typedef struct AirportCDT {
     int unknownArrivals;
  } AirportCDT;
 
- AirportADT newAirport(OACI oaci){
+ AirportADT newAirport(OACI oaci, IATA iata, Local local, Denomination denomination){
  	AirportADT retVal = malloc(sizeof(AirportCDT));
  	strcpy(retVal->oaci, oaci);
+ 	strcpy(retVal -> local, local);
+ 	strcpy(retVal -> iata, iata);
+ 	strcpy(retVal -> denomination, denomination);
  	retVal->movements =  newMovementList();
- 	retVal -> unknownArrivals = retVal -> unknownDepartures = 0;
+ 	retVal -> unknownArrivals = retVal -> unknownDepartures = retVal -> totalMovements = retVal -> internationalDepartures = retVal -> internationalArrivals = 0;
  	return retVal;
  }
 
@@ -115,10 +118,7 @@ void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata ,Den
     if (airportAux == NULL){
 
         //	Creating a new airport with all its fields complete
-        airportAux = newAirport(oaci);
-        strcpy(airportAux -> local, local);
-        strcpy(airportAux -> iata, iata);
-        strcpy(airportAux -> denomination, denomination);
+        airportAux = newAirport(oaci, iata, local, denomination);
 
         //	Adds the new airport to the airport list
         addAirportElem(airportList, airportAux);

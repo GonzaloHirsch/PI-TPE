@@ -12,7 +12,7 @@ typedef ListADT AirportList;
 /*
  * Generates and returns new AirportADT, setting its OACI
  */
-AirportADT newAirport(OACI oaci);
+AirportADT newAirport(OACI oaci, IATA iata, Local local, Denomination denomination);
 
 
 /// ---- SETTERS & GETTERS ----
