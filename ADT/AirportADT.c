@@ -105,7 +105,7 @@ void addTotalMovement (AirportADT airport, int amount){ // TODO BORRAR
     airport->totalMovements += amount;
 }
 
- void addMovement(AirportADT airport,OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture){
+void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture){
 
      if(isOaciKnown) {
 

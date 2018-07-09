@@ -193,6 +193,7 @@ airportProcessing (AirportList airportList){
          * If the OACI code for that airport is blank (length 0 / it contains only a 0),
          * it is not going to have recorded movements, so we don't care about it.
          */
+        //  ACA PODEMOS USAR isOACIUnknown directamente
         if (tokens[A_OACI][0] != 0){
 
             AirportADT airportAux = getAirportElem(airportList, tokens[A_OACI]);

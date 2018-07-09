@@ -24,9 +24,10 @@ verifyErrorType (TErrors errorType){
         case CANT_CREATE_FILE    :   fprintf(stderr, "ERROR: Al tratar de crear un archivo en un Query..\n");   break;
 
     }
-
+    /*
     if(errorType != NO_ERROR) // TODO: REMOVE EXIT
         exit(errorType);
+        */
 }
 
 void printWarning(TWarnings warning) {
