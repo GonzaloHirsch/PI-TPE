@@ -20,7 +20,7 @@ main (int argc, char *argv[]){
     TErrors errorType;
 
 	// It receives the year as an argument and checks whether or not it is valid, if not, it shows an error message and aborts
-	int year = 2014; //verifyInput(argc, argv);
+	int year = verifyInput(argc, argv);
 
 	/*
 	 *	Ammount of movements per day of the week
