@@ -18,7 +18,7 @@ typedef struct AirportCDT {
  } AirportCDT;
 
  AirportADT newAirport(OACI oaci, IATA iata, Local local, Denomination denomination){
- 	AirportADT retVal = malloc(sizeof(AirportCDT));
+ 	AirportADT retVal = malloc(sizeof(AirportCDT));     //TODO verificar que no haya espacio aca
  	strcpy(retVal->oaci, oaci);
  	strcpy(retVal -> local, local);
  	strcpy(retVal -> iata, iata);

@@ -9,7 +9,7 @@ typedef struct MovementCDT{
 } MovementCDT;
 
 MovementADT newMovement(OACI oaci){
-	MovementADT retVal = malloc(sizeof(MovementCDT));
+	MovementADT retVal = malloc(sizeof(MovementCDT));	//TODO verificar que no haya espacio aca
 	strcpy(retVal->oaci,oaci);
 	retVal->arrivals = retVal->departures = 0;
 	return retVal;

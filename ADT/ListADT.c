@@ -19,7 +19,7 @@ typedef struct node * TNode;
 
 
 ListADT newList(OACI (*getOaci)(void *), void (* freeElem)(void *)) {
-    ListADT list = calloc(1, sizeof(*list));
+    ListADT list = calloc(1, sizeof(*list));    //TODO verificar que no haya espacio aca
     list->getOaci = getOaci;
     list->freeElem = freeElem;
     return list;
@@ -29,7 +29,7 @@ ListADT newList(OACI (*getOaci)(void *), void (* freeElem)(void *)) {
 TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *), bool * wasAdded){
     int c;
     if(node == NULL || (c = strcmp(getOaci(elem), getOaci(node -> elem))) < 0){
-        TNode newNode = malloc(sizeof(*newNode));
+        TNode newNode = malloc(sizeof(*newNode));   //TODO verificar que no haya espacio aca
         newNode -> elem = elem;
         newNode -> tail = node;
         *wasAdded = true;
