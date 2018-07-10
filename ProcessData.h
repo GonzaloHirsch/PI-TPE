@@ -39,10 +39,10 @@ typedef enum { A_LOCAL = 0, A_OACI = 1, A_IATA = 2, A_DENOM = 4 } TokenAirpIndex
 /*
  * Alternative for strtok. separateToken replaces delimiter with NULL and stores each token in an array.
  * Parameters:
- * char * str --> Source string. This string will be modified, can't be const.
- * char del --> Character delimiter.
- * char ** strArr --> Array of strings which will store all the strings separated by the delimiter.
- * size_t dim --> Max dimension of strArr.
+ *      char * str --> Source string. This string will be modified, can't be const.
+ *      char del --> Character delimiter.
+ *      char ** strArr --> Array of strings which will store all the strings separated by the delimiter.
+ *      size_t dim --> Max dimension of strArr.
  * Returns size_t --> New size of strArr.
  */
 size_t separateToken(char *str, char del, char ** strArr, size_t dim);

@@ -19,12 +19,24 @@ typedef struct AirportCDT {
 
  AirportADT newAirport(OACI oaci, IATA iata, Local local, Denomination denomination){
  	AirportADT retVal = malloc(sizeof(AirportCDT));     //TODO verificar que no haya espacio aca
+
+    //  If there is no space, it returns NULL
+    if (retVal == NULL)
+        return retVal;
+
  	strcpy(retVal->oaci, oaci);
- 	strcpy(retVal -> local, local);
- 	strcpy(retVal -> iata, iata);
- 	strcpy(retVal -> denomination, denomination);
- 	retVal->movements =  newMovementList();
- 	retVal -> unknownArrivals = retVal -> unknownDepartures = retVal -> totalMovements = retVal -> internationalDepartures = retVal -> internationalArrivals = 0;
+ 	strcpy(retVal->local, local);
+ 	strcpy(retVal->iata, iata);
+ 	strcpy(retVal->denomination, denomination);
+
+ 	MovementList movementAux = newMovementList();
+
+     //  If there is no space, it returns NULL
+ 	if (movementAux == NULL)
+ 	    return NULL;
+
+ 	retVal->movements = movementAux;
+ 	retVal->unknownArrivals = retVal->unknownDepartures = retVal->totalMovements = retVal->internationalDepartures = retVal->internationalArrivals = 0;
  	return retVal;
  }
 
@@ -75,14 +87,15 @@ MovementList getMovementList(AirportADT airport){
 
 /// ---- ----
 
-void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture){
+bool addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture){
 
      if(isOaciKnown) {
 
          MovementADT movement = getMovementElem(airport->movements, oaci);
          if (movement == NULL) {
              movement = newMovement(oaci);
-             addMovementElem(airport->movements, movement);
+             if (addMovementElem(airport->movements, movement) == 2)
+                 return false;
          }
 
          if (isDeparture) {
@@ -109,21 +122,32 @@ void addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNationa
      }
 
      airport->totalMovements++;
-
+     return true;
  }
 
 
-void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata ,Denomination denomination){
+bool addAirport (AirportList airportList, OACI oaci, Local local, IATA iata, Denomination denomination){
 
     //  Creates a new airport with all the data
     AirportADT airportAux = newAirport(oaci, iata, local, denomination);
 
+    //  If there is no space it returns NULL
+    if (airportAux == NULL)
+        return false;
+
+    int wasAdded = addElem(airportList, airportAux);
+
+    //  If there is no space it returns NULL
+    if (wasAdded == 2)
+        return false;
+
     // Adds the airport to the list;
-    bool wasAdded = addElem(airportList, airportAux);
+    //bool wasAdded = addElem(airportList, airportAux);
 
     //	If it can't add the airport, it frees it
     if (!wasAdded)
         freeAirportADT(airportAux);
+    return true;
  }
 
 void freeAirportADT(AirportADT airport) {

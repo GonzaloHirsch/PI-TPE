@@ -147,7 +147,8 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
 
                 //  If the OACI code from the departure airport is unknown, or if it's not in the airports file, we skip it
                 if (isOriginKnown && auxAirport != NULL)
-                    addMovement(auxAirport, tokens[M_DESTIN], isDestinKnown, isLocal, isDeparture);
+                    if (addMovement(auxAirport, tokens[M_DESTIN], isDestinKnown, isLocal, isDeparture) == false)
+                        return NO_MEM_TO_ALLOC;
 
             } else {	//This is if the movement is an arrival
 
@@ -156,7 +157,8 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
 
                 //  If the OACI code from the arrival airport is unknown, or if it's not in the airports file, we skip it
                 if (isDestinKnown && auxAirport != NULL)
-                    addMovement(auxAirport, tokens[M_ORIGIN], isOriginKnown, isLocal, isDeparture);
+                    if (addMovement(auxAirport, tokens[M_ORIGIN], isOriginKnown, isLocal, isDeparture) == false)
+                        return NO_MEM_TO_ALLOC;
             }
         }
     }
@@ -194,7 +196,8 @@ airportProcessing (AirportList airportList){
          * it is not going to have recorded movements, so we don't care about it.
          */
         if (!isUnknownOACI(tokens[A_OACI]))
-            addAirport(airportList, tokens[A_OACI], tokens[A_LOCAL], tokens[A_IATA], tokens[A_DENOM]);
+            if (addAirport(airportList, tokens[A_OACI], tokens[A_LOCAL], tokens[A_IATA], tokens[A_DENOM]) == false)  //It verifies the was space to allocate memory
+                return NO_MEM_TO_ALLOC;
     }
     fclose(movementsFile);
     return NO_ERROR;

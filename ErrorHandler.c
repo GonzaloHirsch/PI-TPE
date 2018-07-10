@@ -21,7 +21,9 @@ verifyErrorType (TErrors errorType){
 
         case CANT_OPEN_AIRP :   fprintf(stderr, "ERROR: Al tratar de abrir el archivo de aeropuertos.\n");   break;
 
-        case CANT_CREATE_FILE    :   fprintf(stderr, "ERROR: Al tratar de crear un archivo en un Query..\n");   break;
+        case CANT_CREATE_FILE    :   fprintf(stderr, "ERROR: Al tratar de crear un archivo en un Query.\n");   break;
+
+        case NO_MEM_TO_ALLOC    :   fprintf(stderr, "ERROR: Al tratar de allocar memoria, no hay más memoria disponible.\n");   break;
 
     }
 }

@@ -48,8 +48,11 @@ MovementList newMovementList();
 
 /*
  * Adds an element to the AirportList, in order of OACI.
+ * Return values:
+ *      false - If there is no space to allocate
+ *      true - If there is space
  */
-void addMovementElem(MovementList list, MovementADT elem);
+bool addMovementElem(MovementList list, MovementADT elem);
 
 /*
  * Returns an element with the specific OACI code from an AirportList.

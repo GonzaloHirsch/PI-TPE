@@ -20,6 +20,11 @@ typedef struct node * TNode;
 
 ListADT newList(OACI (*getOaci)(void *), void (* freeElem)(void *)) {
     ListADT list = calloc(1, sizeof(*list));    //TODO verificar que no haya espacio aca
+
+    //  If there is no space it returns NULL
+    if (list == NULL)
+        return list;
+
     list->getOaci = getOaci;
     list->freeElem = freeElem;
     return list;
@@ -30,6 +35,13 @@ TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *), bool * wasA
     int c;
     if(node == NULL || (c = strcmp(getOaci(elem), getOaci(node -> elem))) < 0){
         TNode newNode = malloc(sizeof(*newNode));   //TODO verificar que no haya espacio aca
+
+        //  If there is no space it returns NULL
+        if (newNode == NULL){
+            *wasAdded = false;
+            return newNode;
+        }
+
         newNode -> elem = elem;
         newNode -> tail = node;
         *wasAdded = true;
@@ -44,9 +56,16 @@ TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *), bool * wasA
     }
 }
 
-bool addElem(ListADT list, void * elem) {
+int addElem(ListADT list, void * elem) {
     bool wasAdded = false;
-    list -> head = addElemRec(list -> head, elem, list -> getOaci, &wasAdded);
+    TNode headAux = addElemRec(list -> head, elem, list -> getOaci, &wasAdded);
+
+    //  If there is no space, it returns NULL
+    if (headAux == NULL){
+        return 2;
+    }
+    list -> head = headAux;
+    //list -> head = addElemRec(list -> head, elem, list -> getOaci, &wasAdded);
     return wasAdded;
 }
 

@@ -46,6 +46,8 @@ main (int argc, char *argv[]){
 
 	//	Creates the list containing all the airports.
 	AirportList airportList = newAirportList();
+	if (airportList == NULL)
+	    errorType = NO_MEM_TO_ALLOC;
 
 	//	Processes all movements.
 	if (errorType == NO_ERROR) {

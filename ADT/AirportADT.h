@@ -68,13 +68,19 @@ int getAirportInternationalDepartures(AirportADT airport);
 
 /*
  * Adds a MovementADT to the Airport's list of movements
+ * Return values:
+ *      false - If there is no space to allocate memory.
+ *      true - If there is space.
  */
-void addMovement(AirportADT airport,OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture);
+bool addMovement(AirportADT airport,OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture);
 
 /*
  * Adds an airport to the airport list, if there is no airport with the given oaci code
+ * Return values:
+ *      false - If there is no space to allocate memory.
+ *      true - If there is space.
  */
-void addAirport (AirportList airportList, OACI oaci, Local local, IATA iata, Denomination denomination);
+bool addAirport (AirportList airportList, OACI oaci, Local local, IATA iata, Denomination denomination);
 
 /*
  * Free memory
