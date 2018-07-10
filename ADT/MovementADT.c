@@ -12,8 +12,9 @@ MovementADT newMovement(OACI oaci){
 	MovementADT retVal = malloc(sizeof(MovementCDT));	//TODO verificar que no haya espacio aca
 
     //  If there is no space it returns NULL
-    if (retVal == NULL)
+    if (retVal == NULL){
         return retVal;
+    }
 
 	strcpy(retVal->oaci,oaci);
 	retVal->arrivals = retVal->departures = 0;

@@ -21,8 +21,9 @@ typedef struct AirportCDT {
  	AirportADT retVal = malloc(sizeof(AirportCDT));     //TODO verificar que no haya espacio aca
 
     //  If there is no space, it returns NULL
-    if (retVal == NULL)
+    if (retVal == NULL) {
         return retVal;
+    }
 
  	strcpy(retVal->oaci, oaci);
  	strcpy(retVal->local, local);
