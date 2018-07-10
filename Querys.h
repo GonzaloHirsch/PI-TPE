@@ -4,34 +4,47 @@
 #define QUERYS_H
 
 /*
- *  Query function 1 and 2, it creates 2 new files and then it prints all the info.
+ *  Query function 1, given the file and an airport, it prints all the info
  *  Parameters:
- *      AirportList airportList --> List containing all the airports.
- *  Return Values:
- *      NO_ERROR --> If no errors occurred
- *      CANT_CREATE_FILE --> If there was an error when creating the new file
+ *      FILE * file --> Output file
+ *      AirportADT airport --> Airport to print the info required
  */
-TErrors Query1and2(AirportList airportList);
+void Query1(FILE * file, AirportADT airport);
 
 /*
- *  Query function 3, it creates a new file and then it prints all the info
+ *  Query function 2, given the file and an airport, it prints all the info
  *  Parameters:
+ *      FILE * file --> Output file
+ *      AirportADT airport --> Airport to print the info required
+ */
+void Query2(FILE * file, AirportADT airport);
+
+/*
+ *  Query function 3, given the file and the array, it prints all the info
+ *  Parameters:
+ *  FILE * file --> Output file
  *      int * movPerDay --> Array containing the amount of movements per day, starting at Sunday and ending at Saturday
- *  Return Values:
- *      NO_ERROR --> If no errors occurred
- *      CANT_CREATE_FILE --> If there was an error when creating the new file
  */
-TErrors Query3(int * movPerDay);
+void Query3(FILE * file, int * movPerDay);
 
 /*
- *  Query function 4, it creates a new file and then it prints all the info.
+ *  Query function 4, given the file and an airport, it prints all the info
  *  Parameters:
+ *      FILE * file --> Output file
+ *      AirportADT airport --> Airport to print the info required
+ */
+void Query4(FILE * file, AirportADT airport);
+
+/*
+ * It processes the airport list, generating queries.
+ * Parameters:
  *      AirportList airportList --> List containing all the airports.
- *  Return Values:
+ *      int * movPerDay --> Array containing the amount of movements per day, starting at Sunday and ending at Saturday.
+ * Return Values:
  *      NO_ERROR --> If no errors occurred
  *      CANT_CREATE_FILE --> If there was an error when creating the new file
  */
-TErrors Query4(AirportList airportList);
+TErrors QueryProcessing(AirportList airportList, int * movPerDay);
 
 #endif
 

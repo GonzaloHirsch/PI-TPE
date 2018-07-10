@@ -57,16 +57,8 @@ main (int argc, char *argv[]){
 		errorType = movementsProcessing(airportList, year, movPerDay, dayCode, monthCode, yearCode);
 	}
 
-    if (errorType == NO_ERROR) {
-        errorType = Query3(movPerDay);
-    }
-
 	if (errorType == NO_ERROR) {
-        errorType = Query4(airportList);
-    }
-
-	if (errorType == NO_ERROR) {
-        errorType = Query1and2(airportList);
+        errorType = QueryProcessing(airportList, movPerDay);
     }
 
 	freeListADT(airportList);

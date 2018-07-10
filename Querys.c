@@ -2,54 +2,28 @@
 #include <stdio.h>
 #include "ErrorHandler.h"
 
-TErrors
-Query1and2(AirportList airportList){
+void
+Query1(FILE * file, AirportADT airport){
 
-    //  Creates new files for writing
-    FILE * newFileQ1 = fopen("movs_aeropuerto.csv", "w");
-    FILE * newFileQ2 = fopen("movs_international.csv", "w");
+    int totalMovements = getAirportTotalMovements(airport);
 
-    //  If the pointer is NULL, it means it couldn't create it
-    if (newFileQ1 == NULL || newFileQ2 == NULL)
-        return CANT_CREATE_FILE;
+    if (totalMovements != 0)
+        fprintf(file, "%s;%s;%s;%d\n", getAirportOACI(airport), getAirportLocal(airport), getAirportDenomination(airport), totalMovements);
 
-
-    ///     ------------    Iterating through each airport in the list  ------------
-
-    toStart(airportList);
-
-    while(hasNext(airportList)){
-
-        AirportADT airport = (AirportADT) getNext(airportList);
-
-        int internationalTotal = getAirportInternationalDepartures(airport) + getAirportInternationalArrivals(airport);
-        int totalMovements = getAirportTotalMovements(airport);
-
-        //  Prints to the new file for query 1
-        if (totalMovements != 0)
-            fprintf(newFileQ1, "%s;%s;%s;%d\n", getAirportOACI(airport), getAirportLocal(airport), getAirportDenomination(airport), totalMovements);
-
-        //  Prints to the new file for query 2
-        if (internationalTotal != 0)
-            fprintf(newFileQ2, "%s;%s;%d;%d;%d\n", getAirportOACI(airport), getAirportIATA(airport), getAirportInternationalDepartures(airport), getAirportInternationalArrivals(airport), internationalTotal);
-    }
-
-    ///     ------------------------
-
-    fclose(newFileQ2);
-    fclose(newFileQ1);
-    return NO_ERROR;
 }
 
-TErrors
-Query3(int * movPerDay){
+void
+Query2(FILE * file, AirportADT airport){
 
-    //  Creates a new file for writing
-    FILE * newFile = fopen("semanal.csv", "w");
+    int internationalTotal = getAirportInternationalDepartures(airport) + getAirportInternationalArrivals(airport);
 
-    //  If the pointer is NULL, it means it couldn't create it
-    if (newFile == NULL)
-        return CANT_CREATE_FILE;
+    if (internationalTotal != 0)
+        fprintf(file, "%s;%s;%d;%d;%d\n", getAirportOACI(airport), getAirportIATA(airport), getAirportInternationalDepartures(airport), getAirportInternationalArrivals(airport), internationalTotal);
+
+}
+
+void
+Query3(FILE * file, int * movPerDay){
 
     char * days[7] = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
 
@@ -59,23 +33,42 @@ Query3(int * movPerDay){
      * so we have to start in 1 and the last one to be 0.
      */
     for (int i = 0; i < 7; i++)
-        fprintf(newFile, "%s;%d\n", days[i], movPerDay[(i + 1) % 7]);
+        fprintf(file, "%s;%d\n", days[i], movPerDay[(i + 1) % 7]);
+}
 
-    fclose(newFile);
-    return NO_ERROR;
+void
+Query4(FILE * file, AirportADT airport){
+
+    MovementList movementList = getMovementList(airport);
+
+    toStart(movementList);
+
+    int unknownDepartures = getAirportUnknownDepartures(airport), unknownArrivals = getAirportUnknownArrivals(airport);
+
+    if (unknownArrivals != 0 || unknownDepartures != 0)
+        fprintf(file, "%s;;%d;%d\n", getAirportOACI(airport), unknownDepartures, unknownArrivals);
+
+    while(hasNext(movementList)){
+
+        MovementADT movement = (MovementADT) getNext(movementList);
+
+        //  Prints the line to the file
+        fprintf(file, "%s;%s;%d;%d\n", getAirportOACI(airport), getMovementOACI(movement), getDepartures(movement), getArrivals(movement));
+
+    }
 }
 
 TErrors
-Query4(AirportList airportList){
+QueryProcessing(AirportList airportList, int * movPerDay){
 
-    //  Creates a new file for writing
-    FILE * newFile = fopen("aerop_detalle.csv", "w");
+    //  Creates the files for the queries
+    FILE * fileQuery1 = fopen("movs_aeropuerto.csv", "w");
+    FILE * fileQuery2 = fopen("movs_international.csv", "w");
+    FILE * fileQuery3 = fopen("semanal.csv", "w");
+    FILE * fileQuery4 = fopen("aerop_detalle.csv", "w");
 
-    //  If the pointer is NULL, it means it couldn't create it
-    if (newFile == NULL)
-        return CANT_CREATE_FILE;
-
-    ///     ------------    Iterating through each airport in the list  ------------
+    if (fileQuery3 != NULL)
+        Query3(fileQuery3, movPerDay);
 
     toStart(airportList);
 
@@ -83,30 +76,21 @@ Query4(AirportList airportList){
 
         AirportADT airport = (AirportADT) getNext(airportList);
 
-        if (getAirportTotalMovements(airport) != 0){
-
-            MovementList movementList = getMovementList(airport);
-
-            toStart(movementList);
-
-            int unknownDepartures = getAirportUnknownDepartures(airport), unknownArrivals = getAirportUnknownArrivals(airport);
-
-            if (unknownArrivals != 0 || unknownDepartures != 0)
-                fprintf(newFile, "%s;;%d;%d\n", getAirportOACI(airport), unknownDepartures, unknownArrivals);
-
-            while(hasNext(movementList)){
-
-                MovementADT movement = (MovementADT) getNext(movementList);
-
-                //  Prints the line to the file
-                fprintf(newFile, "%s;%s;%d;%d\n", getAirportOACI(airport), getMovementOACI(movement), getDepartures(movement), getArrivals(movement));
-
-            }
-        }
+        if (fileQuery1 != NULL)
+            Query1(fileQuery1, airport);
+        if (fileQuery2 != NULL)
+            Query2(fileQuery2, airport);
+        if (fileQuery4 != NULL)
+            Query4(fileQuery4, airport);
     }
 
-    ///     ------------------------
+    fclose(fileQuery4);
+    fclose(fileQuery3);
+    fclose(fileQuery2);
+    fclose(fileQuery1);
 
-    fclose(newFile);
+    if (fileQuery1 == NULL || fileQuery2 == NULL || fileQuery3 == NULL || fileQuery4 == NULL)
+        return CANT_CREATE_FILE;
+
     return NO_ERROR;
 }
