@@ -30,7 +30,6 @@ typedef struct AirportCDT {
  	strcpy(retVal->denomination, denomination);
 
  	MovementList movementAux = newMovementList();
-
      //  If there is no space, it returns NULL
  	if (movementAux == NULL)
  	    return NULL;
