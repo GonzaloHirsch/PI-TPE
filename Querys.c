@@ -1,5 +1,5 @@
 #include "ADT/AirportADT.h"
-//#include "ADT/MovementADT.h"
+#include "ADT/MovementADT.h"
 #include <stdio.h>
 #include "ErrorHandler.h"
 
