@@ -153,7 +153,7 @@ MovementList getMovementList(AirportADT airport){
 ///     ---------- LIST FUNCTIONS ----------
 
 AirportList newAirportList(){
-	return (AirportList) newList((OACI (*) (void *)) getAirportOACI, (void (*)(void *)) freeAirportADT);
+	return newList((OACI (*) (void *)) getAirportOACI, (void (*)(void *)) freeAirportADT);
 }
 
 AirportADT getAirportElem(AirportList list, OACI oaci){
