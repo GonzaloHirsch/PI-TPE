@@ -181,12 +181,12 @@ airportProcessing (AirportList airportList){
 
     ///     ---------- FILE OPENING AND VERIFICATION ----------
 
-    FILE * movementsFile;
+    FILE * airportsFile;
 
-    movementsFile = fopen("Datasets/archivoAeropuertos.csv", "r");
+    airportsFile = fopen("Datasets/archivoAeropuertos.csv", "r");
 
     //  If the file couldn't be opened, the pointer is NULL
-    if (movementsFile == NULL)
+    if (airportsFile == NULL)
         return CANT_OPEN_AIRP;
 
     ///     ---------- AIRPORT PROCESSING ----------
@@ -196,10 +196,10 @@ airportProcessing (AirportList airportList){
     char * tokens[23];
 
     //	 We discard the first line because it has the field names.
-    fgets(fileLine, MAX_TEXT_AIRPORT, movementsFile);
+    fgets(fileLine, MAX_TEXT_AIRPORT, airportsFile);
 
     //  Iterating for each line in the file
-    while (fgets(fileLine, MAX_TEXT_AIRPORT, movementsFile) != NULL){
+    while (fgets(fileLine, MAX_TEXT_AIRPORT, airportsFile) != NULL){
 
         //	We separate the line extracted into all the tokes, knowing the ones we want
         separateToken(fileLine, separator, tokens, 23);
@@ -212,7 +212,7 @@ airportProcessing (AirportList airportList){
             if (addAirport(airportList, tokens[A_OACI], tokens[A_LOCAL], tokens[A_IATA], tokens[A_DENOM]) == false)  //It verifies the was space to allocate memory
                 return NO_MEM_TO_ALLOC;
     }
-    fclose(movementsFile);
+    fclose(airportsFile);
     return NO_ERROR;
 }
 
