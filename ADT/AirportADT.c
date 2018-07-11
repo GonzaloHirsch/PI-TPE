@@ -157,11 +157,11 @@ AirportList newAirportList(){
 }
 
 AirportADT getAirportElem(AirportList list, OACI oaci){
-	return getElem(list,oaci);
+	return (AirportADT) getElem(list,oaci);
 }
 
 AirportADT getNextAirport(AirportList list) {
-    return getNext(list);
+    return (AirportADT) getNext(list);
 }
 
 ///     ---------- ----------

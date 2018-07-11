@@ -54,7 +54,7 @@ MovementList newMovementList() {
 }
 
 MovementADT getNextMovement(MovementList list) {
-	return getNext(list);
+	return (MovementADT) getNext(list);
 }
 
 MovementADT getMovementElem(MovementList list, OACI oaci) {
