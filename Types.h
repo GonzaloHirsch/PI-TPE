@@ -1,5 +1,3 @@
-///     ---------- IFNDEF ----------
-
 #ifndef _AirportTypes_h
 #define _AirportTypes_h
 
@@ -12,7 +10,7 @@ typedef int bool;
 
 /*
  * Having all airport's types centralized allows us to not have to remember each
- * variable properties and eases and change we need in the future.
+ * variable properties and eases any change we need in the future.
  */
 
 // Local code of an airport (3 Chars from 'A' to 'Z' plus the terminating character)

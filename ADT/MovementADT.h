@@ -54,6 +54,7 @@ void freeMovementADT(MovementADT movement);
 
 /*
  * Creates a new ListADT, specific for AirportADTs.
+ * Returns NULL if the is no memory.
  */
 MovementList newMovementList();
 

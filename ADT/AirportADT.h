@@ -96,6 +96,7 @@ void freeAirportADT(AirportADT airport);
 
 /*
  * Creates a new ListADT, specific for AirportADTs.
+ * Returns NULL if the is no memory.
  */
 AirportList newAirportList();
 

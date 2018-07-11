@@ -1,5 +1,3 @@
-///     ---------- INCLUDES ----------
-
 #include "ProcessData.h"
 #include "ADT/AirportADT.h"
 #include "Types.h"

@@ -10,6 +10,7 @@ typedef struct ListCDT * ListADT;
 
 /*
  * Generates and returns a new ListADT and sets the Generic getOaci function.
+ * Returns NULL if the is no memory.
  */
 ListADT newList(OACI (*getOaci)(void *), void (*freeElem) (void *));
 

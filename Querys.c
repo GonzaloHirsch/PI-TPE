@@ -1,5 +1,3 @@
-///     ---------- INCLUDES ----------
-
 #include "ADT/AirportADT.h"
 #include <stdio.h>
 #include "ErrorHandler.h"
