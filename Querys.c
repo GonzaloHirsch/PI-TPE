@@ -11,7 +11,6 @@ Query1(FILE * file, AirportADT airport){
 
     if (totalMovements != 0)
         fprintf(file, "%s;%s;%s;%d\n", getAirportOACI(airport), getAirportLocal(airport), getAirportDenomination(airport), totalMovements);
-
 }
 
 void
