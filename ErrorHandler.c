@@ -1,6 +1,9 @@
+///     ---------- INCLUDES ----------
+
 #include "ErrorHandler.h"
 #include <stdio.h>
-#include <stdlib.h>
+
+///     ---------- FUNCTIONS ----------
 
 void
 verifyErrorType (TErrors errorType){
@@ -24,13 +27,15 @@ verifyErrorType (TErrors errorType){
         case CANT_CREATE_FILE    :   fprintf(stderr, "ERROR: Al tratar de crear un archivo en un Query.\n");   break;
 
         case NO_MEM_TO_ALLOC    :   fprintf(stderr, "ERROR: Al tratar de allocar memoria, no hay más memoria disponible.\n");   break;
-
     }
 }
 
 void printWarning(TWarnings warning) {
+
     switch (warning){
 
-        case MULTIPLE_OACI_ELEM :   printf("WARNING: Se intento agregar un elemento con un OACI ya existente.\n"); break;
+        case MULTIPLE_OACI_ELEM :   printf("WARNING: Se intentó agregar un elemento con un OACI ya existente.\n"); break;
     }
 }
+
+///     ---------- ----------

@@ -1,13 +1,22 @@
+///     ---------- INCLUDES ----------
+
 #include "../Types.h"
 #include "MovementADT.h"
 #include "ListADT.h"
 
+///     ---------- IFNDEF ----------
+
 #ifndef _AirportADT_h
+
 #define _AirportADT_h
+
+///     ---------- TYPEDEFS ----------
 
 typedef struct  AirportCDT * AirportADT;
 
 typedef ListADT AirportList;
+
+///     ---------- FUNCTION PROTOTYPES ----------
 
 /*
  * Generates and returns new AirportADT, setting its OACI
@@ -29,7 +38,6 @@ int getAirportUnknownArrivals(AirportADT airport);
  */
 Local getAirportLocal(AirportADT airport);
 
-
 /*
  * Returns the OACI of the airport passed through the parameters.
  */
@@ -44,7 +52,6 @@ IATA getAirportIATA(AirportADT airport);
  * Returns the denomination of the airport passed through the parameters.
  */
 Denomination getAirportDenomination(AirportADT airport);
-
 
 /*
  * Returns a list containing all the movements of the airport passed through the parameters.
@@ -72,7 +79,7 @@ int getAirportInternationalDepartures(AirportADT airport);
  *      false - If there is no space to allocate memory.
  *      true - If there is space.
  */
-bool addMovement(AirportADT airport,OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture);
+bool addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNational, bool isDeparture);
 
 /*
  * Adds an airport to the airport list, if there is no airport with the given oaci code
@@ -87,9 +94,7 @@ bool addAirport (AirportList airportList, OACI oaci, Local local, IATA iata, Den
  */
 void freeAirportADT(AirportADT airport);
 
-
-/// --- LIST FUNCTIONS ---
-
+///     ---------- LIST FUNCTIONS ----------
 
 /*
  * Creates a new ListADT, specific for AirportADTs.
@@ -102,5 +107,6 @@ AirportList newAirportList();
  */
 AirportADT getAirportElem(AirportList list, OACI oaci);
 
-/// --- ---
+///     ---------- ----------
+
 #endif

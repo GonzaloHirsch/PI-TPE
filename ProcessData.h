@@ -1,23 +1,31 @@
+///     ---------- INCLUDES ----------
+
 #include <stdlib.h>
 #include "ErrorHandler.h"
 #include "ADT/ListADT.h"
 
-#ifndef _ProcessData_h
-#define _ProcessData_h
+///     ---------- IFNDEFINE ----------
 
-//	Constants Definitions
+#ifndef PROCESSDATA_H
+
+#define PROCESSDATA_H
+
+///     ---------- CONSTANTS ----------
+
 //  Movement Constants
 #define MAX_TEXT_MOVEMENT 180
-//  --------------  Named Fields
-#define M_DEPARTURE "Despegue"
-#define M_LOCAL "Cabotaje"
 
 //  Airport Constants
 #define MAX_TEXT_AIRPORT 370
 
-//  All the token indexes we are interested in, in the movements file.
+//  Named Fields
+#define M_DEPARTURE "Despegue"
+#define M_LOCAL "Cabotaje"
+
+///     ---------- TYPEDEFS ----------
+
 /*
-	 * We are interested in tokens with indexes 0 / 3 / 4 / 5 / 6
+	 * We are interested in tokens with indexes 0 / 3 / 4 / 5 / 6 in the movements file
 	 * 		Token 0 :	Movement date
 	 * 		Token 3 :	Flight type (internacional o nacional)
 	 * 		Token 4 :	Flight classification (aterrizaje o despegue)
@@ -26,9 +34,8 @@
 	 */
 typedef enum { M_DATE = 0, M_TYPE = 3, M_CLASS = 4, M_ORIGIN = 5, M_DESTIN = 6 } TokenMovIndex;
 
-//  All the token indexes we are interested in, in the airports file.
 /*
-	 * We are interested in tokens with indexes 0 / 1 / 2 / 4
+	 * We are interested in tokens with indexes 0 / 1 / 2 / 4 in the airports file
 	 * 		Token 0 :	Local Code
 	 * 		Token 1 :	OACI Code
 	 * 		Token 2 :	IATA Code
@@ -36,14 +43,17 @@ typedef enum { M_DATE = 0, M_TYPE = 3, M_CLASS = 4, M_ORIGIN = 5, M_DESTIN = 6 }
 	 */
 typedef enum { A_LOCAL = 0, A_OACI = 1, A_IATA = 2, A_DENOM = 4 } TokenAirpIndex;
 
+///     ---------- FUNCTION PROTOTYPES ----------
+
 /*
- * Alternative for strtok. separateToken replaces delimiter with NULL and stores each token in an array.
+ * Alternative for strtok, separateToken replaces delimiter with NULL and stores each token in an array.
  * Parameters:
  *      char * str --> Source string. This string will be modified, can't be const.
  *      char del --> Character delimiter.
  *      char ** strArr --> Array of strings which will store all the strings separated by the delimiter.
  *      size_t dim --> Max dimension of strArr.
- * Returns size_t --> New size of strArr.
+ * Return value:
+ *      size_t --> New size of strArr.
  */
 size_t separateToken(char *str, char del, char ** strArr, size_t dim);
 
@@ -52,6 +62,8 @@ size_t separateToken(char *str, char del, char ** strArr, size_t dim);
  *  Unknown OACI codes have this layout (# is a digit):
  *      SA##
  *      AR-####
+ *      N/A
+ *      More or less than 4 characters
  *  Parameters:
  *      const char * airportOACI --> Constant string containing the airport OACI.
  *  Return values:
@@ -127,5 +139,7 @@ TErrors movementsProcessing (ListADT airportList, int yearGiven, int * movPerDay
  *
  */
 TErrors airportProcessing (ListADT airportList);
+
+///     ---------- ----------
 
 #endif

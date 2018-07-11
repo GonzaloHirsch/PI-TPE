@@ -1,7 +1,10 @@
+///     ---------- IFNDEF ----------
 
 #ifndef QUERYS_H
 
 #define QUERYS_H
+
+///     ---------- FUNCTION PROTOTYPES ----------
 
 /*
  *  Query function 1, given the file and an airport, it prints all the info
@@ -45,6 +48,8 @@ void Query4(FILE * file, AirportADT airport);
  *      CANT_CREATE_FILE --> If there was an error when creating the new file
  */
 TErrors QueryProcessing(AirportList airportList, int * movPerDay);
+
+///     ---------- ----------
 
 #endif
 

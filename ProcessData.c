@@ -1,3 +1,5 @@
+///     ---------- INCLUDES ----------
+
 #include "ProcessData.h"
 #include "ADT/AirportADT.h"
 #include "Types.h"
@@ -7,6 +9,8 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+
+///     ---------- FUNCTIONS  ----------
 
 size_t
 separateToken(char *str, char del, char ** strArr, size_t dim) {
@@ -50,8 +54,11 @@ int
 dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCode){
 
     int day, month, year, specialMonthCode;
+
+    //  Separating the date
     getDate(date, &day, &month, &year);
 
+    //  If it is a leap year, the month codes change for the first two
     if (year == 2016 && (month == 1 || month == 2))
         specialMonthCode = monthCode[month - 1] - 1;
     else
@@ -59,6 +66,7 @@ dateToDayOfWeek (const char * date, int * dayCode, int * monthCode, int * yearCo
 
     int dayOfWeekIndex = dayCode[day % 7] + specialMonthCode + yearCode[year - 2014];
 
+    //  Using "%7" because the index has to be between 0 and 6
     return dayOfWeekIndex % 7;
 
 }
@@ -75,6 +83,7 @@ verifyYear (const char * date, int yearGiven){
 
     int year;
 
+    //  The * are used to ignore the fields that don't matter to us
     sscanf(date, "%*d/%*d/%4d", &year);
 
     return year == yearGiven;
@@ -103,14 +112,17 @@ verifyString (const char * str){
 TErrors
 movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, int * dayCode, int * monthCode, int * yearCode){
 
-    //  File opening and verification
-    //  ------------------------------------------------------------------------------------------
+    ///     ---------- FILE OPENING AND VERIFICATION ----------
+
     FILE * movementsFile;
 
     movementsFile = fopen("Datasets/archivoVuelos.csv", "r");
+
+    //  If the file couldn't be opened, the pointer is NULL
     if (movementsFile == NULL)
         return CANT_OPEN_MOV;
-    //  ------------------------------------------------------------------------------------------
+
+    ///     ---------- MOVEMENT PROCESSING ----------
 
     char fileLine[MAX_TEXT_MOVEMENT];
     char separator = ';';
@@ -147,7 +159,7 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
 
                 //  If the OACI code from the departure airport is unknown, or if it's not in the airports file, we skip it
                 if (isOriginKnown && auxAirport != NULL)
-                    if (addMovement(auxAirport, tokens[M_DESTIN], isDestinKnown, isLocal, isDeparture) == false)
+                    if (addMovement(auxAirport, tokens[M_DESTIN], isDestinKnown, isLocal, isDeparture) == false)    //It verifies the was space to allocate memory
                         return NO_MEM_TO_ALLOC;
 
             } else {	//This is if the movement is an arrival
@@ -157,7 +169,7 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
 
                 //  If the OACI code from the arrival airport is unknown, or if it's not in the airports file, we skip it
                 if (isDestinKnown && auxAirport != NULL)
-                    if (addMovement(auxAirport, tokens[M_ORIGIN], isOriginKnown, isLocal, isDeparture) == false)
+                    if (addMovement(auxAirport, tokens[M_ORIGIN], isOriginKnown, isLocal, isDeparture) == false)    //It verifies the was space to allocate memory
                         return NO_MEM_TO_ALLOC;
             }
         }
@@ -169,14 +181,17 @@ movementsProcessing (AirportList airportList, int yearGiven, int * movPerDay, in
 TErrors
 airportProcessing (AirportList airportList){
 
-    //  File opening and verification
-    //  ------------------------------------------------------------------------------------------
+    ///     ---------- FILE OPENING AND VERIFICATION ----------
+
     FILE * movementsFile;
 
     movementsFile = fopen("Datasets/archivoAeropuertos.csv", "r");
+
+    //  If the file couldn't be opened, the pointer is NULL
     if (movementsFile == NULL)
         return CANT_OPEN_AIRP;
-    //  ------------------------------------------------------------------------------------------
+
+    ///     ---------- MOVEMENT PROCESSING ----------
 
     char fileLine[MAX_TEXT_AIRPORT];
     char separator = ';';
@@ -202,3 +217,5 @@ airportProcessing (AirportList airportList){
     fclose(movementsFile);
     return NO_ERROR;
 }
+
+///     ---------- ----------

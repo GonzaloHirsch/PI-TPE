@@ -1,8 +1,15 @@
+///     ---------- INCLUDES ----------
+
 #include "../Types.h"
 #include "ListADT.h"
 
-#ifndef _MovementADT_h
-#define _MovementADT_h
+///     ---------- IFNDEF ----------
+
+#ifndef _MOVEMENTADT_H
+
+#define _MOVEMENTADT_H
+
+///     ---------- TYPEDEFS ----------
 
 /*
  * MovementADT specifies the amount of movements arriving from or departing to the airport of specified OACI
@@ -10,6 +17,8 @@
 typedef struct MovementCDT * MovementADT;
 
 typedef ListADT MovementList;
+
+///     ---------- FUNCTIONS ----------
 
 /*
  * Generates and returns new MovementADT, setting its OACI and if it's a local airport.
@@ -64,5 +73,7 @@ MovementADT getMovementElem(MovementList list, OACI oaci);
  * Free memory
  */
 void freeMovementADT(MovementADT movement);
+
+///     ---------- ----------
 
 #endif

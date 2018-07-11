@@ -1,7 +1,11 @@
+///     ---------- INCLUDES ----------
+
 #include <stdlib.h>
 #include <string.h>
 #include "ListADT.h"
 #include "../ErrorHandler.h"
+
+///     ---------- TYPEDEFS & STRUCTURES ----------
 
  struct node{
     void * elem;
@@ -17,9 +21,10 @@ typedef struct node * TNode;
         void (* freeElem) (void *);
  };
 
+///     ---------- FUNCTIONS ----------
 
 ListADT newList(OACI (*getOaci)(void *), void (* freeElem)(void *)) {
-    ListADT list = calloc(1, sizeof(*list));    //TODO verificar que no haya espacio aca
+    ListADT list = calloc(1, sizeof(*list));
 
     //  If there is no space it returns NULL
     if (list == NULL)
@@ -30,11 +35,10 @@ ListADT newList(OACI (*getOaci)(void *), void (* freeElem)(void *)) {
     return list;
 }
 
-
 TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *), bool * wasAdded){
     int c;
     if(node == NULL || (c = strcmp(getOaci(elem), getOaci(node -> elem))) < 0){
-        TNode newNode = malloc(sizeof(*newNode));   //TODO verificar que no haya espacio aca
+        TNode newNode = malloc(sizeof(*newNode));
 
         //  If there is no space it returns NULL
         if (newNode == NULL){
@@ -65,10 +69,9 @@ int addElem(ListADT list, void * elem) {
         return 2;
     }
     list -> head = headAux;
-    //list -> head = addElemRec(list -> head, elem, list -> getOaci, &wasAdded);
+
     return wasAdded;
 }
-
 
 void * getElem(ListADT list, OACI oaci) {
     TNode node = list -> head;
@@ -104,3 +107,5 @@ void *getNext(ListADT list) {
 bool hasNext(ListADT list) {
     return list -> iterator != NULL;
 }
+
+///     ---------- ----------

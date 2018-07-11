@@ -1,9 +1,18 @@
+///     ---------- INCLUDES ----------
+
 #include "../Types.h"
 
-#ifndef _ListADT_h
-#define _ListADT_h
+///     ---------- IFNDEF ----------
+
+#ifndef _LISTADT_H
+
+#define _LISTADT_H
+
+///     ---------- TYPEDEFS ----------
 
 typedef struct ListCDT * ListADT;
+
+///     ---------- FUNCTIONS ----------
 
 /*
  * Generates and returns a new ListADT and sets the Generic getOaci function.
@@ -13,14 +22,22 @@ ListADT newList(OACI (*getOaci)(void *), void (*freeElem) (void *));
 /*
  * Adds element to the ListADT, arranged in Alphabetic Order based on its OACI.
  * Returns false if the element wasn't added because another element with same OACI exists.
+ * Returns 2 if there wasn't memory available to allocate.
  */
-bool addElem(ListADT list, void * elem);
+int addElem(ListADT list, void * elem);
 
 /*
  * Returns an element of the list based on its OACI.
  * Returns null if no element was found.
  */
 void * getElem(ListADT list, OACI oaci);
+
+/*
+ * Free memory
+ */
+void freeListADT(ListADT list);
+
+///     ---------- ITERATOR FUNCTIONS ----------
 
 /*
  * Sets iterator to start of the list.
@@ -37,9 +54,6 @@ void * getNext(ListADT list);
  */
 bool hasNext(ListADT list);
 
-/*
- * Free memory
- */
-void freeListADT(ListADT list);
+///     ---------- ----------
 
 #endif

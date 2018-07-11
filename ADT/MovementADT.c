@@ -1,6 +1,10 @@
+///     ---------- INCLUDES ----------
+
 #include <string.h>
 #include <stdlib.h>
 #include "MovementADT.h"
+
+///     ---------- TYPEDEFS & STRUCTURES ----------
 
 typedef struct MovementCDT{
   tOACI oaci;
@@ -8,8 +12,10 @@ typedef struct MovementCDT{
   int departures;
 } MovementCDT;
 
+///     ---------- FUNCTIONS ----------
+
 MovementADT newMovement(OACI oaci){
-	MovementADT retVal = malloc(sizeof(MovementCDT));	//TODO verificar que no haya espacio aca
+	MovementADT retVal = malloc(sizeof(MovementCDT));
 
     //  If there is no space it returns NULL
     if (retVal == NULL){
@@ -45,7 +51,7 @@ void freeMovementADT(MovementADT movement){
     free(movement);
 }
 
-/// --- LIST FUNCTIONS ---
+///     ---------- LIST FUNCTIONS ----------
 
 MovementList newMovementList() {
     return newList( (OACI (*) (void *)) getMovementOACI, (void (*) (void *)) freeMovementADT);
@@ -59,6 +65,4 @@ MovementADT getMovementElem(MovementList list, OACI oaci) {
     return getElem(list,oaci);
 }
 
-/// --- ----
-
-
+///     ---------- ----------
