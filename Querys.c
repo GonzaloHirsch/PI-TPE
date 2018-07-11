@@ -1,5 +1,4 @@
 #include "ADT/AirportADT.h"
-//#include "ADT/MovementADT.h"
 #include <stdio.h>
 #include "ErrorHandler.h"
 
@@ -55,7 +54,7 @@ Query4(FILE * file, AirportADT airport){
 
     while(hasNext(movementList)){
 
-        MovementADT movement = getNextMovement(movementList);
+        MovementADT movement = (MovementADT) getNext(movementList);
 
         //  Prints the movements with each airport on the movements list
         fprintf(file, "%s;%s;%d;%d\n", getAirportOACI(airport), getMovementOACI(movement), getDepartures(movement), getArrivals(movement));
@@ -80,7 +79,7 @@ QueryProcessing(AirportList airportList, int * movPerDay){
 
     while(hasNext(airportList)){
 
-        AirportADT airport = getNextAirport(airportList);
+        AirportADT airport = (AirportADT) getNext(airportList);
 
         //  If the file couldn't be opened/created, the pointer is NULL
         if (fileQuery1 != NULL)

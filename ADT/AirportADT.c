@@ -160,8 +160,4 @@ AirportADT getAirportElem(AirportList list, OACI oaci){
 	return (AirportADT) getElem(list,oaci);
 }
 
-AirportADT getNextAirport(AirportList list) {
-    return (AirportADT) getNext(list);
-}
-
 ///     ---------- ----------

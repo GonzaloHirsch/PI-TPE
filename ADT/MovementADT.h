@@ -64,11 +64,6 @@ MovementList newMovementList();
  */
 MovementADT getMovementElem(MovementList list, OACI oaci);
 
-/*
- * Returns iterator and sets it to the next elem from the MovementList
- */
-MovementADT getNextMovement(MovementList list);
-
 ///     ---------- ----------
 
 #endif

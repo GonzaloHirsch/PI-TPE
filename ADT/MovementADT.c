@@ -53,10 +53,6 @@ MovementList newMovementList() {
     return newList( (OACI (*) (void *)) getMovementOACI, (void (*) (void *)) freeMovementADT);
 }
 
-MovementADT getNextMovement(MovementList list) {
-	return (MovementADT) getNext(list);
-}
-
 MovementADT getMovementElem(MovementList list, OACI oaci) {
     return getElem(list,oaci);
 }

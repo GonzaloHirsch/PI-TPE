@@ -106,11 +106,6 @@ AirportList newAirportList();
  */
 AirportADT getAirportElem(AirportList list, OACI oaci);
 
-/*
- * Returns iterator and sets it to the next elem from the AirportList
- */
-AirportADT getNextAirport(AirportList list);
-
 ///     ---------- ----------
 
 #endif
