@@ -1,10 +1,6 @@
-///     ---------- IFNDEF ----------
-
 #ifndef _ERRORHANDLER_H
 
 #define _ERRORHANDLER_H
-
-///     ---------- TYPEDEFS ----------
 
 // Error types the program could encounter
 typedef enum { NO_ERROR = 0, MANY_ARGS, FEW_ARGS, ARG_NOT_YEAR, ARG_OUTOF_RANGE, CANT_OPEN_MOV, CANT_OPEN_AIRP, CANT_CREATE_FILE, NO_MEM_TO_ALLOC } TErrors;

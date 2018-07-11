@@ -1,11 +1,7 @@
-///     ---------- INCLUDES ----------
-
 #include <stdlib.h>
 #include <string.h>
 #include "ListADT.h"
 #include "../ErrorHandler.h"
-
-///     ---------- TYPEDEFS & STRUCTURES ----------
 
  struct node{
     void * elem;
@@ -35,20 +31,20 @@ ListADT newList(OACI (*getOaci)(void *), void (* freeElem)(void *)) {
     return list;
 }
 
-TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *), bool * wasAdded){
+TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *), int * wasAdded){
     int c;
     if(node == NULL || (c = strcmp(getOaci(elem), getOaci(node -> elem))) < 0){
         TNode newNode = malloc(sizeof(*newNode));
 
-        //  If there is no space it returns NULL
+        //  If there is no space it returns node, leaving the list the same. wasAdded returns -1.
         if (newNode == NULL){
-            *wasAdded = false;
-            return newNode;
+            *wasAdded = -1;
+            return node;
         }
 
         newNode -> elem = elem;
         newNode -> tail = node;
-        *wasAdded = true;
+        *wasAdded = 1;
         return newNode;
     }
     else if(c > 0){
@@ -61,15 +57,8 @@ TNode addElemRec(TNode node, void * elem, OACI (* getOaci) (void *), bool * wasA
 }
 
 int addElem(ListADT list, void * elem) {
-    bool wasAdded = false;
-    TNode headAux = addElemRec(list -> head, elem, list -> getOaci, &wasAdded);
-
-    //  If there is no space, it returns NULL
-    if (headAux == NULL){
-        return 2;
-    }
-    list -> head = headAux;
-
+    int wasAdded = 0;
+    list -> head  = addElemRec(list -> head, elem, list -> getOaci, &wasAdded);
     return wasAdded;
 }
 

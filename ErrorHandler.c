@@ -1,9 +1,5 @@
-///     ---------- INCLUDES ----------
-
 #include "ErrorHandler.h"
 #include <stdio.h>
-
-///     ---------- FUNCTIONS ----------
 
 void
 verifyErrorType (TErrors errorType){
@@ -34,8 +30,6 @@ void printWarning(TWarnings warning) {
 
     switch (warning){
 
-        case MULTIPLE_OACI_ELEM :   printf("WARNING: Se intentó agregar un elemento con un OACI ya existente.\n"); break;
+        case MULTIPLE_OACI_ELEM :   fprintf(stderr, "WARNING: Se intentó agregar un elemento con un OACI ya existente.\n"); break;
     }
 }
-
-///     ---------- ----------

@@ -1,16 +1,14 @@
-///     ---------- INCLUDES ----------
-
 #include "../Types.h"
 #include "MovementADT.h"
 #include "ListADT.h"
-
-///     ---------- IFNDEF ----------
 
 #ifndef _AirportADT_h
 
 #define _AirportADT_h
 
-///     ---------- TYPEDEFS ----------
+/*
+ * AirportADT is defined for each national airport, containing each of its properties
+ */
 
 typedef struct  AirportCDT * AirportADT;
 
@@ -106,6 +104,11 @@ AirportList newAirportList();
  * Returns NULL if no element was found.
  */
 AirportADT getAirportElem(AirportList list, OACI oaci);
+
+/*
+ * Returns iterator and sets it to the next elem from the AirportList
+ */
+AirportADT getNextAirport(AirportList list);
 
 ///     ---------- ----------
 

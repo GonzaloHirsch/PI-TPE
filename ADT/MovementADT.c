@@ -1,10 +1,6 @@
-///     ---------- INCLUDES ----------
-
 #include <string.h>
 #include <stdlib.h>
 #include "MovementADT.h"
-
-///     ---------- TYPEDEFS & STRUCTURES ----------
 
 typedef struct MovementCDT{
   tOACI oaci;
@@ -57,8 +53,8 @@ MovementList newMovementList() {
     return newList( (OACI (*) (void *)) getMovementOACI, (void (*) (void *)) freeMovementADT);
 }
 
-bool addMovementElem(MovementList list, MovementADT elem) {
-    return addElem(list, elem);
+MovementADT getNextMovement(MovementList list) {
+	return (MovementADT) getNext(list);
 }
 
 MovementADT getMovementElem(MovementList list, OACI oaci) {

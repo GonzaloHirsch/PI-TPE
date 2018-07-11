@@ -1,10 +1,6 @@
-///     ---------- INCLUDES ----------
-
 #include <stdlib.h>
 #include "ErrorHandler.h"
 #include "ADT/ListADT.h"
-
-///     ---------- IFNDEFINE ----------
 
 #ifndef PROCESSDATA_H
 

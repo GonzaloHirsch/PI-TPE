@@ -191,7 +191,7 @@ airportProcessing (AirportList airportList){
     if (movementsFile == NULL)
         return CANT_OPEN_AIRP;
 
-    ///     ---------- MOVEMENT PROCESSING ----------
+    ///     ---------- AIRPORT PROCESSING ----------
 
     char fileLine[MAX_TEXT_AIRPORT];
     char separator = ';';

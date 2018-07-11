@@ -1,14 +1,8 @@
-///     ---------- INCLUDES ----------
-
 #include "../Types.h"
-
-///     ---------- IFNDEF ----------
 
 #ifndef _LISTADT_H
 
 #define _LISTADT_H
-
-///     ---------- TYPEDEFS ----------
 
 typedef struct ListCDT * ListADT;
 
@@ -21,8 +15,9 @@ ListADT newList(OACI (*getOaci)(void *), void (*freeElem) (void *));
 
 /*
  * Adds element to the ListADT, arranged in Alphabetic Order based on its OACI.
- * Returns false if the element wasn't added because another element with same OACI exists.
- * Returns 2 if there wasn't memory available to allocate.
+ * Returns 0 if the element wasn't added because another element with same OACI exists.
+ * Returns -1 if there wasn't memory available to allocate.
+ * Returns 1 if it was added successfully.
  */
 int addElem(ListADT list, void * elem);
 

@@ -56,7 +56,7 @@ Query4(FILE * file, AirportADT airport){
 
     while(hasNext(movementList)){
 
-        MovementADT movement = (MovementADT) getNext(movementList);
+        MovementADT movement = getNextMovement(movementList);
 
         //  Prints the movements with each airport on the movements list
         fprintf(file, "%s;%s;%d;%d\n", getAirportOACI(airport), getMovementOACI(movement), getDepartures(movement), getArrivals(movement));
@@ -81,7 +81,7 @@ QueryProcessing(AirportList airportList, int * movPerDay){
 
     while(hasNext(airportList)){
 
-        AirportADT airport = (AirportADT) getNext(airportList);
+        AirportADT airport = getNextAirport(airportList);
 
         //  If the file couldn't be opened/created, the pointer is NULL
         if (fileQuery1 != NULL)

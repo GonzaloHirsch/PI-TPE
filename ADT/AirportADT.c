@@ -1,12 +1,8 @@
-///     ---------- INCLUDES ----------
-
 #include <stdlib.h>
 #include "AirportADT.h"
 #include "ListADT.h"
 #include <string.h>
 #include "../ProcessData.h"
-
-///     ---------- TYPEDEFS ----------
 
 typedef struct AirportCDT {
     tLocal local;
@@ -54,7 +50,8 @@ bool addMovement(AirportADT airport, OACI oaci, bool isOaciKnown, bool isNationa
         MovementADT movement = getMovementElem(airport->movements, oaci);
         if (movement == NULL) {
             movement = newMovement(oaci);
-            if (addMovementElem(airport->movements, movement) == 2)
+            int wasAdded = addElem(airport->movements, movement);
+            if (wasAdded == -1)
                 return false;
         }
 
@@ -97,8 +94,8 @@ bool addAirport (AirportList airportList, OACI oaci, Local local, IATA iata, Den
     // Adds the airport to the list;
     int wasAdded = addElem(airportList, airportAux);
 
-    //  If there is no space it returns NULL
-    if (wasAdded == 2)
+    //  If there is no space it returns -1
+    if (wasAdded == -1)
         return false;
 
     //	If it can't add the airport, it frees it
@@ -111,10 +108,7 @@ void freeAirportADT(AirportADT airport) {
     freeListADT(airport -> movements);
     free(airport);
 }
-///     ---------- SETTERS & GETTERS ----------
-/*
- * Setters & Getters are used in order to facilitate any future modifications to any specific Airport.
- */
+///     ---------- GETTERS ----------
 
 OACI getAirportOACI(AirportADT airport){
  	return airport->oaci;
@@ -159,11 +153,15 @@ MovementList getMovementList(AirportADT airport){
 ///     ---------- LIST FUNCTIONS ----------
 
 AirportList newAirportList(){
-	return newList((OACI (*) (void *)) getAirportOACI, (void (*)(void *)) freeAirportADT);
+	return (AirportList) newList((OACI (*) (void *)) getAirportOACI, (void (*)(void *)) freeAirportADT);
 }
 
 AirportADT getAirportElem(AirportList list, OACI oaci){
-	return getElem(list,oaci);
+	return (AirportADT) getElem(list,oaci);
+}
+
+AirportADT getNextAirport(AirportList list) {
+    return (AirportADT) getNext(list);
 }
 
 ///     ---------- ----------
